@@ -1,1 +1,2 @@
-Игра "Mine and fight" на Java. Учебный проект.
+Игра "Mine and fight" на Java. 
+Учебный проект.
