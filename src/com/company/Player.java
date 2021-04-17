@@ -70,7 +70,7 @@ public class Player {
     }
 
     public int SeenArea(){
-        if(haveEquipment(EquipmentType.LookingGlass))
+        if(haveEquipment(EquipmentType.SpyGlass))
             return 2;
         else
             return 1;

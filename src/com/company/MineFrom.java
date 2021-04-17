@@ -67,6 +67,8 @@ public class MineFrom extends JFrame{
     private JButton BuyHuntBowButton;
     private JButton BuyHuntDogButton;
     private JLabel HuntDogLabel;
+    private JButton BuySpyGlassButton;
+    private JLabel SpyGlassLabel;
     private int OreSellAmount = 1000;
     private double OreCost = 0.02;
 
@@ -88,7 +90,6 @@ public class MineFrom extends JFrame{
         MagicTorchLabel.setVisible(player.haveArtefact(Artefacts.MagicTorch));
         SilverSpearLabel.setVisible(player.haveArtefact(Artefacts.SilverSpear));
         LightRingLabel.setVisible(player.haveArtefact(Artefacts.LightRing));
-//        HuntDogLabel.setVisible(player.haveEquipment();
         SlingNumlbl.setText(Integer.toString(player.numEquipment(EquipmentType.Sling)));
         HuntBowNumlbl.setText(Integer.toString(player.numEquipment(EquipmentType.HuntBow)));
     }
@@ -140,6 +141,7 @@ public class MineFrom extends JFrame{
         BuySlingButton.addActionListener(buyEquipment1);
         BuyHuntBowButton.addActionListener(buyEquipment2);
         BuyHuntDogButton.addActionListener(buyEquipment6);
+        BuySpyGlassButton.addActionListener(buyEquipment7);
 
 
         MinePanel.setFocusable(true);
@@ -178,7 +180,7 @@ public class MineFrom extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             ActivateLocation(MinePanel);
-            setSize(440, 330);
+            setSize(440, 350);
             setLocationRelativeTo(null);
         }
     };
@@ -187,7 +189,7 @@ public class MineFrom extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             ActivateLocation(CityPanel);
-            setSize(750, 330);
+            setSize(750, 360);
             setLocationRelativeTo(null);
         }
     };
@@ -205,7 +207,7 @@ public class MineFrom extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             ActivateLocation(ForestPanel);
-            setSize(640, 330);
+            setSize(640, 350);
             setLocationRelativeTo(null);
         }
     };
@@ -223,7 +225,7 @@ public class MineFrom extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             ActivateLocation(ShopPanel);
-            setSize(600, 570);
+            setSize(610, 570);
             setLocationRelativeTo(null);
         }
     };
@@ -392,7 +394,7 @@ public class MineFrom extends JFrame{
     private final ActionListener AddThousandOfOre1 = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
-            player.OreCount += 100000;
+            player.Coins += 1000000;
             dataFromPlayerToForm();
         }
     };
@@ -532,6 +534,23 @@ public class MineFrom extends JFrame{
                 BuyHuntDogButton.setEnabled(false);
                 HuntDogLabel.setVisible(true);
                 dataFromPlayerToForm();
+            }
+            else{
+                JOptionPane.showMessageDialog(ShopPanel, "Не хватает монет", "Покупка невозможна", JOptionPane.WARNING_MESSAGE);
+            }
+        }
+    };
+
+    private final ActionListener buyEquipment7 = new ActionListener(){
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if(player.Coins >= 1000) {
+                player.addEquipment(EquipmentType.SpyGlass);
+                player.Coins -= 1000;
+                BuySpyGlassButton.setEnabled(false);
+                SpyGlassLabel.setVisible(true);
+                dataFromPlayerToForm();
+
             }
             else{
                 JOptionPane.showMessageDialog(ShopPanel, "Не хватает монет", "Покупка невозможна", JOptionPane.WARNING_MESSAGE);

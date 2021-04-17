@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class HuntForm  extends JFrame{
     private JPanel MainPanel;
@@ -16,11 +17,13 @@ public class HuntForm  extends JFrame{
     private JLabel lblSling;
     private JLabel bowNumlbl;
     private JLabel lblHuntBow;
+    private JLabel SpyGlassLbl;
 
-    int maxX = 20;
-    int maxY = 30;
+    int maxX = 30;
+    int maxY = 20;
 
     JLabel[][] map = new JLabel[maxY][maxX];
+    ArrayList<HuntAnimal> animals = new ArrayList<>();
     Player player;
 
     ImageIcon hiddenIcon = new ImageIcon(getClass().getResource("/forest_icon_30x30.png"));
@@ -30,18 +33,21 @@ public class HuntForm  extends JFrame{
 
     public HuntForm(Player player) {
         this.player = player;
-        player.Y = maxX - 1;
-        player.X = maxY / 2;
+        player.Y = maxY - 1;
+        player.X = maxX / 2;
         PlayerInfoToForm();
         setVisible(true);
-        setSize(250 + maxY * 30, 100 + maxX * 30);
+        setSize(250 + maxX * 30, 100 + maxY * 30);
         setLocationRelativeTo(null);
         add(MainPanel);
-        GridLayout layout = new GridLayout(0, 1, 1, 1);
+        GridLayout layout = new GridLayout(0, 1, 0, 0);
+        HuntPanel.setLayout(layout);
+        GridLayout panelLayout = new GridLayout(1, 0, 0, 0);
         for (int i = 0; i < maxY; i++) {
             JPanel panel = new JPanel();
 
-            panel.setLayout(layout);
+            panel.setLayout(panelLayout);
+
             for (int j = 0; j < maxX; j++) {
                 JLabel jlabel = new JLabel();
                 map[i][j] = jlabel;
@@ -52,6 +58,8 @@ public class HuntForm  extends JFrame{
             HuntPanel.add(panel);
         }
 
+
+        PopulateMap();
         DrawMap();
         this.setFocusable(true);
         this.addKeyListener(new KeyAdapter() {
@@ -61,36 +69,77 @@ public class HuntForm  extends JFrame{
                 if(e.getKeyCode() == KeyEvent.VK_W && player.Y > 0){
                     player.Y -= 1;
                 }
-                if(e.getKeyCode() == KeyEvent.VK_S && player.Y < maxX - 1){
+                if(e.getKeyCode() == KeyEvent.VK_S && player.Y < maxY - 1){
                     player.Y += 1;
                 }
                 if(e.getKeyCode() == KeyEvent.VK_A && player.X > 0){
                     player.X -= 1;
                 }
-                if(e.getKeyCode() == KeyEvent.VK_D && player.X < maxY - 1){
+                if(e.getKeyCode() == KeyEvent.VK_D && player.X < maxX - 1){
                     player.X += 1;
                 }
+                ActObjects();
                 DrawMap();
+                CheckIfCatch();
             }
         });
         ExitButton.addActionListener((x) -> this.dispose());
     }
 
+    private void ActObjects(){
+        for (HuntAnimal animal:animals){
+            animal.Act();
+        }
+    }
+
+    public void PopulateMap(){
+        var hare = new Hare(maxX, maxY);
+        hare.X = Math.round(Math.random() * maxX - 1);
+        hare.Y = Math.round(Math.random() * maxY - 1);;
+        animals.add(hare);
+    }
+
+    public void CheckIfCatch(){
+        for (HuntAnimal animal:animals){
+            if(animal.X == player.X && animal.Y == player.Y){
+                if(player.haveEquipment(animal.equipNeeded)){
+                    animals.remove(animal);
+                    JOptionPane.showMessageDialog(HuntPanel, "Ваша добыча: " + animal.Name, "Охота удалась!", JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
+                else{
+                    JOptionPane.showMessageDialog(HuntPanel, "У вас нет: " + Equipment.names[animal.equipNeeded] , "Охота не удалась!", JOptionPane.INFORMATION_MESSAGE);
+                }
+
+            }
+        }
+    }
+
+    private void DrawObject(int x, int y){
+        for (HuntAnimal animal:animals){
+            if(animal.X == x && animal.Y == y){
+                map[y][x].setIcon(animal.image);
+                return;
+            }
+        }
+        map[y][x].setIcon(null);
+    }
+
     private void DrawMap(){
         for(int i = 0; i < maxY; i++) {
             for (int j = 0; j < maxX; j++) {
-                if(DistanceToPlayer(i, j) > player.SeenArea())
+                if(DistanceToPlayer(j, i) > player.SeenArea())
                     map[i][j].setIcon(hiddenIcon);
                 else
-                    map[i][j].setIcon(null);
+                    DrawObject(j, i);
             }
         }
 
         if(player.numEquipment(EquipmentType.HuntDog) < 1){
-            map[player.X][player.Y].setIcon(hunterIcon);
+            map[player.Y][player.X].setIcon(hunterIcon);
         }
         else{
-            map[player.X][player.Y].setIcon(hunterWithDogIcon);
+            map[player.Y][player.X].setIcon(hunterWithDogIcon);
         }
 
     }
@@ -113,5 +162,7 @@ public class HuntForm  extends JFrame{
             lblHuntBow.setVisible(false);
 
 
-    }
+        SpyGlassLbl.setVisible(player.haveEquipment(EquipmentType.SpyGlass));
+        }
+
 }
