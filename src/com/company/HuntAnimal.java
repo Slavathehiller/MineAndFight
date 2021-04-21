@@ -21,9 +21,6 @@ public abstract class HuntAnimal {
         image = new ImageIcon(getClass().getResource(getImagePath()));
     }
 
-    public HuntAnimal(){
-
-    }
 
     public abstract void Act();
 }
