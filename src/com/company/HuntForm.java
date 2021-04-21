@@ -93,10 +93,18 @@ public class HuntForm  extends JFrame{
     }
 
     public void PopulateMap(){
-        var hare = new Hare(maxX, maxY);
-        hare.X = Math.round(Math.random() * maxX - 1);
-        hare.Y = Math.round(Math.random() * maxY - 1);;
-        animals.add(hare);
+        double chanceToSpawn = Math.floor(Math.random()*100);
+        HuntAnimal animal;
+        if(chanceToSpawn > 30) {
+            animal = new Hare(maxX, maxY);
+        }
+        else{
+            animal = new Wolf(maxX, maxY);
+        }
+        animal.X = Math.round(Math.random() * maxX - 1);
+        animal.Y = Math.round(Math.random() * maxY - 1);
+        animals.add(animal);
+
     }
 
     public void CheckIfCatch(){
