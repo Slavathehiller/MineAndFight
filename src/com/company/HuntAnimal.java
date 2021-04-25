@@ -1,6 +1,7 @@
 package com.company;
 
 import javax.swing.*;
+import java.util.Objects;
 
 public abstract class HuntAnimal {
     public long X;
@@ -15,10 +16,12 @@ public abstract class HuntAnimal {
         return null;
     }
 
+    public Drop drop = new Drop();
+
     public HuntAnimal(int maxX, int maxY){
         this.MaxX = maxX;
         this.MaxY = maxY;
-        image = new ImageIcon(getClass().getResource(getImagePath()));
+        image = new ImageIcon(Objects.requireNonNull(getClass().getResource(getImagePath())));
     }
 
 

@@ -6,7 +6,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class HuntForm  extends JFrame{
+public class HuntForm extends JDialog{
     private JPanel MainPanel;
     private JPanel InfoPanel;
     private JPanel HuntPanel;
@@ -112,7 +112,11 @@ public class HuntForm  extends JFrame{
             if(animal.X == player.X && animal.Y == player.Y){
                 if(player.haveEquipment(animal.equipNeeded)){
                     animals.remove(animal);
-                    JOptionPane.showMessageDialog(HuntPanel, "Ваша добыча: " + animal.Name, "Охота удалась!", JOptionPane.INFORMATION_MESSAGE);
+                    String message = "Ваша добыча: " + animal.Name + "\n" + "Вы получаете: \n";
+                    message += animal.drop.getDetails();
+                    JOptionPane.showMessageDialog(HuntPanel, message, "Охота удалась!", JOptionPane.INFORMATION_MESSAGE);
+                    player.addDrop(animal.drop);
+                    player.RefreshInfo();
                     return;
                 }
                 else{

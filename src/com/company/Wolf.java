@@ -13,6 +13,7 @@ public class Wolf extends HuntAnimal{
         super(maxX, maxY);
         Name = "Волк";
         equipNeeded = EquipmentType.HuntBow;
+        drop.addResource(ResourceType.Fur, 2);
     }
 
     @Override

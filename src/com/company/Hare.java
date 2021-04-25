@@ -14,6 +14,8 @@ public class Hare extends HuntAnimal{
         super(maxX, maxY);
         Name = "Заяц";
         equipNeeded = EquipmentType.Sling;
+        drop.addResource(ResourceType.Fur, 1);
+        drop.addResource(ResourceType.Meat, 1);
     }
 
     @Override

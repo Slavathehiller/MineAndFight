@@ -69,18 +69,23 @@ public class MineFrom extends JFrame{
     private JLabel HuntDogLabel;
     private JButton BuySpyGlassButton;
     private JLabel SpyGlassLabel;
+    private JLabel MeatLabel;
+    private JLabel FurLabel;
     private int OreSellAmount = 1000;
     private double OreCost = 0.02;
 
-    Player player = new Player();
+    Player player = new Player(this);
     Shop shop = new Shop();
+    public MineFrom self = this;
 
     public void dataFromPlayerToForm()
     {
-        OreLabel.setText("Руда: " + player.OreCount);
-        WoodLabel.setText("Дерево: " + player.WoodCount);
+        OreLabel.setText("Руда: " + player.getResourceNumber(ResourceType.Ore));
+        WoodLabel.setText("Дерево: " + player.getResourceNumber(ResourceType.Wood));
+        FurLabel.setText("Шкуры: " + player.getResourceNumber(ResourceType.Fur));
+        MeatLabel.setText("Мясо: " + player.getResourceNumber(ResourceType.Meat));
         SellOreButton.setText("Обмен(" + OreSellAmount + ")");
-        CoinsLabel.setText("Монеты: " + player.Coins);
+        CoinsLabel.setText("Монеты: " + player.getResourceNumber(ResourceType.Coins));
         PickaxeLabel.setText("Кирка: " + player.Pickaxe_lvl);
         AxeLabel.setText("Топор: " + player.Axe_lvl);
         MineOreButton.setText("Добывать руду(" + player.Pickaxe_lvl + ")");
@@ -160,7 +165,7 @@ public class MineFrom extends JFrame{
         dataFromShopToForm();
 
         ActivateLocation(CityPanel);
-        setSize(750, 320);
+        setSize(750, 340);
         setLocationRelativeTo(null);
     }
 
@@ -252,6 +257,8 @@ public class MineFrom extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             HuntForm huntForm = new HuntForm(player);
+
+            dataFromPlayerToForm();
         }
     };
 
@@ -376,7 +383,7 @@ public class MineFrom extends JFrame{
     private final ActionListener mineOre = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e){
-            player.OreCount += player.Pickaxe_lvl;
+            player.addResource(ResourceType.Ore, player.Pickaxe_lvl);
             dataFromPlayerToForm();
         }
     };
@@ -386,7 +393,7 @@ public class MineFrom extends JFrame{
     private final ActionListener extractWood = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
-            player.WoodCount += player.Axe_lvl;
+            player.addResource(ResourceType.Wood ,player.Axe_lvl);
             dataFromPlayerToForm();
         }
     };
@@ -394,7 +401,7 @@ public class MineFrom extends JFrame{
     private final ActionListener AddThousandOfOre1 = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
-            player.Coins += 1000000;
+            player.addResource(ResourceType.Coins, 1000000);
             dataFromPlayerToForm();
         }
     };
@@ -422,9 +429,9 @@ public class MineFrom extends JFrame{
     private final ActionListener TradeOreForCoins = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(player.OreCount >= OreSellAmount){
-                player.Coins += OreSellAmount * OreCost;
-                player.OreCount -= OreSellAmount;
+            if(player.getResourceNumber(ResourceType.Ore) >= OreSellAmount){
+                player.addResource(ResourceType.Coins, OreSellAmount * OreCost);
+                player.addResource(ResourceType.Ore, - OreSellAmount);
 
             }
             dataFromPlayerToForm();
@@ -458,9 +465,9 @@ public class MineFrom extends JFrame{
     private final ActionListener buyArtefact1 = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(player.Coins >= 500) {
+            if(player.getResourceNumber(ResourceType.Coins) >= 500) {
                 player.addArtefact(Artefacts.MagicTorch);
-                player.Coins -= 500;
+                player.addResource(ResourceType.Coins, - 500);
                 dataFromPlayerToForm();
             }
             else{
@@ -472,9 +479,9 @@ public class MineFrom extends JFrame{
     private final ActionListener buyArtefact2 = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(player.Coins >= 2500) {
+            if(player.getResourceNumber(ResourceType.Coins) >= 2500) {
                 player.addArtefact(Artefacts.SilverSpear);
-                player.Coins -= 2500;
+                player.addResource(ResourceType.Coins, - 2500);
                 dataFromPlayerToForm();
             }
             else{
@@ -486,9 +493,9 @@ public class MineFrom extends JFrame{
     private final ActionListener buyArtefact3 = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(player.Coins >= 5000) {
+            if(player.getResourceNumber(ResourceType.Coins) >= 5000) {
                 player.addArtefact(Artefacts.LightRing);
-                player.Coins -= 5000;
+                player.addResource(ResourceType.Coins, - 5000);
                 dataFromPlayerToForm();
             }
             else{
@@ -500,9 +507,9 @@ public class MineFrom extends JFrame{
     private final ActionListener buyEquipment1 = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(player.Coins >= 100) {
+            if(player.getResourceNumber(ResourceType.Coins) >= 100) {
                 player.addEquipment(EquipmentType.Sling);
-                player.Coins -= 100;
+                player.addResource(ResourceType.Coins, - 100);
                 dataFromPlayerToForm();
             }
             else{
@@ -514,9 +521,9 @@ public class MineFrom extends JFrame{
     private final ActionListener buyEquipment2 = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(player.Coins >= 500) {
+            if(player.getResourceNumber(ResourceType.Coins) >= 500) {
                 player.addEquipment(EquipmentType.HuntBow);
-                player.Coins -= 500;
+                player.addResource(ResourceType.Coins, - 500);
                 dataFromPlayerToForm();
             }
             else{
@@ -528,9 +535,9 @@ public class MineFrom extends JFrame{
     private final ActionListener buyEquipment6 = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(player.Coins >= 1000) {
+            if(player.getResourceNumber(ResourceType.Coins) >= 1000) {
                 player.addEquipment(EquipmentType.HuntDog);
-                player.Coins -= 1000;
+                player.addResource(ResourceType.Coins, - 1000);
                 BuyHuntDogButton.setEnabled(false);
                 HuntDogLabel.setVisible(true);
                 dataFromPlayerToForm();
@@ -544,9 +551,9 @@ public class MineFrom extends JFrame{
     private final ActionListener buyEquipment7 = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(player.Coins >= 1000) {
+            if(player.getResourceNumber(ResourceType.Coins) >= 1000) {
                 player.addEquipment(EquipmentType.SpyGlass);
-                player.Coins -= 1000;
+                player.addResource(ResourceType.Coins, - 1000);
                 BuySpyGlassButton.setEnabled(false);
                 SpyGlassLabel.setVisible(true);
                 dataFromPlayerToForm();
