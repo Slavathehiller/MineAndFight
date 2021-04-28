@@ -9,6 +9,6 @@ public class ResourceType {
     public static final int Meat = 5;
     public static final int Leather = 6;
 
-    public static final int LastItem = 6;
+    public static final int LastItem = 7;
 
 }

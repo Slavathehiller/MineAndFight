@@ -4,13 +4,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
-import java.util.Random;
 
 public class HuntForm extends JDialog{
     private JPanel MainPanel;
     private JPanel InfoPanel;
     private JPanel HuntPanel;
-    private JLabel Equipmrntlbl;
+    private JLabel Equipmentlbl;
     private JPanel ControlPanel;
     private JButton ExitButton;
     private JLabel slingNumlbl;
@@ -18,6 +17,8 @@ public class HuntForm extends JDialog{
     private JLabel bowNumlbl;
     private JLabel lblHuntBow;
     private JLabel SpyGlassLbl;
+    private JLabel lblCorralSpear;
+    private JLabel corralSpearNumlbl;
 
     int maxX = 30;
     int maxY = 20;
@@ -51,8 +52,6 @@ public class HuntForm extends JDialog{
             for (int j = 0; j < maxX; j++) {
                 JLabel jlabel = new JLabel();
                 map[i][j] = jlabel;
-       //         var icon = new ImageIcon(getClass().getResource("/forest_icon_30x30.png"));
-         //       jlabel.setIcon(icon);
                 panel.add(jlabel);
             }
             HuntPanel.add(panel);
@@ -95,11 +94,16 @@ public class HuntForm extends JDialog{
     public void PopulateMap(){
         double chanceToSpawn = Math.floor(Math.random()*100);
         HuntAnimal animal;
-        if(chanceToSpawn > 30) {
-            animal = new Hare(maxX, maxY);
+        if(chanceToSpawn < 10) {
+            animal = new Hog(maxX, maxY);
         }
         else{
-            animal = new Wolf(maxX, maxY);
+            if(chanceToSpawn < 40) {
+                animal = new Wolf(maxX, maxY);
+            }
+            else{
+                animal = new Hare(maxX, maxY);
+            }
         }
         animal.X = Math.round(Math.random() * maxX - 1);
         animal.Y = Math.round(Math.random() * maxY - 1);
@@ -172,6 +176,12 @@ public class HuntForm extends JDialog{
             bowNumlbl.setText(Integer.toString(huntBowNumber));
         else
             lblHuntBow.setVisible(false);
+
+        var corralSpearNumber = player.numEquipment(EquipmentType.CorralSpear);
+        if(corralSpearNumber > 0)
+            corralSpearNumlbl.setText(Integer.toString(corralSpearNumber));
+        else
+            lblCorralSpear.setVisible(false);
 
 
         SpyGlassLbl.setVisible(player.haveEquipment(EquipmentType.SpyGlass));
