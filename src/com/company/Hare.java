@@ -1,6 +1,12 @@
 package com.company;
 
+
 public class Hare extends HuntAnimal{
+
+    @Override
+    Track CreateTrack(){
+        return new HareTrack(X, Y);
+    }
 
     @Override
     protected String getImagePath() {

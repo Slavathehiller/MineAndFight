@@ -7,6 +7,11 @@ public class Wolf extends HuntAnimal{
         return "/wolf_icon_30x30.png";
     }
 
+    @Override
+    Track CreateTrack(){
+        return new WolfTrack(X, Y);
+    }
+
     public Wolf(int maxX, int maxY){
         super(maxX, maxY);
         Name = "Волк";

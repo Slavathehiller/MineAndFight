@@ -1,6 +1,7 @@
 package com.company;
 
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
 
@@ -14,11 +15,19 @@ public abstract class HuntAnimal {
     public ImageIcon image;
     public double frequencyMove;
 
+    ArrayList<Track> tracks = new ArrayList<>();
+
     protected String getImagePath(){
         return null;
     }
 
     public Drop drop = new Drop();
+
+    abstract Track CreateTrack();
+
+    public void DropTrack(){
+        tracks.add(CreateTrack());
+    }
 
     public HuntAnimal(int maxX, int maxY){
         this.MaxX = maxX;
@@ -47,9 +56,19 @@ public abstract class HuntAnimal {
                 System.out.println("nextX: " + nextX + " nextY: " + nextY);
             }
             while (nextX < 0 || nextX >= MaxX || nextY < 0 || nextY >= MaxY);
+            DropTrack();
             X = nextX;
             Y = nextY;
             System.out.println("X: " + X + " Y: " + Y);
+        }
+        if(tracks.size() > 0) {
+            for (int i = tracks.size() - 1; i >= 0; i--) {
+                var track = tracks.get(i);
+                track.lifeTime -= 1;
+                if (track.lifeTime == 0) {
+                    tracks.remove(i);
+                }
+            }
         }
     }
 

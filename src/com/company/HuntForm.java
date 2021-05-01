@@ -31,7 +31,6 @@ public class HuntForm extends JDialog{
     ImageIcon hunterIcon = new ImageIcon(getClass().getResource("/hunter_30x30.png"));
     ImageIcon hunterWithDogIcon = new ImageIcon(getClass().getResource("/hunter_with_dog_30x30.png"));
 
-
     public HuntForm(Player player) {
         this.player = player;
         player.Y = maxY - 1;
@@ -56,7 +55,6 @@ public class HuntForm extends JDialog{
             }
             HuntPanel.add(panel);
         }
-
 
         PopulateMap();
         DrawMap();
@@ -126,7 +124,6 @@ public class HuntForm extends JDialog{
                 else{
                     JOptionPane.showMessageDialog(HuntPanel, "У вас нет: " + Equipment.names[animal.equipNeeded] , "Охота не удалась!", JOptionPane.INFORMATION_MESSAGE);
                 }
-
             }
         }
     }
@@ -136,6 +133,17 @@ public class HuntForm extends JDialog{
             if(animal.X == x && animal.Y == y){
                 map[y][x].setIcon(animal.image);
                 return;
+            }
+            for (Track track:animal.tracks){
+                if(track.X == x && track.Y == y){
+                    if(track.IsWeak()){
+                        map[y][x].setIcon(track.weakImage);
+                    }
+                    else {
+                        map[y][x].setIcon(track.strongImage);
+                    }
+                    return;
+                }
             }
         }
         map[y][x].setIcon(null);
