@@ -13,6 +13,7 @@ public class Player {
     public int X = 0;
     public int Y = 0;
     public MineFrom InfoForm;
+    public int additionalVisionArea = 0;
 
     public ArrayList<Resource> resources = new ArrayList<Resource>();
     public ArrayList<Integer> artefacts = new ArrayList<Integer>();
@@ -38,7 +39,7 @@ public class Player {
         upgradeAxe(1);
     }
 
-    public double getResourceNumber(int resourceType){
+    public long getResourceNumber(int resourceType){
         return resources.get(resourceType).Number;
     }
 
@@ -97,9 +98,9 @@ public class Player {
 
     public int SeenArea(){
         if(haveEquipment(EquipmentType.SpyGlass))
-            return 2;
+            return 3 + additionalVisionArea;
         else
-            return 15;
+            return 2 + additionalVisionArea;
     }
 
 

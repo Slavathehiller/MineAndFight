@@ -125,7 +125,6 @@ public class MineFrom extends JFrame{
         MineOreButton.addActionListener(mineOre);
         OreSellAmountUpButton.addActionListener(SellOreAmountUp);
         OreSellAmountDownButton.addActionListener(SellOreAmountDown);
-        AddThousandOfOre.addActionListener(AddThousandOfOre1);
         SellOreButton.addActionListener(TradeOreForCoins);
         UpgradePickaxeButton.addActionListener(upgradePickaxe);
         UpgradeAxeButton.addActionListener(upgradeAxe);
@@ -155,16 +154,16 @@ public class MineFrom extends JFrame{
         BuyCorralSpearButton.addActionListener(buyEquipment5);
 
 
-        MinePanel.setFocusable(true);
-//        MinePanel.addKeyListener(new KeyAdapter() {
-//            @Override
-//            public void keyPressed(KeyEvent e) {
-//                super.keyPressed(e);
-//                if(e.getKeyCode() == KeyEvent.VK_W){
-//                    JOptionPane.showMessageDialog(MainPanel, "Нажата клавиша w");
-//                }
-//            }
-//        });
+        this.setFocusable(true);
+        this.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);
+                if(e.getKeyCode() == KeyEvent.VK_D){
+                    DeveloperModeForm developerModeForm = new DeveloperModeForm(player);
+                }
+            }
+        });
 
         shop.refreshAssortment();
         dataFromPlayerToForm();
@@ -404,13 +403,6 @@ public class MineFrom extends JFrame{
         }
     };
 
-    private final ActionListener AddThousandOfOre1 = new ActionListener(){
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            player.addResource(ResourceType.Coins, 1000000);
-            dataFromPlayerToForm();
-        }
-    };
 
     private final ActionListener SellOreAmountUp = new ActionListener(){
         @Override

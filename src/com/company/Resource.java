@@ -2,7 +2,7 @@ package com.company;
 
 public class Resource {
     int Type;
-    double Number;
+    long Number;
     String Name;
     static String[] names = new String[] {"Руда", "Дерево", "Камень", "Монеты", "Шкура", "Мясо", "Кожа"};
 
