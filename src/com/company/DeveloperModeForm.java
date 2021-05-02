@@ -9,16 +9,18 @@ public class DeveloperModeForm extends JFrame{
     private JButton AddALotOfWoodButton;
     private JTextField SetVisionField;
     private JPanel MainPanel;
+    private JButton ExitButton;
     private Player player;
 
     public DeveloperModeForm(Player player){
         this.player = player;
         setVisible(true);
-        setBounds(700, 200, 750, 500);
+        setBounds(700, 200, 750, 250);
         add(MainPanel);
         AddALotOfMoneyButton.addActionListener((x)->AddALotOfMoney());
         AddALotOfOreButton.addActionListener((x)->AddALotOfOre());
         AddALotOfWoodButton.addActionListener((x)->AddALotOfWood());
+        ExitButton.addActionListener((x) -> this.dispose());
         SetVisionRadiusButton.addActionListener((x)->SetVision());
     }
 

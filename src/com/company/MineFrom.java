@@ -74,6 +74,7 @@ public class MineFrom extends JFrame{
     private JLabel LeatherLabel;
     private JLabel CorralSpearNumlbl;
     private JButton BuyCorralSpearButton;
+    private JButton ExitButton;
     private int OreSellAmount = 1000;
     private double OreCost = 0.02;
 
@@ -152,7 +153,7 @@ public class MineFrom extends JFrame{
         BuyHuntDogButton.addActionListener(buyEquipment3);
         BuySpyGlassButton.addActionListener(buyEquipment4);
         BuyCorralSpearButton.addActionListener(buyEquipment5);
-
+        ExitButton.addActionListener((x) -> this.dispose());
 
         this.setFocusable(true);
         this.addKeyListener(new KeyAdapter() {
