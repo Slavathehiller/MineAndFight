@@ -75,6 +75,14 @@ public class MineFrom extends JFrame{
     private JLabel CorralSpearNumlbl;
     private JButton BuyCorralSpearButton;
     private JButton ExitButton;
+    private JButton BuyBearSpearButton;
+    private JLabel BearSpearNumlbl;
+    private JButton BuyTheGiantKillerButton;
+    private JLabel TheGiantKillerLabel;
+    private JButton BuyFlameSwordButton;
+    private JLabel FlameSwordLabel;
+    private JButton BuyDuelistsSaberButton;
+    private JLabel DuelistsSaberLabel;
     private int OreSellAmount = 1000;
     private double OreCost = 0.02;
 
@@ -99,9 +107,13 @@ public class MineFrom extends JFrame{
         MagicTorchLabel.setVisible(player.haveArtefact(Artefacts.MagicTorch));
         SilverSpearLabel.setVisible(player.haveArtefact(Artefacts.SilverSpear));
         LightRingLabel.setVisible(player.haveArtefact(Artefacts.LightRing));
+        TheGiantKillerLabel.setVisible(player.haveArtefact(Artefacts.TheGiantKiller));
+        FlameSwordLabel.setVisible(player.haveArtefact(Artefacts.FlameSword));
+        DuelistsSaberLabel.setVisible(player.haveArtefact(Artefacts.DuelistsSaber));
         SlingNumlbl.setText(Integer.toString(player.numEquipment(EquipmentType.Sling)));
         HuntBowNumlbl.setText(Integer.toString(player.numEquipment(EquipmentType.HuntBow)));
         CorralSpearNumlbl.setText(Integer.toString(player.numEquipment(EquipmentType.CorralSpear)));
+        BearSpearNumlbl.setText(Integer.toString(player.numEquipment(EquipmentType.BearSpear)));
         LeatherLabel.setText("Кожа: " + player.getResourceNumber(ResourceType.Leather));
     }
     public void dataFromShopToForm()
@@ -133,6 +145,9 @@ public class MineFrom extends JFrame{
         BuyMagicTorchButton.addActionListener(buyArtefact1);
         BuySilverSpearButton.addActionListener(buyArtefact2);
         BuyLightRingButton.addActionListener(buyArtefact3);
+        BuyTheGiantKillerButton.addActionListener(buyArtefact4);
+        BuyFlameSwordButton.addActionListener(buyArtefact5);
+        BuyDuelistsSaberButton.addActionListener(buyArtefact6);
         GoToCityButtonS.addActionListener(goToCity);
         ToAdventureButton.addActionListener(goToAdventure);
         ToCityButtonAD.addActionListener(goToCity);
@@ -153,6 +168,7 @@ public class MineFrom extends JFrame{
         BuyHuntDogButton.addActionListener(buyEquipment3);
         BuySpyGlassButton.addActionListener(buyEquipment4);
         BuyCorralSpearButton.addActionListener(buyEquipment5);
+        BuyBearSpearButton.addActionListener(buyEquipment6);
         ExitButton.addActionListener((x) -> this.dispose());
 
         this.setFocusable(true);
@@ -191,7 +207,7 @@ public class MineFrom extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             ActivateLocation(MinePanel);
-            setSize(640, 430);
+            setSize(640, 460);
             setLocationRelativeTo(null);
         }
     };
@@ -200,7 +216,7 @@ public class MineFrom extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             ActivateLocation(CityPanel);
-            setSize(750, 450);
+            setSize(750, 470);
             setLocationRelativeTo(null);
         }
     };
@@ -209,7 +225,7 @@ public class MineFrom extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             ActivateLocation(ThicketPanel);
-            setSize(1160, 710);
+            setSize(1160, 740);
             setLocationRelativeTo(null);
         }
     };
@@ -218,7 +234,7 @@ public class MineFrom extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             ActivateLocation(ForestPanel);
-            setSize(640, 450);
+            setSize(640, 470);
             setLocationRelativeTo(null);
         }
     };
@@ -227,7 +243,7 @@ public class MineFrom extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             ActivateLocation(BlackSmithPanel);
-            setSize(600, 440);
+            setSize(600, 480);
             setLocationRelativeTo(null);
         }
     };
@@ -245,7 +261,7 @@ public class MineFrom extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             ActivateLocation(AdventurePanel);
-            setSize(720, 440);
+            setSize(720, 490);
             setLocationRelativeTo(null);
         }
     };
@@ -254,7 +270,7 @@ public class MineFrom extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             ActivateLocation(RuinsPanel);
-            setSize(1100, 750);
+            setSize(1100, 790);
             setLocationRelativeTo(null);
         }
     };
@@ -323,8 +339,8 @@ public class MineFrom extends JFrame{
                 JOptionPane.showMessageDialog(ThicketPanel, "Уровень доспеха не достаточен", "Невозможно атаковать", JOptionPane.WARNING_MESSAGE);
                 return;
             }
-            if(!player.haveArtefact(Artefacts.LightRing)){
-                JOptionPane.showMessageDialog(ThicketPanel, "Нужен артефакт: Кольцо света", "Невозможно атаковать", JOptionPane.WARNING_MESSAGE);
+            if(!player.haveArtefact(Artefacts.LightRing) || !player.haveArtefact(Artefacts.TheGiantKiller)){
+                JOptionPane.showMessageDialog(ThicketPanel, "Нужны артефакты: Кольцо света и Убийца великанов", "Невозможно атаковать", JOptionPane.WARNING_MESSAGE);
                 return;
             }
             JOptionPane.showMessageDialog(ThicketPanel, "Циклоп побежден", "Победа!", JOptionPane.INFORMATION_MESSAGE);
@@ -351,6 +367,9 @@ public class MineFrom extends JFrame{
             if(player.Armor_lvl < 10){
                 JOptionPane.showMessageDialog(RuinsPanel, "Уровень доспеха не достаточен", "Невозможно атаковать", JOptionPane.WARNING_MESSAGE);
             }
+            if(!player.haveArtefact(Artefacts.DuelistsSaber)){
+                JOptionPane.showMessageDialog(ThicketPanel, "Нужен артефакт: Сабля поединщика", "Невозможно атаковать", JOptionPane.WARNING_MESSAGE);
+            }
             else{
                 JOptionPane.showMessageDialog(RuinsPanel, "Орк побежден", "Победа!", JOptionPane.INFORMATION_MESSAGE);
                 AttackTrollButton.setEnabled(true);
@@ -363,6 +382,10 @@ public class MineFrom extends JFrame{
         public void actionPerformed(ActionEvent e) {
             if(player.Armor_lvl < 25){
                 JOptionPane.showMessageDialog(RuinsPanel, "Уровень доспеха не достаточен", "Невозможно атаковать", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            if(!player.haveArtefact(Artefacts.FlameSword)){
+                JOptionPane.showMessageDialog(ThicketPanel, "Нужен артефакт: Огненный меч", "Невозможно атаковать", JOptionPane.WARNING_MESSAGE);
             }
             else{
                 JOptionPane.showMessageDialog(RuinsPanel, "Тролль побежден", "Победа!", JOptionPane.INFORMATION_MESSAGE);
@@ -376,6 +399,10 @@ public class MineFrom extends JFrame{
         public void actionPerformed(ActionEvent e) {
             if(player.Armor_lvl < 50){
                 JOptionPane.showMessageDialog(RuinsPanel, "Уровень доспеха не достаточен", "Невозможно атаковать", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            if(!player.haveArtefact((Artefacts.TheGiantKiller))){
+                JOptionPane.showMessageDialog(RuinsPanel, "Нужен артефакт: Убийца великанов", "Невозможно атаковать", JOptionPane.WARNING_MESSAGE);
             }
             else{
                 JOptionPane.showMessageDialog(RuinsPanel, "Огр побежден", "Победа!", JOptionPane.INFORMATION_MESSAGE);
@@ -467,6 +494,7 @@ public class MineFrom extends JFrame{
             if(player.getResourceNumber(ResourceType.Coins) >= 500) {
                 player.addArtefact(Artefacts.MagicTorch);
                 player.addResource(ResourceType.Coins, - 500);
+                BuyMagicTorchButton.setEnabled(false);
                 dataFromPlayerToForm();
             }
             else{
@@ -481,6 +509,7 @@ public class MineFrom extends JFrame{
             if(player.getResourceNumber(ResourceType.Coins) >= 2500) {
                 player.addArtefact(Artefacts.SilverSpear);
                 player.addResource(ResourceType.Coins, - 2500);
+                BuySilverSpearButton.setEnabled(false);
                 dataFromPlayerToForm();
             }
             else{
@@ -495,6 +524,52 @@ public class MineFrom extends JFrame{
             if(player.getResourceNumber(ResourceType.Coins) >= 5000) {
                 player.addArtefact(Artefacts.LightRing);
                 player.addResource(ResourceType.Coins, - 5000);
+                BuyLightRingButton.setEnabled(false);
+                dataFromPlayerToForm();
+            }
+            else{
+                JOptionPane.showMessageDialog(ShopPanel, "Не хватает монет", "Покупка невозможна", JOptionPane.WARNING_MESSAGE);
+            }
+        }
+    };
+
+    private final ActionListener buyArtefact4 = new ActionListener(){
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if(player.getResourceNumber(ResourceType.Coins) >= 7000) {
+                player.addArtefact(Artefacts.TheGiantKiller);
+                player.addResource(ResourceType.Coins, - 7000);
+                BuyTheGiantKillerButton.setEnabled(false);
+                dataFromPlayerToForm();
+            }
+            else{
+                JOptionPane.showMessageDialog(ShopPanel, "Не хватает монет", "Покупка невозможна", JOptionPane.WARNING_MESSAGE);
+            }
+        }
+    };
+
+    private final ActionListener buyArtefact5 = new ActionListener(){
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if(player.getResourceNumber(ResourceType.Coins) >= 10000) {
+                player.addArtefact(Artefacts.FlameSword);
+                player.addResource(ResourceType.Coins, - 10000);
+                BuyFlameSwordButton.setEnabled(false);
+                dataFromPlayerToForm();
+            }
+            else{
+                JOptionPane.showMessageDialog(ShopPanel, "Не хватает монет", "Покупка невозможна", JOptionPane.WARNING_MESSAGE);
+            }
+        }
+    };
+
+    private final ActionListener buyArtefact6 = new ActionListener(){
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if(player.getResourceNumber(ResourceType.Coins) >= 15000) {
+                player.addArtefact(Artefacts.DuelistsSaber);
+                player.addResource(ResourceType.Coins, - 15000);
+                BuyDuelistsSaberButton.setEnabled(false);
                 dataFromPlayerToForm();
             }
             else{
@@ -570,6 +645,20 @@ public class MineFrom extends JFrame{
             if(player.getResourceNumber(ResourceType.Coins) >= 800) {
                 player.addEquipment(EquipmentType.CorralSpear);
                 player.addResource(ResourceType.Coins, - 800);
+                dataFromPlayerToForm();
+            }
+            else{
+                JOptionPane.showMessageDialog(ShopPanel, "Не хватает монет", "Покупка невозможна", JOptionPane.WARNING_MESSAGE);
+            }
+        }
+    };
+
+    private final ActionListener buyEquipment6 = new ActionListener(){
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if(player.getResourceNumber(ResourceType.Coins) >= 1200) {
+                player.addEquipment(EquipmentType.BearSpear);
+                player.addResource(ResourceType.Coins, - 1200);
                 dataFromPlayerToForm();
             }
             else{

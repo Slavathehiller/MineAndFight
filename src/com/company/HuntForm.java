@@ -19,17 +19,22 @@ public class HuntForm extends JDialog{
     private JLabel SpyGlassLbl;
     private JLabel lblCorralSpear;
     private JLabel corralSpearNumlbl;
+    private JLabel lblBearSpear;
+    private JLabel bearSpearNumlbl;
 
-    int maxX = 30;
-    int maxY = 20;
+    int maxX = 40;
+    int maxY = 30;
 
     JLabel[][] map = new JLabel[maxY][maxX];
     ArrayList<HuntAnimal> animals = new ArrayList<>();
+    ArrayList<ArrayList<Track>> tracks = new ArrayList<>();
+
     Player player;
 
     ImageIcon hiddenIcon = new ImageIcon(getClass().getResource("/forest_icon_30x30.png"));
     ImageIcon hunterIcon = new ImageIcon(getClass().getResource("/hunter_30x30.png"));
     ImageIcon hunterWithDogIcon = new ImageIcon(getClass().getResource("/hunter_with_dog_30x30.png"));
+    ImageIcon questionIcon = new ImageIcon(getClass().getResource("/question_icon_30x30.png"));
 
     public HuntForm(Player player) {
         this.player = player;
@@ -87,13 +92,30 @@ public class HuntForm extends JDialog{
         for (HuntAnimal animal:animals){
             animal.Act();
         }
+        if(tracks.size() > 0) {
+            for(int i = tracks.size() - 1; i >= 0; i--) {
+                var trace = tracks.get(i);
+                for (int j = trace.size() - 1; j >= 0; j--) {
+                    var track = trace.get(j);
+                    track.lifeTime -= 1;
+                    if (track.lifeTime == 0) {
+                        trace.remove(j);
+                    }
+                }
+            }
+        }
     }
 
     public void PopulateMap(){
         double chanceToSpawn = Math.floor(Math.random()*100);
         HuntAnimal animal;
-        if(chanceToSpawn < 10) {
-            animal = new Hog(maxX, maxY);
+        if(chanceToSpawn < 20) {
+            if(chanceToSpawn < 10) {
+                animal = new Hog(maxX, maxY);
+            }
+            else{
+                animal = new Bear(maxX, maxY);
+            }
         }
         else{
             if(chanceToSpawn < 40) {
@@ -106,7 +128,7 @@ public class HuntForm extends JDialog{
         animal.X = Math.round(Math.random() * maxX - 1);
         animal.Y = Math.round(Math.random() * maxY - 1);
         animals.add(animal);
-
+        tracks.add(animal.tracks);
     }
 
     public void CheckIfCatch(){
@@ -117,8 +139,14 @@ public class HuntForm extends JDialog{
                     String message = "Ваша добыча: " + animal.Name + "\n" + "Вы получаете: \n";
                     message += animal.drop.getDetails();
                     JOptionPane.showMessageDialog(HuntPanel, message, "Охота удалась!", JOptionPane.INFORMATION_MESSAGE);
+                    double chance = Math.random();
+                    if(chance > Equipment.durabilities[animal.equipNeeded]){
+                        player.addEquipment(animal.equipNeeded, -1);
+                        JOptionPane.showMessageDialog(HuntPanel, "Оборудование пришло в негодность: \n" + Equipment.names[animal.equipNeeded], "Поломка!", JOptionPane.INFORMATION_MESSAGE);
+                    }
                     player.addDrop(animal.drop);
                     player.RefreshInfo();
+                    PlayerInfoToForm();
                     return;
                 }
                 else{
@@ -134,7 +162,9 @@ public class HuntForm extends JDialog{
                 map[y][x].setIcon(animal.image);
                 return;
             }
-            for (Track track:animal.tracks){
+        }
+        for(var trace:tracks){
+            for(Track track:trace){
                 if(track.X == x && track.Y == y){
                     if(track.IsWeak()){
                         map[y][x].setIcon(track.weakImage);
@@ -149,12 +179,27 @@ public class HuntForm extends JDialog{
         map[y][x].setIcon(null);
     }
 
+    private HuntAnimal AnimalAt(int x, int y) {
+        for (HuntAnimal animal : animals) {
+            if (animal.X == x && animal.Y == y) {
+                return animal;
+            }
+        }
+        return null;
+    }
+
+
     private void DrawMap(){
         for(int i = 0; i < maxY; i++) {
             for (int j = 0; j < maxX; j++) {
-                if(DistanceToPlayer(j, i) > player.SeenArea())
-                    map[i][j].setIcon(hiddenIcon);
-                else
+                if (DistanceToPlayer(j, i) > player.SeenArea()) {
+                    var animal = AnimalAt(j, i);
+                    if (DistanceToPlayer(j, i) <= player.senseRadius() && animal != null) {
+                        map[i][j].setIcon(questionIcon);
+                    } else {
+                        map[i][j].setIcon(hiddenIcon);
+                    }
+                } else
                     DrawObject(j, i);
             }
         }
@@ -176,21 +221,34 @@ public class HuntForm extends JDialog{
         var slingNumber = player.numEquipment(EquipmentType.Sling);
         if (slingNumber > 0)
             slingNumlbl.setText(Integer.toString(slingNumber));
-        else
+        else {
             lblSling.setVisible(false);
+            slingNumlbl.setVisible(false);
+        }
 
         var huntBowNumber = player.numEquipment(EquipmentType.HuntBow);
         if(huntBowNumber > 0)
             bowNumlbl.setText(Integer.toString(huntBowNumber));
-        else
+        else {
             lblHuntBow.setVisible(false);
+            bowNumlbl.setVisible(false);
+        }
 
         var corralSpearNumber = player.numEquipment(EquipmentType.CorralSpear);
         if(corralSpearNumber > 0)
             corralSpearNumlbl.setText(Integer.toString(corralSpearNumber));
-        else
+        else{
             lblCorralSpear.setVisible(false);
+            corralSpearNumlbl.setVisible(false);
+        }
 
+        var bearSpearNumber = player.numEquipment(EquipmentType.BearSpear);
+        if(bearSpearNumber > 0)
+            bearSpearNumlbl.setText(Integer.toString(bearSpearNumber));
+        else {
+            lblBearSpear.setVisible(false);
+            bearSpearNumlbl.setVisible(false);
+        }
 
         SpyGlassLbl.setVisible(player.haveEquipment(EquipmentType.SpyGlass));
         }

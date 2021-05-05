@@ -61,15 +61,6 @@ public abstract class HuntAnimal {
             Y = nextY;
             System.out.println("X: " + X + " Y: " + Y);
         }
-        if(tracks.size() > 0) {
-            for (int i = tracks.size() - 1; i >= 0; i--) {
-                var track = tracks.get(i);
-                track.lifeTime -= 1;
-                if (track.lifeTime == 0) {
-                    tracks.remove(i);
-                }
-            }
-        }
     }
 
     protected boolean CanMove() {

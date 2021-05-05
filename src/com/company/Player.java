@@ -74,12 +74,15 @@ public class Player {
         artefacts.add(artefact);
     }
 
-    public void addEquipment(int equip)
+    public void addEquipment(int equip){
+        addEquipment(equip, 1);
+    }
+    public void addEquipment(int equip, int count)
     {
         for (var i=0; i<equipments.size(); i++)
         {
             if (equipments.get(i).Type == equip) {
-                equipments.get(i).Number++;
+                equipments.get(i).Number += count;
                 return;
             }
         }
@@ -122,6 +125,15 @@ public class Player {
             addResource(ResourceType.Ore, -ArmorUpgradeCost);
             Armor_lvl += lvl;
             ArmorUpgradeCost *= 1.2;
+        }
+    }
+
+    public double senseRadius(){
+        if(haveEquipment(EquipmentType.HuntDog)){
+            return 5;
+        }
+        else{
+            return 0;
         }
     }
 }
