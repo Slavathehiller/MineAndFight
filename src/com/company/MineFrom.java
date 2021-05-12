@@ -83,6 +83,7 @@ public class MineFrom extends JFrame{
     private JLabel FlameSwordLabel;
     private JButton BuyDuelistsSaberButton;
     private JLabel DuelistsSaberLabel;
+    private JButton ToWorkshopButton;
     private int OreSellAmount = 1000;
     private double OreCost = 0.02;
 
@@ -153,6 +154,7 @@ public class MineFrom extends JFrame{
         ToCityButtonAD.addActionListener(goToCity);
         ThicketButton.addActionListener(goToThicket);
         ToAdventureButtonF.addActionListener(goToAdventure);
+        ToWorkshopButton.addActionListener(goToWorkshop);
         AttackWolfButton.addActionListener(AttackWolf);
         AttackGiantSpiderButton.addActionListener(AttackGiantSpider);
         AttackWhereBearButton.addActionListener(AttackWhereBear);
@@ -279,6 +281,15 @@ public class MineFrom extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             HuntForm huntForm = new HuntForm(player);
+
+            dataFromPlayerToForm();
+        }
+    };
+
+    private final ActionListener goToWorkshop = new ActionListener(){
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Workshop workshop = new Workshop(player);
 
             dataFromPlayerToForm();
         }

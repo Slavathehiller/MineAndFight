@@ -47,6 +47,13 @@ public class Player {
         resources.get(resourceType).Number += number;
     }
 
+    public void addResource(Resource[] resources){
+        for(var res:resources){
+            this.resources.get(res.Type).Number += res.Number;
+        }
+
+    }
+
     public void addDrop(Drop drop){
         for(var res:drop.resources){
             addResource(res.Type, res.Number);
@@ -135,5 +142,14 @@ public class Player {
         else{
             return 0;
         }
+    }
+
+    public boolean isEnoughResource(Recipe recipe){
+        for (var res:recipe.resources){
+            if(this.getResourceNumber(res.Type) < res.Number) {
+                return false;
+            }
+        }
+        return true;
     }
 }

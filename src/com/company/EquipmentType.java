@@ -8,4 +8,6 @@ public class EquipmentType {
     public static final int Trap = 4;
     public static final int HuntDog = 5;
     public static final int SpyGlass = 6;
+
+    public static final int LastItem = 7;
 }

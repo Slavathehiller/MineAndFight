@@ -137,6 +137,15 @@
               <grid row="6" column="4" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
             </constraints>
           </vspacer>
+          <component id="7cf55" class="javax.swing.JButton" binding="ToWorkshopButton">
+            <constraints>
+              <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <icon value="workshop_icon_30x30.png"/>
+              <text value="В мастерскую"/>
+            </properties>
+          </component>
         </children>
       </grid>
       <hspacer id="86eb6">
@@ -1495,6 +1504,7 @@
                     <properties>
                       <icon value="light_ring_icon_15x11.png"/>
                       <text value=""/>
+                      <toolTipText value="Кольцо света"/>
                     </properties>
                   </component>
                   <component id="52cf4" class="javax.swing.JLabel">
@@ -1811,6 +1821,7 @@
                 <properties>
                   <icon value="the_giant_killer_icon_15x15.png"/>
                   <text value=""/>
+                  <toolTipText value="Убийца великанов"/>
                 </properties>
               </component>
             </children>
