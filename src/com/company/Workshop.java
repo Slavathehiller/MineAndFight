@@ -12,8 +12,10 @@ public class Workshop extends JFrame{
     private JButton ToCityButton;
     private JPanel ComponentPanel;
     private JLabel EquipmentNameLabel;
+    private JPanel ResourcesPanel;
     private Player player;
     private ArrayList<JLabel> componentLabels = new ArrayList<>();
+    private ArrayList<JLabel> resourceLabel = new ArrayList<>();
 
     public Workshop(Player player){
         setVisible(true);
@@ -22,7 +24,7 @@ public class Workshop extends JFrame{
         add(MainPanel);
         DefaultListModel listModel = new DefaultListModel();
         for(int i = 0; i < EquipmentType.LastItem; i++){
-            if(i != EquipmentType.HuntDog && i != EquipmentType.SpyGlass)
+            if(Equipment.recipes[i] != null)
                 listModel.addElement(Equipment.names[i]);
         }
         RecipeList.setModel(listModel);
@@ -30,6 +32,7 @@ public class Workshop extends JFrame{
         RecipeList.addListSelectionListener((x) -> SelectedRecipe());
         CreateButton.addActionListener((x) -> CreateItem());
         ToCityButton.addActionListener((x) -> this.dispose());
+        UpdateResources();
     }
 
     private void SelectedRecipe(){
@@ -52,6 +55,23 @@ public class Workshop extends JFrame{
         ComponentPanel.updateUI();
     }
 
+    private void UpdateResources(){
+        for(int i = resourceLabel.size() - 1; i >= 0; i--){
+            var lbl = resourceLabel.get(i);
+            ResourcesPanel.remove(lbl);
+            resourceLabel.remove(lbl);
+        }
+        for(Resource res:player.resources){
+            JLabel resName = new JLabel();
+            resourceLabel.add(resName);
+            resName.setIcon(res.Icon);
+            resName.setText(": " + res.Number);
+            resName.setToolTipText(res.Name);
+            ResourcesPanel.add(resName);
+        }
+        ResourcesPanel.updateUI();
+    }
+
     private void CreateItem(){
         var equip = new Equipment(RecipeList.getSelectedIndex());
         if(player.isEnoughResource(equip.recipe)){
@@ -59,6 +79,7 @@ public class Workshop extends JFrame{
             for(var res:equip.recipe.resources) {
                 player.addResource(res.Type, -res.Number);
             }
+            UpdateResources();
             player.RefreshInfo();
         }
         else{

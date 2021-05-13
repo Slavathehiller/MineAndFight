@@ -16,8 +16,8 @@ public class Bear extends HuntAnimal {
         super(maxX, maxY);
         Name = "Медведь";
         equipNeeded = EquipmentType.BearSpear;
-        drop.addResource(ResourceType.Fur, 3);
-        drop.addResource(ResourceType.Meat, 3);
+        drop.addResource(ResourceType.Fur, 4);
+        drop.addResource(ResourceType.Meat, 4);
         frequencyMove = 25;
     }
 

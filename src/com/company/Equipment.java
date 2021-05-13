@@ -38,10 +38,11 @@ public class Equipment {
         Icon = new ImageIcon(getClass().getResource(imageNames[Type]));
 
         Name = Equipment.names[Type];
-        for (Resource res:recipes[Type]) {
-            recipe.resources.add(res);
+        if(recipes[Type] != null) {
+            for (Resource res : recipes[Type]) {
+                recipe.resources.add(res);
+            }
         }
-
     }
 }
 

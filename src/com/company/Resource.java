@@ -11,7 +11,7 @@ public class Resource {
     static String[] names = new String[] {"Руда", "Дерево", "Камень", "Монеты", "Шкура", "Мясо", "Кожа"};
     static String[] imageNames = new String[] {"/ore_icon_15x14.png",
                                                 "/wood_icon_15x15.png",
-                                                "/wood_icon_15x15.png",
+                                                "/stone_icon_15x15.png",
                                                 "/coins_icon_15x20.png",
                                                 "/fur_icon_15x15.png",
                                                 "/meat_icon_15x12.png",
