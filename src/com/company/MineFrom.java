@@ -2,6 +2,7 @@ package com.company;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 public class MineFrom extends JFrame{
     private JPanel MainPanel;
@@ -84,8 +85,10 @@ public class MineFrom extends JFrame{
     private JButton BuyDuelistsSaberButton;
     private JLabel DuelistsSaberLabel;
     private JButton ToWorkshopButton;
+    private JPanel ResourcePanel;
     private int OreSellAmount = 1000;
     private double OreCost = 0.02;
+    private ArrayList<JLabel> resourceLabels = new ArrayList<>();
 
     Player player = new Player(this);
     Shop shop = new Shop();
@@ -93,12 +96,7 @@ public class MineFrom extends JFrame{
 
     public void dataFromPlayerToForm()
     {
-        OreLabel.setText("Руда: " + player.getResourceNumber(ResourceType.Ore));
-        WoodLabel.setText("Дерево: " + player.getResourceNumber(ResourceType.Wood));
-        FurLabel.setText("Шкуры: " + player.getResourceNumber(ResourceType.Fur));
-        MeatLabel.setText("Мясо: " + player.getResourceNumber(ResourceType.Meat));
         SellOreButton.setText("Обмен(" + OreSellAmount + ")");
-        CoinsLabel.setText("Монеты: " + player.getResourceNumber(ResourceType.Coins));
         PickaxeLabel.setText("Кирка: " + player.Pickaxe_lvl);
         AxeLabel.setText("Топор: " + player.Axe_lvl);
         MineOreButton.setText("Добывать руду(" + player.Pickaxe_lvl + ")");
@@ -115,7 +113,7 @@ public class MineFrom extends JFrame{
         HuntBowNumlbl.setText(Integer.toString(player.numEquipment(EquipmentType.HuntBow)));
         CorralSpearNumlbl.setText(Integer.toString(player.numEquipment(EquipmentType.CorralSpear)));
         BearSpearNumlbl.setText(Integer.toString(player.numEquipment(EquipmentType.BearSpear)));
-        LeatherLabel.setText("Кожа: " + player.getResourceNumber(ResourceType.Leather));
+        player.UpdateResources(ResourcePanel, resourceLabels);
     }
     public void dataFromShopToForm()
     {
@@ -191,6 +189,7 @@ public class MineFrom extends JFrame{
         ActivateLocation(CityPanel);
         setSize(750, 430);
         setLocationRelativeTo(null);
+        ResourcePanel.setLayout(new BoxLayout(ResourcePanel, BoxLayout.Y_AXIS));
     }
 
     private void ActivateLocation(JPanel panel){
@@ -280,7 +279,7 @@ public class MineFrom extends JFrame{
     private final ActionListener goHunt = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
-            HuntForm huntForm = new HuntForm(player);
+            ChooseHunt chooseHunt = new ChooseHunt(player);
 
             dataFromPlayerToForm();
         }

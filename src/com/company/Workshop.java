@@ -15,7 +15,7 @@ public class Workshop extends JFrame{
     private JPanel ResourcesPanel;
     private Player player;
     private ArrayList<JLabel> componentLabels = new ArrayList<>();
-    private ArrayList<JLabel> resourceLabel = new ArrayList<>();
+    private ArrayList<JLabel> resourceLabels = new ArrayList<>();
 
     public Workshop(Player player){
         setVisible(true);
@@ -33,6 +33,10 @@ public class Workshop extends JFrame{
         CreateButton.addActionListener((x) -> CreateItem());
         ToCityButton.addActionListener((x) -> this.dispose());
         UpdateResources();
+    }
+
+    private void UpdateResources(){
+        player.UpdateResources(ResourcesPanel, resourceLabels);
     }
 
     private void SelectedRecipe(){
@@ -55,22 +59,7 @@ public class Workshop extends JFrame{
         ComponentPanel.updateUI();
     }
 
-    private void UpdateResources(){
-        for(int i = resourceLabel.size() - 1; i >= 0; i--){
-            var lbl = resourceLabel.get(i);
-            ResourcesPanel.remove(lbl);
-            resourceLabel.remove(lbl);
-        }
-        for(Resource res:player.resources){
-            JLabel resName = new JLabel();
-            resourceLabel.add(resName);
-            resName.setIcon(res.Icon);
-            resName.setText(": " + res.Number);
-            resName.setToolTipText(res.Name);
-            ResourcesPanel.add(resName);
-        }
-        ResourcesPanel.updateUI();
-    }
+
 
     private void CreateItem(){
         var equip = new Equipment(RecipeList.getSelectedIndex());

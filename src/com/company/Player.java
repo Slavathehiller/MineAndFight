@@ -1,5 +1,6 @@
 package com.company;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class Player {
@@ -58,6 +59,23 @@ public class Player {
         for(var res:drop.resources){
             addResource(res.Type, res.Number);
         }
+    }
+
+    public void UpdateResources(JPanel resourcePanel, ArrayList<JLabel> resourceLabels){
+        for(int i = resourceLabels.size() - 1; i >= 0; i--){
+            var lbl = resourceLabels.get(i);
+            resourcePanel.remove(lbl);
+            resourceLabels.remove(lbl);
+        }
+        for(Resource res:resources){
+            JLabel resName = new JLabel();
+            resourceLabels.add(resName);
+            resName.setIcon(res.Icon);
+            resName.setText(": " + res.Number);
+            resName.setToolTipText(res.Name);
+            resourcePanel.add(resName);
+        }
+        resourcePanel.updateUI();
     }
 
 

@@ -14,6 +14,7 @@ public class Wolf extends HuntAnimal{
 
     public Wolf(int maxX, int maxY){
         super(maxX, maxY);
+        habitat = new int[]{1, 2, 4};
         Name = "Волк";
         equipNeeded = EquipmentType.HuntBow;
         drop.addResource(ResourceType.Fur, 2);

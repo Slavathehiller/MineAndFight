@@ -21,11 +21,16 @@ public class HuntForm extends JDialog{
     private JLabel corralSpearNumlbl;
     private JLabel lblBearSpear;
     private JLabel bearSpearNumlbl;
+    private int size;
 
-    int maxX = 40;
-    int maxY = 30;
+    static int smallSize = 1;
+    static int mediumSize = 2;
+    static int hugeSize = 4;
 
-    JLabel[][] map = new JLabel[maxY][maxX];
+    int maxX;
+    int maxY;
+
+    JLabel[][] map;
     ArrayList<HuntAnimal> animals = new ArrayList<>();
     ArrayList<ArrayList<Track>> tracks = new ArrayList<>();
 
@@ -36,8 +41,22 @@ public class HuntForm extends JDialog{
     ImageIcon hunterWithDogIcon = new ImageIcon(getClass().getResource("/hunter_with_dog_30x30.png"));
     ImageIcon questionIcon = new ImageIcon(getClass().getResource("/question_icon_30x30.png"));
 
-    public HuntForm(Player player) {
+    public HuntForm(Player player, int size) {
         this.player = player;
+        this.size = size;
+        if(size == smallSize){
+            maxX = 10;
+            maxY = 10;
+        }
+        if(size == mediumSize){
+            maxX = 20;
+            maxY = 20;
+        }
+        if(size == hugeSize){
+            maxX = 40;
+            maxY = 30;
+        }
+        map = new JLabel[maxY][maxX];
         player.Y = maxY - 1;
         player.X = maxX / 2;
         PlayerInfoToForm();
@@ -106,7 +125,7 @@ public class HuntForm extends JDialog{
         }
     }
 
-    public void PopulateMap(){
+    private HuntAnimal GenerateAnimal(){
         double chanceToSpawn = Math.floor(Math.random()*100);
         HuntAnimal animal;
         if(chanceToSpawn < 20) {
@@ -125,10 +144,30 @@ public class HuntForm extends JDialog{
                 animal = new Hare(maxX, maxY);
             }
         }
-        animal.X = Math.round(Math.random() * maxX - 1);
-        animal.Y = Math.round(Math.random() * maxY - 1);
-        animals.add(animal);
-        tracks.add(animal.tracks);
+        return animal;
+    }
+
+    public void PopulateMap(){
+        for(var i = 0; i < size; i++) {
+            HuntAnimal animal;
+            do {
+                animal = GenerateAnimal();
+            }
+            while (!IsAllowed(animal.habitat));
+            animal.X = Math.round(Math.random() * maxX - 1);
+            animal.Y = Math.round(Math.random() * maxY - 1);
+            animals.add(animal);
+            tracks.add(animal.tracks);
+        }
+    }
+
+    private boolean IsAllowed(int[] habitat){
+        for(var hab:habitat){
+            if(hab == this.size){
+                return true;
+            }
+        }
+        return false;
     }
 
     public void CheckIfCatch(){

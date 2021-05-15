@@ -15,6 +15,7 @@ public abstract class HuntAnimal {
     public ImageIcon image;
     public double frequencyMove;
 
+    public int[] habitat;
     ArrayList<Track> tracks = new ArrayList<>();
 
     protected String getImagePath(){

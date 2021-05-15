@@ -11,7 +11,7 @@ public class Equipment {
     public ImageIcon Icon;
     public Recipe recipe = new Recipe();
     static String[] names = new String[] {"Праща", "Охотничий лук", "Загонное копье", "Рогатина", "Капкан", "Охотничья собака", "Подзорная труба"};
-    static Double[] durabilities = new Double[] {0.5, 0.7, 0.6, 0.75, 0.9, 1.0, 1.0};
+    static Double[] durabilities = new Double[] {0.7, 0.8, 0.75, 0.9, 0.9, 1.0, 1.0};
 
     static Resource[][] recipes = new Resource[][]{
             new Resource[]{new Resource(ResourceType.Fur, 1)},

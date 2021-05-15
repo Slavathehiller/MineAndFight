@@ -15,6 +15,7 @@ public class Hare extends HuntAnimal{
 
     public Hare(int maxX, int maxY){
         super(maxX, maxY);
+        habitat = new int[]{1, 2};
         Name = "Заяц";
         equipNeeded = EquipmentType.Sling;
         drop.addResource(ResourceType.Fur, 1);

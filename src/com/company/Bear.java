@@ -14,6 +14,7 @@ public class Bear extends HuntAnimal {
 
     public Bear(int maxX, int maxY) {
         super(maxX, maxY);
+        habitat = new int[]{4};
         Name = "Медведь";
         equipNeeded = EquipmentType.BearSpear;
         drop.addResource(ResourceType.Fur, 4);
