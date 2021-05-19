@@ -13,6 +13,8 @@ public class Player {
     public int ArmorUpgradeCost = 100;
     public int X = 0;
     public int Y = 0;
+    private float Health = 100;
+    private float Stamina = 100;
     public MineFrom InfoForm;
     public int additionalVisionArea = 0;
 
@@ -30,6 +32,15 @@ public class Player {
 
     public void RefreshInfo(){
         InfoForm.dataFromPlayerToForm();
+        InfoForm.RefreshStats();
+    }
+
+    public void StartTimers(){
+        InfoForm.StartTimers();
+    }
+
+    public void StopTimers(){
+        InfoForm.StopTimers();
     }
 
     public void upgradePickaxe(){
@@ -170,4 +181,35 @@ public class Player {
         }
         return true;
     }
+
+    public float getHealth() {
+        return Health;
+    }
+
+    public void setHealth(float health) {
+        if(health >= 0)
+            Health = health;
+        else
+            Health = 0;
+    }
+
+    public float getStamina() {
+        return Stamina;
+    }
+
+    public void setStamina(float stamina) {
+        if(stamina >= 0)
+            Stamina = stamina;
+        else
+            Stamina = 0;
+    }
+
+    public void addStamina(float stamina){
+        setStamina(Stamina + stamina);
+    }
+
+    public void addHealth(float health){
+        setHealth(Health + health);
+    }
+
 }

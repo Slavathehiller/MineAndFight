@@ -16,6 +16,9 @@ public class Wolf extends HuntAnimal{
         super(maxX, maxY);
         habitat = new int[]{1, 2, 4};
         Name = "Волк";
+        StaminaToObtain = 7;
+        Danger = 0.3f;
+        Damage = 5;
         equipNeeded = EquipmentType.HuntBow;
         drop.addResource(ResourceType.Fur, 2);
         frequencyMove = 50;

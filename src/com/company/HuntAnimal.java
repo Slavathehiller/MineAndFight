@@ -11,6 +11,9 @@ public abstract class HuntAnimal {
     public String Name;
     public int MaxX;
     public int MaxY;
+    public int StaminaToObtain;
+    public float Danger = 0;
+    public float Damage = 0;
     public int equipNeeded;
     public ImageIcon image;
     public double frequencyMove;

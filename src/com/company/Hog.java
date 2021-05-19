@@ -16,6 +16,9 @@ public class Hog extends HuntAnimal{
         super(maxX, maxY);
         habitat = new int[]{2, 4};
         Name = "Кабан";
+        StaminaToObtain = 10;
+        Danger = 0.5f;
+        Damage = 20;
         equipNeeded = EquipmentType.CorralSpear;
         drop.addResource(ResourceType.Leather, 2);
         drop.addResource(ResourceType.Meat, 2);

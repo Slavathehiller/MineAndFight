@@ -22,6 +22,7 @@ public class HuntForm extends JDialog{
     private JLabel lblBearSpear;
     private JLabel bearSpearNumlbl;
     private int size;
+    private float StepStaminaConsumption = 0.5f;
 
     static int smallSize = 1;
     static int mediumSize = 2;
@@ -87,6 +88,10 @@ public class HuntForm extends JDialog{
             @Override
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
+                if(player.getStamina() < StepStaminaConsumption){
+                    JOptionPane.showMessageDialog(HuntPanel, "Вы слишком устали и не можете продолжать охоту", "Невозможно продолжать!", JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
                 if(e.getKeyCode() == KeyEvent.VK_W && player.Y > 0){
                     player.Y -= 1;
                 }
@@ -102,9 +107,16 @@ public class HuntForm extends JDialog{
                 ActObjects();
                 DrawMap();
                 CheckIfCatch();
+                player.addStamina(-StepStaminaConsumption);
+                player.RefreshInfo();
             }
         });
-        ExitButton.addActionListener((x) -> this.dispose());
+        ExitButton.addActionListener((x) -> CloseForm());
+    }
+
+    private void CloseForm(){
+        player.StartTimers();
+        this.dispose();
     }
 
     private void ActObjects(){
@@ -174,6 +186,10 @@ public class HuntForm extends JDialog{
         for (HuntAnimal animal:animals){
             if(animal.X == player.X && animal.Y == player.Y){
                 if(player.haveEquipment(animal.equipNeeded)){
+                    if(player.getStamina() < animal.StaminaToObtain){
+                        JOptionPane.showMessageDialog(HuntPanel, "Требуется " + animal.StaminaToObtain + " энергии, у вас " + player.getStamina() , "Охота не удалась!", JOptionPane.INFORMATION_MESSAGE);
+                        return;
+                    }
                     animals.remove(animal);
                     String message = "Ваша добыча: " + animal.Name + "\n" + "Вы получаете: \n";
                     message += animal.drop.getDetails();
@@ -183,6 +199,13 @@ public class HuntForm extends JDialog{
                         player.addEquipment(animal.equipNeeded, -1);
                         JOptionPane.showMessageDialog(HuntPanel, "Оборудование пришло в негодность: \n" + Equipment.names[animal.equipNeeded], "Поломка!", JOptionPane.INFORMATION_MESSAGE);
                     }
+                    chance = Math.random();
+                    if(chance < animal.Danger){
+                        player.addHealth(-animal.Damage);
+                        JOptionPane.showMessageDialog(HuntPanel, animal.Name + " наносит вам урон", "Несчастный случай", JOptionPane.INFORMATION_MESSAGE);
+
+                    }
+                    player.addStamina(-animal.StaminaToObtain);
                     player.addDrop(animal.drop);
                     player.RefreshInfo();
                     PlayerInfoToForm();

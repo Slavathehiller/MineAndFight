@@ -86,6 +86,12 @@ public class MineFrom extends JFrame{
     private JLabel DuelistsSaberLabel;
     private JButton ToWorkshopButton;
     private JPanel ResourcePanel;
+    private JProgressBar HealthBar;
+    private JProgressBar StaminaBar;
+    private Timer staminaTimer;
+    private Timer healthTimer;
+    private int StaminaRecoverRatio = 1;
+    private int HealthRecoverRatio = 1;
     private int OreSellAmount = 1000;
     private double OreCost = 0.02;
     private ArrayList<JLabel> resourceLabels = new ArrayList<>();
@@ -171,6 +177,12 @@ public class MineFrom extends JFrame{
         BuyBearSpearButton.addActionListener(buyEquipment6);
         ExitButton.addActionListener((x) -> this.dispose());
 
+        staminaTimer = new Timer(1000, (x) -> SetPlayerStamina(player.getStamina() + StaminaRecoverRatio));
+
+        healthTimer = new Timer(1000, (x) -> SetPlayerHealth(player.getHealth() + HealthRecoverRatio));
+
+        StartTimers();
+
         this.setFocusable(true);
         this.addKeyListener(new KeyAdapter() {
             @Override
@@ -187,10 +199,49 @@ public class MineFrom extends JFrame{
         dataFromShopToForm();
 
         ActivateLocation(CityPanel);
-        setSize(750, 430);
+        setSize(800, 480);
         setLocationRelativeTo(null);
         ResourcePanel.setLayout(new BoxLayout(ResourcePanel, BoxLayout.Y_AXIS));
+        RefreshStats();
     }
+
+    private void SetPlayerStamina(float stamina){
+        if(stamina > 100)
+            return;
+        player.setStamina(stamina);
+        RefreshStaminaInfo();
+    }
+
+    private void RefreshStaminaInfo(){
+        StaminaBar.setValue(Math.round(player.getStamina()));
+    }
+
+    private void SetPlayerHealth(float health){
+        if(health > 100)
+            return;
+        player.setHealth(health);
+        RefreshHealthInfo();
+    }
+
+    public void RefreshStats(){
+        RefreshHealthInfo();
+        RefreshStaminaInfo();
+    }
+
+    private void RefreshHealthInfo(){
+        HealthBar.setValue(Math.round(player.getHealth()));
+    }
+
+    public void StartTimers(){
+        healthTimer.start();
+        staminaTimer.start();
+    }
+
+    public void StopTimers(){
+        healthTimer.stop();
+        staminaTimer.stop();
+    }
+
 
     private void ActivateLocation(JPanel panel){
         AdventurePanel.setVisible(false);
@@ -208,7 +259,7 @@ public class MineFrom extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             ActivateLocation(MinePanel);
-            setSize(640, 460);
+            setSize(640, 500);
             setLocationRelativeTo(null);
         }
     };
@@ -217,7 +268,7 @@ public class MineFrom extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             ActivateLocation(CityPanel);
-            setSize(750, 470);
+            setSize(810, 510);
             setLocationRelativeTo(null);
         }
     };
@@ -226,7 +277,7 @@ public class MineFrom extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             ActivateLocation(ThicketPanel);
-            setSize(1160, 740);
+            setSize(1190, 740);
             setLocationRelativeTo(null);
         }
     };
@@ -235,7 +286,7 @@ public class MineFrom extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             ActivateLocation(ForestPanel);
-            setSize(640, 470);
+            setSize(690, 520);
             setLocationRelativeTo(null);
         }
     };
@@ -244,7 +295,7 @@ public class MineFrom extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             ActivateLocation(BlackSmithPanel);
-            setSize(600, 480);
+            setSize(630, 530);
             setLocationRelativeTo(null);
         }
     };
@@ -262,7 +313,7 @@ public class MineFrom extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             ActivateLocation(AdventurePanel);
-            setSize(720, 490);
+            setSize(750, 520);
             setLocationRelativeTo(null);
         }
     };
@@ -271,7 +322,7 @@ public class MineFrom extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             ActivateLocation(RuinsPanel);
-            setSize(1100, 790);
+            setSize(1150, 790);
             setLocationRelativeTo(null);
         }
     };

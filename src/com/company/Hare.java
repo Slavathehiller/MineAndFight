@@ -17,6 +17,7 @@ public class Hare extends HuntAnimal{
         super(maxX, maxY);
         habitat = new int[]{1, 2};
         Name = "Заяц";
+        StaminaToObtain = 2;
         equipNeeded = EquipmentType.Sling;
         drop.addResource(ResourceType.Fur, 1);
         drop.addResource(ResourceType.Meat, 1);

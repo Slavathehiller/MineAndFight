@@ -25,7 +25,6 @@ public class ChooseHunt extends JFrame{
         buttonGroup.add(MediumForestRadioButton);
         buttonGroup.add(HugeForestRadioButton);
         GoHuntButton.addActionListener((x) -> RunHunt());
-
     }
 
     private void RunHunt(){
@@ -37,8 +36,7 @@ public class ChooseHunt extends JFrame{
             size = 4;
         }
         HuntForm huntForm = new HuntForm(player, size);
-
-
+        player.StopTimers();
     }
 
 
