@@ -21,6 +21,9 @@ public class HuntForm extends JDialog{
     private JLabel corralSpearNumlbl;
     private JLabel lblBearSpear;
     private JLabel bearSpearNumlbl;
+    private JPanel StatsPanel;
+    private JProgressBar HealthBar;
+    private JProgressBar StaminaBar;
     private int size;
     private float StepStaminaConsumption = 0.5f;
 
@@ -109,10 +112,17 @@ public class HuntForm extends JDialog{
                 CheckIfCatch();
                 player.addStamina(-StepStaminaConsumption);
                 player.RefreshInfo();
+                RefreshStats();
             }
         });
         ExitButton.addActionListener((x) -> CloseForm());
     }
+
+    private void RefreshStats(){
+        StaminaBar.setValue(Math.round(player.getStamina()));
+        HealthBar.setValue(Math.round(player.getHealth()));
+    }
+
 
     private void CloseForm(){
         player.StartTimers();
@@ -311,6 +321,8 @@ public class HuntForm extends JDialog{
             lblBearSpear.setVisible(false);
             bearSpearNumlbl.setVisible(false);
         }
+
+        RefreshStats();
 
         SpyGlassLbl.setVisible(player.haveEquipment(EquipmentType.SpyGlass));
         }

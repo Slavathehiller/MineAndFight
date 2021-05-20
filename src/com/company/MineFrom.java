@@ -88,6 +88,7 @@ public class MineFrom extends JFrame{
     private JPanel ResourcePanel;
     private JProgressBar HealthBar;
     private JProgressBar StaminaBar;
+    public JPanel StatsPanel;
     private Timer staminaTimer;
     private Timer healthTimer;
     private int StaminaRecoverRatio = 1;
