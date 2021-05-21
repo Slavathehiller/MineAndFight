@@ -13,8 +13,9 @@ public class Hare extends HuntAnimal{
         return "/hare_icon_30x30.png";
     }
 
-    public Hare(int maxX, int maxY){
-        super(maxX, maxY);
+    @Override
+    protected void init(){
+        super.init();
         habitat = new int[]{1, 2};
         Name = "Заяц";
         StaminaToObtain = 2;
@@ -22,6 +23,14 @@ public class Hare extends HuntAnimal{
         drop.addResource(ResourceType.Fur, 1);
         drop.addResource(ResourceType.Meat, 1);
         frequencyMove = 75;
+    }
+
+    public Hare(int maxX, int maxY){
+        super(maxX, maxY);
+    }
+
+    public Hare(){
+        super();
     }
 
     @Override

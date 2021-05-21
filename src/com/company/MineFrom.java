@@ -215,6 +215,7 @@ public class MineFrom extends JFrame{
 
     private void RefreshStaminaInfo(){
         StaminaBar.setValue(Math.round(player.getStamina()));
+        StaminaBar.setToolTipText("Энергия (" + player.getStamina() + "/100)");
     }
 
     private void SetPlayerHealth(float health){
@@ -231,6 +232,7 @@ public class MineFrom extends JFrame{
 
     private void RefreshHealthInfo(){
         HealthBar.setValue(Math.round(player.getHealth()));
+        HealthBar.setToolTipText("Здоровье (" + player.getHealth() + "/100)");
     }
 
     public void StartTimers(){

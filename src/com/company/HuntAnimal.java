@@ -33,10 +33,39 @@ public abstract class HuntAnimal {
         tracks.add(CreateTrack());
     }
 
+    protected void init(){
+        image = new ImageIcon(Objects.requireNonNull(getClass().getResource(getImagePath())));
+    }
+
     public HuntAnimal(int maxX, int maxY){
+        init();
         this.MaxX = maxX;
         this.MaxY = maxY;
-        image = new ImageIcon(Objects.requireNonNull(getClass().getResource(getImagePath())));
+    }
+
+
+
+    public HuntAnimal(){
+        init();
+    }
+
+    private Boolean isInhabitant(int size){
+        for(var i:habitat){
+            if(i == size)
+                return true;
+        }
+        return false;
+    }
+
+    static HuntAnimal[] AllAnimals = new HuntAnimal[]{new Hare(), new Capercaillie(), new Wolf(), new Hog(), new Moose(), new Bear()};
+
+    static ArrayList<HuntAnimal> GetInhabitants(int size){
+        ArrayList<HuntAnimal> result = new ArrayList<>();
+        for (var animal:AllAnimals) {
+            if(animal.isInhabitant(size))
+                result.add(animal);
+        }
+        return result;
     }
 
 

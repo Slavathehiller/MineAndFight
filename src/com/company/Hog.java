@@ -12,8 +12,9 @@ public class Hog extends HuntAnimal{
         return new HogTrack(X, Y);
     }
 
-    public Hog(int maxX, int maxY){
-        super(maxX, maxY);
+    @Override
+    protected void init() {
+        super.init();
         habitat = new int[]{2, 4};
         Name = "Кабан";
         StaminaToObtain = 10;
@@ -24,6 +25,12 @@ public class Hog extends HuntAnimal{
         drop.addResource(ResourceType.Meat, 2);
         frequencyMove = 30;
     }
+
+    public Hog(int maxX, int maxY){
+        super(maxX, maxY);
+    }
+
+    public Hog(){super();}
 
     @Override
     public void Act(){

@@ -120,7 +120,9 @@ public class HuntForm extends JDialog{
 
     private void RefreshStats(){
         StaminaBar.setValue(Math.round(player.getStamina()));
+        StaminaBar.setToolTipText("Энергия (" + player.getStamina() + "/100)");
         HealthBar.setValue(Math.round(player.getHealth()));
+        HealthBar.setToolTipText("Здоровье (" + player.getHealth() + "/100)");
     }
 
 
@@ -151,11 +153,14 @@ public class HuntForm extends JDialog{
         double chanceToSpawn = Math.floor(Math.random()*100);
         HuntAnimal animal;
         if(chanceToSpawn < 20) {
-            if(chanceToSpawn < 10) {
+            if(chanceToSpawn < 10){
                 animal = new Hog(maxX, maxY);
             }
             else{
-                animal = new Bear(maxX, maxY);
+                if(chanceToSpawn < 5)
+                    animal = new Bear(maxX, maxY);
+                else
+                    animal = new Moose(maxX, maxY);
             }
         }
         else{
@@ -163,7 +168,10 @@ public class HuntForm extends JDialog{
                 animal = new Wolf(maxX, maxY);
             }
             else{
-                animal = new Hare(maxX, maxY);
+                if(chanceToSpawn < 70)
+                    animal = new Hare(maxX, maxY);
+                else
+                    animal = new Capercaillie(maxX, maxY);
             }
         }
         return animal;

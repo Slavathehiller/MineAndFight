@@ -12,8 +12,9 @@ public class Wolf extends HuntAnimal{
         return new WolfTrack(X, Y);
     }
 
-    public Wolf(int maxX, int maxY){
-        super(maxX, maxY);
+    @Override
+    protected void init(){
+        super.init();
         habitat = new int[]{1, 2, 4};
         Name = "Волк";
         StaminaToObtain = 7;
@@ -23,6 +24,12 @@ public class Wolf extends HuntAnimal{
         drop.addResource(ResourceType.Fur, 2);
         frequencyMove = 50;
     }
+
+    public Wolf(int maxX, int maxY){
+        super(maxX, maxY);
+    }
+
+    public Wolf(){super();}
 
     @Override
     public void Act(){
