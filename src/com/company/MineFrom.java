@@ -200,7 +200,7 @@ public class MineFrom extends JFrame{
         dataFromShopToForm();
 
         ActivateLocation(CityPanel);
-        setSize(800, 480);
+        setSize(800, 540);
         setLocationRelativeTo(null);
         ResourcePanel.setLayout(new BoxLayout(ResourcePanel, BoxLayout.Y_AXIS));
         RefreshStats();
@@ -262,7 +262,7 @@ public class MineFrom extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             ActivateLocation(MinePanel);
-            setSize(640, 500);
+            setSize(640, 580);
             setLocationRelativeTo(null);
         }
     };
@@ -271,7 +271,7 @@ public class MineFrom extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             ActivateLocation(CityPanel);
-            setSize(810, 510);
+            setSize(810, 580);
             setLocationRelativeTo(null);
         }
     };
@@ -289,7 +289,7 @@ public class MineFrom extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             ActivateLocation(ForestPanel);
-            setSize(690, 520);
+            setSize(690, 580);
             setLocationRelativeTo(null);
         }
     };
@@ -298,7 +298,7 @@ public class MineFrom extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             ActivateLocation(BlackSmithPanel);
-            setSize(630, 530);
+            setSize(630, 580);
             setLocationRelativeTo(null);
         }
     };
@@ -316,7 +316,7 @@ public class MineFrom extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             ActivateLocation(AdventurePanel);
-            setSize(750, 520);
+            setSize(750, 580);
             setLocationRelativeTo(null);
         }
     };

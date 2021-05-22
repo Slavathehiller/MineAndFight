@@ -13,6 +13,7 @@ public class ChooseHunt extends JFrame{
     private JPanel InfoPanel;
     private JPanel AnimalPanel;
     private JLabel SizeLabel;
+    private JPanel HerbPanel;
     private Player player;
     private int size;
     private ButtonGroup buttonGroup = new ButtonGroup();
@@ -57,6 +58,18 @@ public class ChooseHunt extends JFrame{
             AnimalPanel.add(animalLabel);
         }
         AnimalPanel.updateUI();
+
+        for(int i = HerbPanel.getComponents().length - 1; i >= 0; i--){
+            var lbl = HerbPanel.getComponent(i);
+            HerbPanel.remove(lbl);
+        }
+        var herbs = WildHerb.GetInhabitants(size);
+        for(var herb:herbs){
+            JLabel herbLabel = new JLabel();
+            herbLabel.setIcon(herb.image);
+            HerbPanel.add(herbLabel);
+        }
+        HerbPanel.updateUI();
     }
 
     private void RunHunt(){

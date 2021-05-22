@@ -37,6 +37,7 @@ public class HuntForm extends JDialog{
     JLabel[][] map;
     ArrayList<HuntAnimal> animals = new ArrayList<>();
     ArrayList<ArrayList<Track>> tracks = new ArrayList<>();
+    ArrayList<WildHerb> herbs = new ArrayList<>();
 
     Player player;
 
@@ -107,9 +108,11 @@ public class HuntForm extends JDialog{
                 if(e.getKeyCode() == KeyEvent.VK_D && player.X < maxX - 1){
                     player.X += 1;
                 }
+
                 ActObjects();
                 DrawMap();
                 CheckIfCatch();
+                CheckIfFound();
                 player.addStamina(-StepStaminaConsumption);
                 player.RefreshInfo();
                 RefreshStats();
@@ -177,6 +180,23 @@ public class HuntForm extends JDialog{
         return animal;
     }
 
+    private WildHerb GenerateHerb(){
+        double chanceToSpawn = Math.floor(Math.random()*100);
+        WildHerb herb = null;
+        if(chanceToSpawn < 25) {
+            herb = new WildOnion();
+        }
+        else
+            if(chanceToSpawn < 50)
+                herb = new Sage();
+            else
+                if(chanceToSpawn < 75)
+                    herb = new Plantain();
+                else
+                    herb = new Mushroom();
+        return herb;
+    }
+
     public void PopulateMap(){
         for(var i = 0; i < size; i++) {
             HuntAnimal animal;
@@ -184,10 +204,21 @@ public class HuntForm extends JDialog{
                 animal = GenerateAnimal();
             }
             while (!IsAllowed(animal.habitat));
-            animal.X = Math.round(Math.random() * maxX - 1);
-            animal.Y = Math.round(Math.random() * maxY - 1);
+            animal.X = Math.max(Math.round(Math.random() * maxX - 1), 0);
+            animal.Y = Math.max(Math.round(Math.random() * maxY - 1), 0);
             animals.add(animal);
             tracks.add(animal.tracks);
+        }
+
+        for(var i = 0; i < size * 2; i++) {
+            WildHerb herb;
+            do {
+                herb = GenerateHerb();
+            }
+            while (!IsAllowed(herb.habitat));
+            herb.X = Math.max(Math.round(Math.random() * maxX - 1), 0);
+            herb.Y = Math.max(Math.round(Math.random() * maxY - 1), 0);
+            herbs.add(herb);
         }
     }
 
@@ -198,6 +229,21 @@ public class HuntForm extends JDialog{
             }
         }
         return false;
+    }
+
+    public void CheckIfFound(){
+        for(WildHerb herb:herbs){
+            if(herb.X == player.X && herb.Y == player.Y){
+                herbs.remove(herb);
+                String message = "Вы нашли: " + herb.Name + "\n" + "Вы получаете: \n";
+                message += herb.drop.getDetails();
+                JOptionPane.showMessageDialog(HuntPanel, message, "Находка!", JOptionPane.INFORMATION_MESSAGE);
+                player.addDrop(herb.drop);
+                return;
+            }
+            player.RefreshInfo();
+            PlayerInfoToForm();
+        }
     }
 
     public void CheckIfCatch(){
@@ -243,6 +289,12 @@ public class HuntForm extends JDialog{
                 return;
             }
         }
+        for (WildHerb herb:herbs){
+            if(herb.X == x && herb.Y == y){
+                map[y][x].setIcon(herb.image);
+                return;
+            }
+        }
         for(var trace:tracks){
             for(Track track:trace){
                 if(track.X == x && track.Y == y){
@@ -268,6 +320,14 @@ public class HuntForm extends JDialog{
         return null;
     }
 
+    private WildHerb HerbAt(int x, int y) {
+        for (WildHerb herb : herbs) {
+            if (herb.X == x && herb.Y == y) {
+                return herb;
+            }
+        }
+        return null;
+    }
 
     private void DrawMap(){
         for(int i = 0; i < maxY; i++) {

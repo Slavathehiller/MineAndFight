@@ -43,8 +43,6 @@ public abstract class HuntAnimal {
         this.MaxY = maxY;
     }
 
-
-
     public HuntAnimal(){
         init();
     }

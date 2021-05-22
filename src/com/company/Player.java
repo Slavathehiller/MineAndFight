@@ -25,7 +25,7 @@ public class Player {
 
     public Player(MineFrom infoForm){
         InfoForm = infoForm;
-        for(int i = 0; i < ResourceType.LastItem; i++){
+        for(int i = 0; i <= ResourceType.LastItem; i++){
             resources.add(new Resource(i));
         }
     }
