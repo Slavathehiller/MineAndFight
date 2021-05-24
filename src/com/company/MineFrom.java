@@ -89,6 +89,7 @@ public class MineFrom extends JFrame{
     private JProgressBar HealthBar;
     private JProgressBar StaminaBar;
     public JPanel StatsPanel;
+    private JButton ToTavernButton;
     private Timer staminaTimer;
     private Timer healthTimer;
     private int StaminaRecoverRatio = 1;
@@ -160,6 +161,7 @@ public class MineFrom extends JFrame{
         ThicketButton.addActionListener(goToThicket);
         ToAdventureButtonF.addActionListener(goToAdventure);
         ToWorkshopButton.addActionListener(goToWorkshop);
+        ToTavernButton.addActionListener(goToTavern);
         AttackWolfButton.addActionListener(AttackWolf);
         AttackGiantSpiderButton.addActionListener(AttackGiantSpider);
         AttackWhereBearButton.addActionListener(AttackWhereBear);
@@ -343,6 +345,15 @@ public class MineFrom extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             Workshop workshop = new Workshop(player);
+
+            dataFromPlayerToForm();
+        }
+    };
+
+    private final ActionListener goToTavern = new ActionListener(){
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Tavern tavern = new Tavern(player);
 
             dataFromPlayerToForm();
         }
