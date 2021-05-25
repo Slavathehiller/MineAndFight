@@ -90,10 +90,9 @@ public class MineFrom extends JFrame{
     private JProgressBar StaminaBar;
     public JPanel StatsPanel;
     private JButton ToTavernButton;
+    public JPanel BuffsPanel;
     private Timer staminaTimer;
     private Timer healthTimer;
-    private int StaminaRecoverRatio = 1;
-    private int HealthRecoverRatio = 1;
     private int OreSellAmount = 1000;
     private double OreCost = 0.02;
     private ArrayList<JLabel> resourceLabels = new ArrayList<>();
@@ -180,9 +179,9 @@ public class MineFrom extends JFrame{
         BuyBearSpearButton.addActionListener(buyEquipment6);
         ExitButton.addActionListener((x) -> this.dispose());
 
-        staminaTimer = new Timer(1000, (x) -> SetPlayerStamina(player.getStamina() + StaminaRecoverRatio));
+        staminaTimer = new Timer(1000, (x) -> SetPlayerStamina(player.getStamina() + player.getRegenerateStaminaRatio()));
 
-        healthTimer = new Timer(1000, (x) -> SetPlayerHealth(player.getHealth() + HealthRecoverRatio));
+        healthTimer = new Timer(1000, (x) -> SetPlayerHealth(player.getHealth() + player.getRegenerateHealthRatio()));
 
         StartTimers();
 
@@ -209,32 +208,31 @@ public class MineFrom extends JFrame{
     }
 
     private void SetPlayerStamina(float stamina){
-        if(stamina > 100)
-            return;
         player.setStamina(stamina);
         RefreshStaminaInfo();
     }
 
     private void RefreshStaminaInfo(){
+        StaminaBar.setMaximum(Math.round(player.getMaxStamina()));
         StaminaBar.setValue(Math.round(player.getStamina()));
-        StaminaBar.setToolTipText("Энергия (" + player.getStamina() + "/100)");
+        StaminaBar.setToolTipText("Энергия (" + player.getStamina() + "/" + player.getMaxStamina());
     }
 
     private void SetPlayerHealth(float health){
-        if(health > 100)
-            return;
         player.setHealth(health);
         RefreshHealthInfo();
     }
 
     public void RefreshStats(){
+        player.UpdateBuffsInfo(BuffsPanel);
         RefreshHealthInfo();
         RefreshStaminaInfo();
     }
 
     private void RefreshHealthInfo(){
+        HealthBar.setMaximum(Math.round(player.getMaxHealth()));
         HealthBar.setValue(Math.round(player.getHealth()));
-        HealthBar.setToolTipText("Здоровье (" + player.getHealth() + "/100)");
+        HealthBar.setToolTipText("Здоровье (" + player.getHealth() + "/" + player.getMaxHealth());
     }
 
     public void StartTimers(){

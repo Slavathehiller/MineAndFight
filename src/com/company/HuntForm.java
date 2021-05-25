@@ -216,8 +216,15 @@ public class HuntForm extends JDialog{
                 herb = GenerateHerb();
             }
             while (!IsAllowed(herb.habitat));
-            herb.X = Math.max(Math.round(Math.random() * maxX - 1), 0);
-            herb.Y = Math.max(Math.round(Math.random() * maxY - 1), 0);
+            long x;
+            long y;
+            do {
+                x = Math.max(Math.round(Math.random() * maxX - 1), 0);
+                y = Math.max(Math.round(Math.random() * maxY - 1), 0);
+            }
+            while(HerbAt(x, y) != null);
+            herb.X = x;
+            herb.Y = y;
             herbs.add(herb);
         }
     }
@@ -320,7 +327,7 @@ public class HuntForm extends JDialog{
         return null;
     }
 
-    private WildHerb HerbAt(int x, int y) {
+    private WildHerb HerbAt(long x, long y) {
         for (WildHerb herb : herbs) {
             if (herb.X == x && herb.Y == y) {
                 return herb;

@@ -15,18 +15,34 @@ public class Player {
     public int Y = 0;
     private float Health = 100;
     private float Stamina = 100;
+    private float MaxHealth = 100;
+    private float MaxStamina = 100;
+    private float RegenerateHealthRatio = 1;
+    private float RegenerateStaminaRatio = 1;
+
     public MineFrom InfoForm;
     public int additionalVisionArea = 0;
 
     public ArrayList<Resource> resources = new ArrayList<Resource>();
     public ArrayList<Integer> artefacts = new ArrayList<Integer>();
     public ArrayList<Equipment> equipments = new ArrayList<Equipment>();
+    private ArrayList<ImageIcon> buffIcons;
 
+    public ArrayList<Integer> buffs = new ArrayList<>();
+    private Timer[] buffTimers = new Timer[]{new Timer(300000, (x) -> setBuffOff(BuffTypes.FastHealthRegeneration)),
+                                new Timer(300000, (x) -> setBuffOff(BuffTypes.FastStaminaRegeneration)),
+                                new Timer(200000, (x) -> setBuffOff(BuffTypes.EnLargeMaxHealth)),
+                                new Timer(200000, (x) -> setBuffOff(BuffTypes.EnLargeMaxStamina))
+    };
 
     public Player(MineFrom infoForm){
         InfoForm = infoForm;
         for(int i = 0; i <= ResourceType.LastItem; i++){
             resources.add(new Resource(i));
+        }
+        buffIcons = new ArrayList<>();
+        for(var name:BuffTypes.buffImageNames){
+            buffIcons.add(new ImageIcon(getClass().getResource(name)));
         }
     }
 
@@ -72,6 +88,20 @@ public class Player {
         }
     }
 
+    public void UpdateBuffsInfo(JPanel buffPanel){
+        for(int i = buffPanel.getComponents().length - 1; i >= 0; i--){
+            var lbl = buffPanel.getComponent(i);
+            buffPanel.remove(lbl);
+        }
+        for(var buff:buffs){
+            JLabel buffLabel = new JLabel();
+            buffLabel.setIcon(getBuffImage(buff));
+            buffLabel.setToolTipText(BuffTypes.toolTips[buff]);
+            buffPanel.add(buffLabel);
+        }
+        buffPanel.updateUI();
+    }
+
     public void UpdateResources(JPanel resourcePanel, ArrayList<JLabel> resourceLabels){
         for(int i = resourceLabels.size() - 1; i >= 0; i--){
             var lbl = resourceLabels.get(i);
@@ -89,6 +119,9 @@ public class Player {
         resourcePanel.updateUI();
     }
 
+    public ImageIcon getBuffImage(int buff){
+        return buffIcons.get(buff);
+    }
 
     public void upgradePickaxe(int lvl){
         if(getResourceNumber(ResourceType.Ore) >= PickaxeUpgradeCost){
@@ -133,6 +166,10 @@ public class Player {
     public boolean haveEquipment(int equipment){
         return numEquipment(equipment) > 0;
 
+    }
+
+    private void StartTimer(int index){
+        buffTimers[index].start();
     }
 
     public int SeenArea(){
@@ -182,15 +219,35 @@ public class Player {
         return true;
     }
 
+    public void setBuffOn(int buff){
+        if(buffs.contains(buff))
+            buffs.remove((Object)buff);
+        buffs.add(buff);
+        StartTimer(buff);
+    }
+
+    public void setBuffOff(int buff){
+        buffs.remove((Object)buff);
+    }
+
+    public boolean isBuffed(int buff){
+        return buffs.contains(buff);
+    }
+
     public float getHealth() {
         return Health;
     }
 
     public void setHealth(float health) {
-        if(health >= 0)
-            Health = health;
-        else
+        if(health > getMaxHealth()){
+            Health = getMaxHealth();
+            return;
+        }
+        if(health < 0) {
             Health = 0;
+            return;
+        }
+        Health = health;
     }
 
     public float getStamina() {
@@ -198,10 +255,15 @@ public class Player {
     }
 
     public void setStamina(float stamina) {
-        if(stamina >= 0)
-            Stamina = stamina;
-        else
+        if(stamina > getMaxStamina()){
+            Stamina = getMaxStamina();
+            return;
+        }
+        if(stamina < 0) {
             Stamina = 0;
+            return;
+        }
+        Stamina = stamina;
     }
 
     public void addStamina(float stamina){
@@ -212,4 +274,65 @@ public class Player {
         setHealth(Health + health);
     }
 
+    public float getMaxHealth() {
+        var result = MaxHealth;
+        if(isBuffed(BuffTypes.EnLargeMaxHealth))
+        {
+            result *= 1.5f;
+        }
+        return result;
+    }
+
+    public void setMaxHealth(float maxHealth) {
+        if(maxHealth > 0){
+            MaxHealth = maxHealth;
+        }
+        else
+            MaxHealth = 1;
+
+
+    }
+
+    public float getMaxStamina() {
+        var result = MaxStamina;
+        if(isBuffed(BuffTypes.EnLargeMaxStamina))
+        {
+            result *= 1.5f;
+        }
+        return result;
+    }
+
+    public void setMaxStamina(float maxStamina) {
+        if(maxStamina > 0) {
+            MaxStamina = maxStamina;
+        }
+        else
+            MaxStamina = 1;
+    }
+
+    public float getRegenerateHealthRatio() {
+        var result = RegenerateHealthRatio;
+        if(isBuffed(BuffTypes.FastHealthRegeneration))
+        {
+            result *= 2;
+        }
+        return result;
+    }
+
+    public void setRegenerateHealthRatio(float regenerateRatio) {
+        RegenerateHealthRatio = regenerateRatio;
+    }
+
+    public float getRegenerateStaminaRatio() {
+        var result = RegenerateStaminaRatio;
+        if(isBuffed(BuffTypes.FastStaminaRegeneration))
+        {
+            result *= 2;
+        }
+        return result;
+    }
+
+    public void setRegenerateStaminaRatio(float regenerateRatio) {
+        RegenerateStaminaRatio = regenerateRatio;
+    }
 }
