@@ -26,6 +26,7 @@ public class Player {
     public ArrayList<Resource> resources = new ArrayList<Resource>();
     public ArrayList<Integer> artefacts = new ArrayList<Integer>();
     public ArrayList<Equipment> equipments = new ArrayList<Equipment>();
+    public ArrayList<Supply> supplies = new ArrayList<>();
     private ArrayList<ImageIcon> buffIcons;
 
     public ArrayList<Integer> buffs = new ArrayList<>();
@@ -117,6 +118,21 @@ public class Player {
             resourcePanel.add(resName);
         }
         resourcePanel.updateUI();
+    }
+
+    public void UpdateSuppliesInfo(JPanel supplyPanel){
+        for(int i = supplyPanel.getComponents().length - 1; i >= 0; i--){
+            var lbl = supplyPanel.getComponent(i);
+            supplyPanel.remove(lbl);
+        }
+        for(var supply:supplies){
+            JLabel supplyLabel = new JLabel();
+            supplyLabel.setIcon(supply.smallImage);
+            supplyLabel.setToolTipText(supply.Name);
+            supplyLabel.setText("x" + supply.Number);
+            supplyPanel.add(supplyLabel);
+        }
+        supplyPanel.updateUI();
     }
 
     public ImageIcon getBuffImage(int buff){

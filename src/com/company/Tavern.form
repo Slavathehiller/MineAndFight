@@ -76,7 +76,7 @@
                     <children>
                       <component id="fd80e" class="javax.swing.JLabel">
                         <constraints>
-                          <grid row="0" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                          <grid row="0" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
                           <icon value="meat_soup_icon_50x50.png"/>
@@ -636,7 +636,7 @@
                                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                                 </constraints>
                                 <properties>
-                                  <icon value="plantain_leaf_icon_15x15.png"/>
+                                  <icon value="sage_leaf_icon_15x15.png"/>
                                   <text value=""/>
                                 </properties>
                               </component>
@@ -680,7 +680,7 @@
                               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                             </constraints>
                             <properties>
-                              <icon value="sage_leaf_icon_15x15.png"/>
+                              <icon value="plantain_leaf_icon_15x15.png"/>
                               <text value=""/>
                             </properties>
                           </component>

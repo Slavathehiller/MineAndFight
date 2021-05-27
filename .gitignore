@@ -1,2 +1,14 @@
 # Project exclude paths
 /out/
+/src/all.jpg
+/src/all2.jpg
+/src/capercaillie_icon.jpg
+/src/Elixirs.jpg
+/src/capercaillie_tracks_icon.png
+/src/Eda.jpg
+/src/hummer_icon.png
+/src/moose_icon.png
+/src/mushrooms.jpg
+/src/roast_icon.jpeg
+/src/workshop_things_icon.jpg
+/MineAndFight/.idea/workspace.xml

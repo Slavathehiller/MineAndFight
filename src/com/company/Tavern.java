@@ -22,6 +22,9 @@ public class Tavern extends JFrame{
         CookMushroomSoupButton.addActionListener((x) -> EatMushroomSoup());
         CookMeatSoupButton.addActionListener((x) -> EatMeatSoup());
         CookRostMeatButton.addActionListener((x) -> EatRostMeat());
+        MakeElixirOfHealthButton.addActionListener((x) -> MakeHealthPotion());
+        MakeElixirOfStaminaButton.addActionListener((x) -> MakeStaminaPotion());
+        MakeSpicedMeatButton.addActionListener((x) -> MakeSpicedMeat());
     }
 
     public void EatMushroomSoup(){
@@ -62,6 +65,73 @@ public class Tavern extends JFrame{
         else{
             JOptionPane.showMessageDialog(this, "Не хватает ингредиентов", "Неудача", JOptionPane.WARNING_MESSAGE);
         }
+    }
+
+    public void MakeHealthPotion(){
+        HealthPotion healthPotion = new HealthPotion();
+        if(player.isEnoughResource(healthPotion.recipe)){
+            boolean isExists = false;
+            for (var supply : player.supplies) {
+                if (supply.getClass() == healthPotion.getClass()) {
+                    isExists = true;
+                    supply.Number++;
+                    break;
+                }
+            }
+            if(!isExists){
+                player.supplies.add(healthPotion);
+            }
+            player.addResource(ResourceType.PlantainLeaf, -6);
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Не хватает ингредиентов", "Неудача", JOptionPane.WARNING_MESSAGE);
+        }
+        player.RefreshInfo();
+    }
+
+    public void MakeStaminaPotion(){
+        StaminaPotion staminaPotion = new StaminaPotion();
+        if(player.isEnoughResource(staminaPotion.recipe)){
+            boolean isExists = false;
+            for (var supply : player.supplies) {
+                if (supply.getClass() == staminaPotion.getClass()) {
+                    isExists = true;
+                    supply.Number++;
+                    break;
+                }
+            }
+            if(!isExists){
+                player.supplies.add(staminaPotion);
+            }
+            player.addResource(ResourceType.SageLeaf, -6);
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Не хватает ингредиентов", "Неудача", JOptionPane.WARNING_MESSAGE);
+        }
+        player.RefreshInfo();
+    }
+
+    public void MakeSpicedMeat(){
+        SpicedMeat spicedMeat = new SpicedMeat();
+        if(player.isEnoughResource(spicedMeat.recipe)){
+            boolean isExists = false;
+            for (var supply : player.supplies) {
+                if (supply.getClass() == spicedMeat.getClass()) {
+                    isExists = true;
+                    supply.Number++;
+                    break;
+                }
+            }
+            if(!isExists){
+                player.supplies.add(spicedMeat);
+            }
+            player.addResource(ResourceType.Meat, -3);
+            player.addResource(ResourceType.SageLeaf, -2);
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Не хватает ингредиентов", "Неудача", JOptionPane.WARNING_MESSAGE);
+        }
+        player.RefreshInfo();
     }
 
 
