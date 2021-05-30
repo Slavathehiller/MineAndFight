@@ -92,6 +92,7 @@ public class MineFrom extends JFrame{
     private JButton ToTavernButton;
     public JPanel BuffsPanel;
     private JPanel SupplyPanel;
+    private JButton InventoryButton;
     private Timer staminaTimer;
     private Timer healthTimer;
     private int OreSellAmount = 1000;
@@ -162,6 +163,7 @@ public class MineFrom extends JFrame{
         ToAdventureButtonF.addActionListener(goToAdventure);
         ToWorkshopButton.addActionListener(goToWorkshop);
         ToTavernButton.addActionListener(goToTavern);
+        InventoryButton.addActionListener(OpenInventory);
         AttackWolfButton.addActionListener(AttackWolf);
         AttackGiantSpiderButton.addActionListener(AttackGiantSpider);
         AttackWhereBearButton.addActionListener(AttackWhereBear);
@@ -202,7 +204,7 @@ public class MineFrom extends JFrame{
         dataFromShopToForm();
 
         ActivateLocation(CityPanel);
-        setSize(800, 580);
+        setSize(800, 680);
         setLocationRelativeTo(null);
         ResourcePanel.setLayout(new BoxLayout(ResourcePanel, BoxLayout.Y_AXIS));
         RefreshStats();
@@ -263,7 +265,7 @@ public class MineFrom extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             ActivateLocation(MinePanel);
-            setSize(640, 680);
+            setSize(640, 730);
             setLocationRelativeTo(null);
         }
     };
@@ -272,7 +274,7 @@ public class MineFrom extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             ActivateLocation(CityPanel);
-            setSize(810, 680);
+            setSize(810, 730);
             setLocationRelativeTo(null);
         }
     };
@@ -290,7 +292,7 @@ public class MineFrom extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             ActivateLocation(ForestPanel);
-            setSize(690, 680);
+            setSize(690, 730);
             setLocationRelativeTo(null);
         }
     };
@@ -299,7 +301,7 @@ public class MineFrom extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             ActivateLocation(BlackSmithPanel);
-            setSize(630, 680);
+            setSize(630, 730);
             setLocationRelativeTo(null);
         }
     };
@@ -308,7 +310,7 @@ public class MineFrom extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             ActivateLocation(ShopPanel);
-            setSize(910, 680);
+            setSize(910, 730);
             setLocationRelativeTo(null);
         }
     };
@@ -317,7 +319,7 @@ public class MineFrom extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             ActivateLocation(AdventurePanel);
-            setSize(750, 680);
+            setSize(750, 730);
             setLocationRelativeTo(null);
         }
     };
@@ -335,6 +337,15 @@ public class MineFrom extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             ChooseHunt chooseHunt = new ChooseHunt(player);
+
+            dataFromPlayerToForm();
+        }
+    };
+
+    private final ActionListener OpenInventory = new ActionListener(){
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Inventory inventory = new Inventory(player);
 
             dataFromPlayerToForm();
         }

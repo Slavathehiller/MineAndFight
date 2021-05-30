@@ -103,6 +103,24 @@ public class Player {
         buffPanel.updateUI();
     }
 
+    public Supply GetSupply(Class _class){
+        for(var supply:supplies){
+            if(supply.getClass() == _class){
+                return supply;
+            }
+        }
+        return null;
+    }
+
+    public long GetSupplyNumber(Class _class){
+        for(var supply:supplies){
+            if(supply.getClass() == _class){
+                return supply.Number;
+            }
+        }
+        return 0;
+    }
+
     public void UpdateResources(JPanel resourcePanel, ArrayList<JLabel> resourceLabels){
         for(int i = resourceLabels.size() - 1; i >= 0; i--){
             var lbl = resourceLabels.get(i);

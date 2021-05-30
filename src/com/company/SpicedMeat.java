@@ -26,8 +26,8 @@ public class SpicedMeat extends Supply{
             throw new Exception("Количество еды равна 0");
         }
         Number--;
-        player.setHealth(player.getMaxHealth() - 50);
-        player.setStamina(player.getMaxStamina() - 50);
-
+        player.setHealth(player.getHealth() + player.getMaxHealth() / 2);
+        player.setStamina(player.getStamina() + player.getMaxStamina() / 2);
+        super.Use(player);
     }
 }

@@ -23,5 +23,9 @@ public abstract class Supply {
         init();
     }
 
-    abstract public void Use(Player player) throws Exception;
+    public void Use(Player player) throws Exception{
+        if(Number < 1){
+            player.supplies.remove(this);
+        }
+    }
 }

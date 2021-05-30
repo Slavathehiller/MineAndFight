@@ -27,6 +27,7 @@ public class HealthPotion extends Supply{
         }
         Number--;
         player.setHealth(player.getMaxHealth());
+        super.Use(player);
 
     }
 }
