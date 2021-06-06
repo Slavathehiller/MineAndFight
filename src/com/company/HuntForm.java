@@ -108,10 +108,10 @@ public class HuntForm extends JDialog{
                 if(e.getKeyCode() == KeyEvent.VK_D && player.X < maxX - 1){
                     player.X += 1;
                 }
-
-                ActObjects();
-                DrawMap();
                 CheckIfCatch();
+                ActObjects();
+                CheckIfCatch();
+                DrawMap();
                 CheckIfFound();
                 player.addStamina(-StepStaminaConsumption);
                 player.RefreshInfo();
