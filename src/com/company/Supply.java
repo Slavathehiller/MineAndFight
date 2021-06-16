@@ -1,7 +1,6 @@
 package com.company;
 
 import javax.swing.*;
-import java.util.ArrayList;
 import java.util.Objects;
 
 public abstract class Supply {
@@ -25,7 +24,7 @@ public abstract class Supply {
 
     public void Use(Player player) throws Exception{
         if(Number < 1){
-            player.supplies.remove(this);
+            player.getSupplies().remove(this);
         }
     }
 }

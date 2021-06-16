@@ -103,8 +103,10 @@ public class Player {
         buffPanel.updateUI();
     }
 
+
+
     public Supply GetSupply(Class _class){
-        for(var supply:supplies){
+        for(var supply: getSupplies()){
             if(supply.getClass() == _class){
                 return supply;
             }
@@ -113,7 +115,7 @@ public class Player {
     }
 
     public long GetSupplyNumber(Class _class){
-        for(var supply:supplies){
+        for(var supply: getSupplies()){
             if(supply.getClass() == _class){
                 return supply.Number;
             }
@@ -143,7 +145,7 @@ public class Player {
             var lbl = supplyPanel.getComponent(i);
             supplyPanel.remove(lbl);
         }
-        for(var supply:supplies){
+        for(var supply: getSupplies()){
             JLabel supplyLabel = new JLabel();
             supplyLabel.setIcon(supply.smallImage);
             supplyLabel.setToolTipText(supply.Name);
@@ -368,5 +370,9 @@ public class Player {
 
     public void setRegenerateStaminaRatio(float regenerateRatio) {
         RegenerateStaminaRatio = regenerateRatio;
+    }
+
+    public ArrayList<Supply> getSupplies() {
+        return supplies;
     }
 }

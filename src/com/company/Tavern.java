@@ -71,7 +71,7 @@ public class Tavern extends JFrame{
         HealthPotion healthPotion = new HealthPotion();
         if(player.isEnoughResource(healthPotion.recipe)){
             boolean isExists = false;
-            for (var supply : player.supplies) {
+            for (var supply : player.getSupplies()) {
                 if (supply.getClass() == healthPotion.getClass()) {
                     isExists = true;
                     supply.Number++;
@@ -79,7 +79,7 @@ public class Tavern extends JFrame{
                 }
             }
             if(!isExists){
-                player.supplies.add(healthPotion);
+                player.getSupplies().add(healthPotion);
             }
             player.addResource(ResourceType.PlantainLeaf, -6);
         }
@@ -93,7 +93,7 @@ public class Tavern extends JFrame{
         StaminaPotion staminaPotion = new StaminaPotion();
         if(player.isEnoughResource(staminaPotion.recipe)){
             boolean isExists = false;
-            for (var supply : player.supplies) {
+            for (var supply : player.getSupplies()) {
                 if (supply.getClass() == staminaPotion.getClass()) {
                     isExists = true;
                     supply.Number++;
@@ -101,7 +101,7 @@ public class Tavern extends JFrame{
                 }
             }
             if(!isExists){
-                player.supplies.add(staminaPotion);
+                player.getSupplies().add(staminaPotion);
             }
             player.addResource(ResourceType.SageLeaf, -6);
         }
@@ -115,7 +115,7 @@ public class Tavern extends JFrame{
         SpicedMeat spicedMeat = new SpicedMeat();
         if(player.isEnoughResource(spicedMeat.recipe)){
             boolean isExists = false;
-            for (var supply : player.supplies) {
+            for (var supply : player.getSupplies()) {
                 if (supply.getClass() == spicedMeat.getClass()) {
                     isExists = true;
                     supply.Number++;
@@ -123,7 +123,7 @@ public class Tavern extends JFrame{
                 }
             }
             if(!isExists){
-                player.supplies.add(spicedMeat);
+                player.getSupplies().add(spicedMeat);
             }
             player.addResource(ResourceType.Meat, -3);
             player.addResource(ResourceType.SageLeaf, -2);

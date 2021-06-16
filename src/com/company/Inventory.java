@@ -1,22 +1,14 @@
 package com.company;
 
 import javax.swing.*;
+import java.util.ArrayList;
 
 public class Inventory extends JFrame{
     private JPanel MainPanel;
-    private JPanel HealthPotionPanel;
-    private JPanel StaminaPotionPanel;
-    private JPanel SpicedMeatPanel;
     private JButton UseSupplyButton;
     private JButton ExitButton;
-    private JRadioButton HealthPotionRadioButton;
-    private JLabel HealthPotionLabel;
-    private JLabel StaminaPotionLabel;
-    private JLabel SpicedMeatLabel;
-    private JRadioButton StaminaPotionRadioButton;
-    private JRadioButton SpicedMeatRadioButton;
-    private ButtonGroup buttonGroup = new ButtonGroup();
-    private Supply[] supplies = new Supply[]{new HealthPotion(), new StaminaPotion(), new SpicedMeat()};
+    private JPanel SuppliesPanel;
+    private ArrayList<JRadioButton> radioButtons;
     private int NumberSelected = -1;
     Player player;
 
@@ -25,12 +17,6 @@ public class Inventory extends JFrame{
         setBounds(300, 300, 500, 500);
         setVisible(true);
         this.player = player;
-        buttonGroup.add(HealthPotionRadioButton);
-        buttonGroup.add(StaminaPotionRadioButton);
-        buttonGroup.add(SpicedMeatRadioButton);
-        HealthPotionRadioButton.addChangeListener((x) -> SelectSupply());
-        StaminaPotionRadioButton.addChangeListener((x) -> SelectSupply());
-        SpicedMeatRadioButton.addChangeListener((x) -> SelectSupply());
         UseSupplyButton.addActionListener((x) -> {
             try {
                 UseSupply();
@@ -43,27 +29,25 @@ public class Inventory extends JFrame{
     }
 
     private void SelectSupply(){
-        if(HealthPotionRadioButton.isSelected()){
-            NumberSelected = 0;
-        }
-        if(StaminaPotionRadioButton.isSelected()){
-            NumberSelected = 1;
-        }
-        if(SpicedMeatRadioButton.isSelected()){
-            NumberSelected = 2;
+        for(var i = 0; i < radioButtons.size(); i++){
+            if(radioButtons.get(i).isSelected()){
+                NumberSelected = i;
+                break;
+            }
         }
     }
 
     private void RefreshSupplyNumbers(){
-        HealthPotionLabel.setText("x " + player.GetSupplyNumber(HealthPotion.class));
-        StaminaPotionLabel.setText("x " + player.GetSupplyNumber(StaminaPotion.class));
-        SpicedMeatLabel.setText("x " + player.GetSupplyNumber(SpicedMeat.class));
+        radioButtons = UIService.DisplaySupplyWithNumbers(SuppliesPanel, player.supplies);
+        for(var radioButton:radioButtons){
+            radioButton.addChangeListener((x) -> SelectSupply());
+        }
     }
 
     private void UseSupply() throws Exception {
         if(NumberSelected < 0)
             return;
-        Supply supply = player.GetSupply(supplies[NumberSelected].getClass());
+        Supply supply = player.GetSupply(player.supplies.get(NumberSelected).getClass());
         if(supply != null && supply.Number > 0)
             supply.Use(player);
         RefreshSupplyNumbers();
