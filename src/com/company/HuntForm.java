@@ -156,7 +156,7 @@ public class HuntForm extends JDialog{
         double chanceToSpawn = Math.floor(Math.random()*100);
         HuntAnimal animal;
         if(chanceToSpawn < 20) {
-            if(chanceToSpawn < 10){
+            if(chanceToSpawn > 10){
                 animal = new Hog(maxX, maxY);
             }
             else{

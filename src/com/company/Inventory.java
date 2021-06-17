@@ -42,14 +42,20 @@ public class Inventory extends JFrame{
         for(var radioButton:radioButtons){
             radioButton.addChangeListener((x) -> SelectSupply());
         }
+        if(NumberSelected > -1)
+            radioButtons.get(NumberSelected).setSelected(true);
     }
 
     private void UseSupply() throws Exception {
         if(NumberSelected < 0)
             return;
         Supply supply = player.GetSupply(player.supplies.get(NumberSelected).getClass());
-        if(supply != null && supply.Number > 0)
+        if(supply != null && supply.Number > 0) {
             supply.Use(player);
+            if (supply.Number < 1) {
+                NumberSelected = -1;
+            }
+        }
         RefreshSupplyNumbers();
         player.RefreshInfo();
     }

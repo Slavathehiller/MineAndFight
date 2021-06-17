@@ -28,7 +28,6 @@ public class StaminaPotion extends Supply{
         Number--;
         player.setStamina(player.getMaxStamina());
         super.Use(player);
-
     }
 
 }
