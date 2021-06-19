@@ -338,8 +338,8 @@ public class HuntForm extends JDialog{
 
     private void DrawMap(){
         for(int i = 0; i < maxY; i++) {
-            for (int j = 0; j < maxX; j++) {
-                if (DistanceToPlayer(j, i) > player.SeenArea()) {
+            for(int j = 0; j < maxX; j++) {
+                if(DistanceToPlayer(j, i) > player.SeenArea()) {
                     var animal = AnimalAt(j, i);
                     if (DistanceToPlayer(j, i) <= player.senseRadius() && animal != null) {
                         map[i][j].setIcon(questionIcon);

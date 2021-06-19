@@ -29,7 +29,9 @@ public class Wolf extends HuntAnimal{
         super(maxX, maxY);
     }
 
-    public Wolf(){super();}
+    public Wolf(){
+        super();
+    }
 
     @Override
     public void Act(){

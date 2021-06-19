@@ -93,6 +93,7 @@ public class MineFrom extends JFrame{
     public JPanel BuffsPanel;
     private JPanel SupplyPanel;
     private JButton InventoryButton;
+    private JButton EnterThicketLevel1Button;
     private Timer staminaTimer;
     private Timer healthTimer;
     private int OreSellAmount = 1000;
@@ -164,6 +165,7 @@ public class MineFrom extends JFrame{
         ToWorkshopButton.addActionListener(goToWorkshop);
         ToTavernButton.addActionListener(goToTavern);
         InventoryButton.addActionListener(OpenInventory);
+        EnterThicketLevel1Button.addActionListener(EnterThicketLevel1);
         AttackWolfButton.addActionListener(AttackWolf);
         AttackGiantSpiderButton.addActionListener(AttackGiantSpider);
         AttackWhereBearButton.addActionListener(AttackWhereBear);
@@ -337,6 +339,19 @@ public class MineFrom extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             ChooseHunt chooseHunt = new ChooseHunt(player);
+
+            dataFromPlayerToForm();
+        }
+    };
+
+    private final ActionListener EnterThicketLevel1 = new ActionListener(){
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            player.X = 1;
+            player.Y = 1;
+            ISubLevelModel model = new ThicketLevel1Model(player);
+            ISubLevelController controller = new SubLevelController();
+            SwingViewer swingViewer = new SwingViewer(model, controller);
 
             dataFromPlayerToForm();
         }

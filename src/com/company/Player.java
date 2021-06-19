@@ -3,7 +3,7 @@ package com.company;
 import javax.swing.*;
 import java.util.ArrayList;
 
-public class Player {
+public class Player implements IDisplayable{
 
     public int Pickaxe_lvl = 1;
     public int PickaxeUpgradeCost = 10;
@@ -19,6 +19,7 @@ public class Player {
     private float MaxStamina = 100;
     private float RegenerateHealthRatio = 1;
     private float RegenerateStaminaRatio = 1;
+    private ImageIcon image;
 
     public MineFrom InfoForm;
     public int additionalVisionArea = 0;
@@ -38,6 +39,7 @@ public class Player {
 
     public Player(MineFrom infoForm){
         InfoForm = infoForm;
+        this.image = new ImageIcon(getClass().getResource("/hunter_30x30.png"));
         for(int i = 0; i <= ResourceType.LastItem; i++){
             resources.add(new Resource(i));
         }
@@ -374,5 +376,20 @@ public class Player {
 
     public ArrayList<Supply> getSupplies() {
         return supplies;
+    }
+
+    @Override
+    public ImageIcon getImage() {
+        return image;
+    }
+
+    @Override
+    public Integer getX() {
+        return X;
+    }
+
+    @Override
+    public Integer getY() {
+        return Y;
     }
 }
