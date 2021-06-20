@@ -23,22 +23,25 @@ public class SubLevelController implements ISubLevelController {
             @Override
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
+                int direction = Direction.UNDEFINED;
 //                if (player.getStamina() < StepStaminaConsumption) {
 //                    JOptionPane.showMessageDialog(HuntPanel, "Вы слишком устали и не можете продолжать охоту", "Невозможно продолжать!", JOptionPane.INFORMATION_MESSAGE);
 //                    return;
 //                }
-                if (e.getKeyCode() == KeyEvent.VK_W && player.Y > 0) {
-                    player.Y -= 1;
+                if (e.getKeyCode() == KeyEvent.VK_W) {
+                    direction = Direction.UP;
                 }
-                if (e.getKeyCode() == KeyEvent.VK_S && player.Y < maxY - 1) {
-                    player.Y += 1;
+                if (e.getKeyCode() == KeyEvent.VK_S) {
+                    direction = Direction.DOWN;
                 }
-                if (e.getKeyCode() == KeyEvent.VK_A && player.X > 0) {
-                    player.X -= 1;
+                if (e.getKeyCode() == KeyEvent.VK_A) {
+                    direction = Direction.LEFT;
                 }
-                if (e.getKeyCode() == KeyEvent.VK_D && player.X < maxX - 1) {
-                    player.X += 1;
+                if (e.getKeyCode() == KeyEvent.VK_D) {
+                    direction = Direction.RIGHT;
                 }
+                model.movePlayer(direction);
+                model.tick();
                 viewer.DrawLocation();
             }
         });

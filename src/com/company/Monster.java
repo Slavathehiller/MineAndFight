@@ -9,6 +9,7 @@ public abstract class Monster implements IDisplayable{
     public int Y;
     public String Name;
     public ImageIcon image;
+    protected IMap map;
     abstract protected String getImagePath();
 
     protected void init(){
@@ -18,5 +19,13 @@ public abstract class Monster implements IDisplayable{
     public Monster(){
         init();
     }
+
+    public Monster(IMap map, int x, int y){
+        init();
+        this.X = x;
+        this.Y = y;
+        this.map = map;
+    }
+    public abstract void Act();
 
 }
