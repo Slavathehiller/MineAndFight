@@ -3,7 +3,7 @@ package com.company;
 import javax.swing.*;
 import java.util.Objects;
 
-public abstract class Monster implements IDisplayable{
+public abstract class Monster implements IDisplayable {
 
     public int X;
     public int Y;
@@ -11,6 +11,7 @@ public abstract class Monster implements IDisplayable{
     public ImageIcon image;
     protected IMap map;
     abstract protected String getImagePath();
+    protected float frequencyMove = 1;
 
     protected void init(){
         image = new ImageIcon(Objects.requireNonNull(getClass().getResource(getImagePath())));
@@ -27,5 +28,9 @@ public abstract class Monster implements IDisplayable{
         this.map = map;
     }
     public abstract void Act();
+
+    protected boolean CanMove() {
+        return Math.floor(Math.random()) < frequencyMove;
+    }
 
 }

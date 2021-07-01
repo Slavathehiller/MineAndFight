@@ -30,22 +30,25 @@ public class BlackWolf extends Monster{
                 System.out.println("nextX: " + nextX + " nextY: " + nextY);
                 countOfTries++;
             }
-            while (!map.canIMove(nextX, nextY) && countOfTries < 50);
-//            while (nextX < 0 || nextX >= MaxX || nextY < 0 || nextY >= MaxY);
+            while (!map.canMonsterMove(nextX, nextY) && countOfTries < 50);
+            if(countOfTries >= 50){
+                return;
+            }
             X = nextX;
             Y = nextY;
 //            System.out.println("X: " + X + " Y: " + Y);
         }
     }
 
+    @Override
     protected boolean CanMove() {
-//        return Math.floor(Math.random() * 100) < frequencyMove;
-        return true;
+        return super.CanMove();
     }
 
     public BlackWolf(IMap map, int x, int y){
         super(map, x, y);
         Name = "Черный волк";
+        frequencyMove = 0.75f;
     }
 
     @Override
@@ -61,5 +64,15 @@ public class BlackWolf extends Monster{
     @Override
     public Integer getY() {
         return Y;
+    }
+
+    @Override
+    public int getObjectType() {
+        return CollisionObjectTypes.Monster;
+    }
+
+    @Override
+    public Object getSelf() {
+        return this;
     }
 }

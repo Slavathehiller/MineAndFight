@@ -392,4 +392,14 @@ public class Player implements IDisplayable{
     public Integer getY() {
         return Y;
     }
+
+    @Override
+    public int getObjectType() {
+        return CollisionObjectTypes.Player;
+    }
+
+    @Override
+    public Object getSelf() {
+        return this;
+    }
 }

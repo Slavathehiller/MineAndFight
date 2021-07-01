@@ -2,5 +2,5 @@ package com.company;
 
 public interface IMap {
 
-    boolean canIMove(int x, int y);
+    boolean canMonsterMove(int x, int y);
 }

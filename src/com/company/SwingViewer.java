@@ -2,6 +2,8 @@ package com.company;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class SwingViewer extends JDialog implements ISubLevelViewer {
 
@@ -17,7 +19,7 @@ public class SwingViewer extends JDialog implements ISubLevelViewer {
         map = new JLabel[model.getMaxY()][model.getMaxX()];
         add(MainPanel);
         setVisible(true);
-        setBounds(700, 100, 1200, 1200);
+        setBounds(700, 100, 1400, 1200);
         GridLayout layout = new GridLayout(0, 1, 0, 0);
         LocationPanel.setLayout(layout);
         GridLayout panelLayout = new GridLayout(1, 0, 0, 0);
@@ -34,6 +36,7 @@ public class SwingViewer extends JDialog implements ISubLevelViewer {
             LocationPanel.add(panel);
         }
         controller.Initializate(this, model);
+        InitializeControl();
         DrawLocation();
     }
 
@@ -51,7 +54,27 @@ public class SwingViewer extends JDialog implements ISubLevelViewer {
     }
 
     @Override
-    public JDialog getSelf() {
-        return this;
+    public void InitializeControl() {
+        this.setFocusable(true);
+        this.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);
+                int direction = Direction.UNDEFINED;
+                if (e.getKeyCode() == KeyEvent.VK_W) {
+                    direction = Direction.UP;
+                }
+                if (e.getKeyCode() == KeyEvent.VK_S) {
+                    direction = Direction.DOWN;
+                }
+                if (e.getKeyCode() == KeyEvent.VK_A) {
+                    direction = Direction.LEFT;
+                }
+                if (e.getKeyCode() == KeyEvent.VK_D) {
+                    direction = Direction.RIGHT;
+                }
+                controller.React(direction);
+            }
+        });
     }
 }

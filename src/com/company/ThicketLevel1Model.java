@@ -46,17 +46,24 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
 
     @Override
     public void movePlayer(int direction) {
-        if (direction == Direction.UP && player.Y > 0) {
-            player.Y -= 1;
+        int x = player.X;
+        int y = player.Y;
+
+        if (direction == Direction.UP) {
+            y -= 1;
         }
-        if (direction == Direction.DOWN && player.Y < maxY - 1) {
-            player.Y += 1;
+        if (direction == Direction.DOWN) {
+            y += 1;
         }
-        if (direction == Direction.LEFT && player.X > 0) {
-            player.X -= 1;
+        if (direction == Direction.LEFT) {
+            x -= 1;
         }
-        if (direction == Direction.RIGHT && player.X < maxX - 1) {
-            player.X += 1;
+        if (direction == Direction.RIGHT) {
+            x += 1;
+        }
+        if(TryMove(x, y)){
+            player.X = x;
+            player.Y = y;
         }
     }
 
@@ -69,6 +76,30 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
         for(var monster:monsters){
             monster.Act();
         }
+    }
+
+    private Boolean TryMove(int x, int y){
+        var object = ObjectAt(x, y);
+        if(object == null){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    private IDisplayable ObjectAt(int x, int y){
+        if(x > maxX - 1 || x < 0 || y > maxY - 1 || y < 0){
+            return new Edge();
+        }
+        for(var objects:DisplayableObjects){
+            for(var object:objects){
+                if(x == object.getX() && y == object.getY()){
+                    return object;
+                }
+            }
+        }
+        return null;
     }
 
 
@@ -85,7 +116,7 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
     }
 
     @Override
-    public boolean canIMove(int x, int y) {
-        return x < maxX && x >= 0 && y >= 0 && y < maxY;
+    public boolean canMonsterMove(int x, int y) {
+        return ObjectAt(x, y) == null;
     }
 }

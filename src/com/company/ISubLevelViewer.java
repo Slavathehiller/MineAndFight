@@ -4,6 +4,6 @@ import javax.swing.*;
 
 public interface ISubLevelViewer {
     void DrawLocation();
-    JDialog getSelf();
+    void InitializeControl();
 
 }
