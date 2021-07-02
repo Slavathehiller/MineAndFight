@@ -8,6 +8,7 @@ public interface ISubLevelModel {
     Integer getMaxX();
     Integer getMaxY();
     ArrayList<Monster> getMonsters();
+    ArrayList<Obstacle> getObstacles();
     ArrayList<ArrayList<IDisplayable>> getDisplayableObjects();
     void movePlayer(int direction);
     void tick();

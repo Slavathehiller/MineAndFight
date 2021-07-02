@@ -1,8 +1,34 @@
 package com.company;
 
 import javax.swing.*;
+import java.util.Objects;
 
-public class Obstacle implements IDisplayable{
+public abstract class Obstacle implements IDisplayable{
+
+    public int X;
+    public int Y;
+    public String Name;
+    public ImageIcon image;
+    protected IMap map;
+    abstract protected String getImagePath();
+
+    protected void init(){
+        if(getImagePath() == null){
+            return;
+        }
+        image = new ImageIcon(Objects.requireNonNull(getClass().getResource(getImagePath())));
+    }
+
+    public Obstacle(){
+        init();
+    }
+
+    public Obstacle(IMap map, int x, int y){
+        init();
+        this.X = x;
+        this.Y = y;
+        this.map = map;
+    }
 
     @Override
     public ImageIcon getImage() {

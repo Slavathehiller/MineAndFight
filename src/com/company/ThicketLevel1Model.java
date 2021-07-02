@@ -1,18 +1,23 @@
 package com.company;
 
 import java.awt.event.KeyEvent;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 public class ThicketLevel1Model implements ISubLevelModel, IMap{
     Player player;
     private int maxX = 40;
     private int maxY = 30;
+    private int maxObstacles = 20;
+    private int minObstacles = 12;
+    ArrayList<Obstacle> obstacles = new ArrayList<>();
     ArrayList<Monster> monsters = new ArrayList<>();
     ArrayList<ArrayList<IDisplayable>> DisplayableObjects = new ArrayList<>();
 
     public ThicketLevel1Model(Player player){
         this.player = player;
         GenerateMonsters();
+        GenerateObstacles();
         ArrayList<IDisplayable> iPlayers = new ArrayList<>();
         iPlayers.add(player);
         DisplayableObjects.add(iPlayers);
@@ -37,6 +42,11 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
     @Override
     public ArrayList<Monster> getMonsters() {
         return monsters;
+    }
+
+    @Override
+    public ArrayList<Obstacle> getObstacles() {
+        return obstacles;
     }
 
     @Override
@@ -102,6 +112,25 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
         return null;
     }
 
+    public void GenerateObject(Class _class) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+        var object = _class.getDeclaredConstructor().newInstance();
+    }
+
+    private int getObstacleCount(){
+        return (int) Math.round(Math.random() * ( maxObstacles - minObstacles )) + minObstacles;
+    }
+
+    public void GenerateObstacles(){
+        ArrayList<IDisplayable> iObstacles = new ArrayList<>();
+        for(var i = 0; i < getObstacleCount(); i++){
+            int x = (int) Math.max(Math.round(Math.random() * maxX - 1), 0);
+            int y = (int) Math.max(Math.round(Math.random() * maxY - 1), 0);
+            Obstacle obstacle = new ForestObstacle(this, x, y);
+            obstacles.add(obstacle);
+            iObstacles.add(obstacle);
+        }
+        DisplayableObjects.add(iObstacles);
+    }
 
     public void GenerateMonsters(){
         ArrayList<IDisplayable> iMonsters = new ArrayList<>();
