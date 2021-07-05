@@ -7,6 +7,8 @@ public interface ISubLevelModel {
     Player getPlayer();
     Integer getMaxX();
     Integer getMaxY();
+    String getLog();
+    void ClearLog();
     ArrayList<Monster> getMonsters();
     ArrayList<Obstacle> getObstacles();
     ArrayList<ArrayList<IDisplayable>> getDisplayableObjects();

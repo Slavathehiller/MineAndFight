@@ -24,6 +24,7 @@ public class SubLevelController implements ISubLevelController {
         model.movePlayer(direction);
         model.tick();
         viewer.DrawLocation();
+        model.ClearLog();
     }
 }
 

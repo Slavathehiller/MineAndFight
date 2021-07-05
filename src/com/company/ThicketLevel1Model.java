@@ -10,6 +10,7 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
     private int maxY = 30;
     private int maxObstacles = 20;
     private int minObstacles = 12;
+    public String Log;
     ArrayList<Obstacle> obstacles = new ArrayList<>();
     ArrayList<Monster> monsters = new ArrayList<>();
     ArrayList<ArrayList<IDisplayable>> DisplayableObjects = new ArrayList<>();
@@ -37,6 +38,11 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
     @Override
     public Integer getMaxY() {
         return maxY;
+    }
+
+    @Override
+    public String getLog() {
+        return Log;
     }
 
     @Override
@@ -94,8 +100,17 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
             return true;
         }
         else{
+            if(object.getObjectType() == CollisionObjectTypes.Monster){
+                Monster monster = (Monster)object;
+                Log += "Игрок атакует " + monster.Name + "\n";
+                Attack(player, monster);
+            }
             return false;
         }
+    }
+
+    public void ClearLog(){
+        Log = "";
     }
 
     private IDisplayable ObjectAt(int x, int y){
@@ -110,6 +125,35 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
             }
         }
         return null;
+    }
+
+    public void Attack(IFighter attacker, IFighter target){
+        var diff = attacker.getPower() / target.getPower();
+        var chance = Math.sqrt(diff) * 50 / 100;
+        chance = Math.min(chance, 0.999);
+        chance = Math.max(chance, 0.001);
+        System.out.println("Шанс попадания: " + chance);
+        var toHit = Math.random();
+        System.out.println("Выпало: " + toHit);
+        if(chance >= toHit){
+            var damage = diff * 5;
+            Log += attacker.getName() + " бьет " + target.getName() + " и наносит " + damage + " урона.\n";
+            target.changeHealth(-damage);
+            if(target.getHealth() <= 0){
+                Log += target.getName() + " погибает\n";
+                if(target.getFighterType() == CollisionObjectTypes.Monster) {
+                    var monster = (Monster)target;
+                    monsters.remove(monster);
+                    for(var list:DisplayableObjects){
+                        list.remove(monster);
+                    }
+                }
+                else
+                    return;
+
+            }
+        }
+
     }
 
     public void GenerateObject(Class _class) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {

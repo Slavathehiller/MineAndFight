@@ -3,7 +3,7 @@ package com.company;
 import javax.swing.*;
 import java.util.ArrayList;
 
-public class Player implements IDisplayable{
+public class Player implements IDisplayable, IFighter{
 
     public int Pickaxe_lvl = 1;
     public int PickaxeUpgradeCost = 10;
@@ -276,6 +276,26 @@ public class Player implements IDisplayable{
         return Health;
     }
 
+    @Override
+    public void changeHealth(float health) {
+        setHealth(Health + health);
+    }
+
+    @Override
+    public int getFighterType() {
+        return CollisionObjectTypes.Player;
+    }
+
+    @Override
+    public float getPower() {
+        return Armor_lvl;
+    }
+
+    @Override
+    public String getName() {
+        return "Игрок";
+    }
+
     public void setHealth(float health) {
         if(health > getMaxHealth()){
             Health = getMaxHealth();
@@ -391,6 +411,11 @@ public class Player implements IDisplayable{
     @Override
     public Integer getY() {
         return Y;
+    }
+
+    @Override
+    public String getToolTip() {
+        return null;
     }
 
     @Override

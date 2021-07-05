@@ -45,6 +45,11 @@ public class ForestObstacle extends Obstacle{
     }
 
     @Override
+    public String getToolTip() {
+        return null;
+    }
+
+    @Override
     public int getObjectType() {
         return CollisionObjectTypes.Obstacle;
     }

@@ -41,14 +41,25 @@ public class BlackWolf extends Monster{
     }
 
     @Override
+    public float getMaxHealth() {
+        return 20;
+    }
+
+    @Override
     protected boolean CanMove() {
         return super.CanMove();
+    }
+
+    @Override
+    public String getToolTip() {
+        return "Черный волк. " + "Здоровье: " + Health + "/" + getMaxHealth();
     }
 
     public BlackWolf(IMap map, int x, int y){
         super(map, x, y);
         Name = "Черный волк";
-        frequencyMove = 0.75f;
+        frequencyMove = 0.1f;
+        Power = 10;
     }
 
     @Override
@@ -75,4 +86,6 @@ public class BlackWolf extends Monster{
     public Object getSelf() {
         return this;
     }
+
+
 }

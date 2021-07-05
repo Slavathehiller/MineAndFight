@@ -12,6 +12,10 @@ public class SwingViewer extends JDialog implements ISubLevelViewer {
     ISubLevelController controller;
     private JPanel MainPanel;
     private JPanel LocationPanel;
+    private JPanel ControllPanel;
+    private JPanel LogPanel;
+    private JTextArea TALogger;
+    private JPanel InfoPanel;
 
     public SwingViewer(ISubLevelModel model, ISubLevelController controller){
         this.model = model;
@@ -44,13 +48,21 @@ public class SwingViewer extends JDialog implements ISubLevelViewer {
         for(var i = 0; i < model.getMaxY(); i++){
             for (var j = 0; j < model.getMaxX(); j++){
                 map[i][j].setIcon(null);
+                map[i][j].setToolTipText(null);
             }
         }
         for(var objectArray:model.getDisplayableObjects()){
             for(var object:objectArray) {
                 map[object.getY()][object.getX()].setIcon(object.getImage());
+                map[object.getY()][object.getX()].setToolTipText(object.getToolTip());
             }
         }
+        Log(model.getLog());
+    }
+
+    public void Log(String message){
+        if (message != null && message.length() > 0)
+            TALogger.setText(message + "\n" + TALogger.getText());
     }
 
     @Override

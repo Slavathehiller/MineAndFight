@@ -7,6 +7,7 @@ public interface IDisplayable {
     ImageIcon getImage();
     Integer getX();
     Integer getY();
+    String getToolTip();
     int getObjectType();
     Object getSelf();
 

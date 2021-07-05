@@ -7,6 +7,11 @@ public class Edge extends Obstacle{
     }
 
     @Override
+    public String getToolTip() {
+        return null;
+    }
+
+    @Override
     public int getObjectType() {
         return CollisionObjectTypes.Edge;
     }
