@@ -40,6 +40,17 @@ public abstract class Monster implements IDisplayable, IFighter {
         return Math.random() < frequencyMove;
     }
 
+    public boolean IsPlayerNear(){
+        return (X == map.getPlayer().X + 1 || X == map.getPlayer().X - 1) && Y == map.getPlayer().Y
+                || ((Y == map.getPlayer().Y - 1 || Y == map.getPlayer().Y + 1) && X == map.getPlayer().X);
+    }
+
+    public void AttackIfPlayerNear(){
+        if(IsPlayerNear()){
+            map.Attack(this, map.getPlayer());
+        }
+    }
+
     public abstract String getToolTip();
 
     @Override

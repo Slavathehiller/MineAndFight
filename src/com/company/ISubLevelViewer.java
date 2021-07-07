@@ -6,5 +6,7 @@ public interface ISubLevelViewer {
     void DrawLocation();
     void InitializeControl();
     void Log(String message);
+    void PlayerDeadMessage();
+    void EndLevel();
 
 }

@@ -44,6 +44,15 @@ public class SwingViewer extends JDialog implements ISubLevelViewer {
         DrawLocation();
     }
 
+    public void PlayerDeadMessage(){
+        JOptionPane.showMessageDialog(LocationPanel, "Вы получили слишком много урона\n и не можете продолжать", "Неудача", JOptionPane.WARNING_MESSAGE );
+    }
+
+    public void EndLevel(){
+         this.dispose();
+    }
+
+
     public void DrawLocation(){
         for(var i = 0; i < model.getMaxY(); i++){
             for (var j = 0; j < model.getMaxX(); j++){

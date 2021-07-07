@@ -23,6 +23,10 @@ public class SubLevelController implements ISubLevelController {
     public void React(int direction){
         model.movePlayer(direction);
         model.tick();
+        if(model.getPlayerIsDead()){
+            viewer.PlayerDeadMessage();
+            viewer.EndLevel();
+        }
         viewer.DrawLocation();
         model.ClearLog();
     }

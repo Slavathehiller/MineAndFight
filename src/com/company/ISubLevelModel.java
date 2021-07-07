@@ -14,5 +14,6 @@ public interface ISubLevelModel {
     ArrayList<ArrayList<IDisplayable>> getDisplayableObjects();
     void movePlayer(int direction);
     void tick();
+    boolean getPlayerIsDead();
 
 }

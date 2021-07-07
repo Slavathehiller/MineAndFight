@@ -12,6 +12,7 @@ public class BlackWolf extends Monster{
     @Override
     public void Act() {
         if(CanMove()){
+            AttackIfPlayerNear();
             int countOfTries = 0;
             int nextX;
             int nextY;

@@ -1,5 +1,6 @@
 package com.company;
 
+import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
     private int maxY = 30;
     private int maxObstacles = 20;
     private int minObstacles = 12;
+    private boolean PlayerIsDead = false;
     public String Log;
     ArrayList<Obstacle> obstacles = new ArrayList<>();
     ArrayList<Monster> monsters = new ArrayList<>();
@@ -140,20 +142,24 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
             Log += attacker.getName() + " бьет " + target.getName() + " и наносит " + damage + " урона.\n";
             target.changeHealth(-damage);
             if(target.getHealth() <= 0){
-                Log += target.getName() + " погибает\n";
                 if(target.getFighterType() == CollisionObjectTypes.Monster) {
+                    Log += target.getName() + " погибает\n";
                     var monster = (Monster)target;
                     monsters.remove(monster);
                     for(var list:DisplayableObjects){
                         list.remove(monster);
                     }
                 }
-                else
-                    return;
-
+                if(target.getFighterType() == CollisionObjectTypes.Player){
+                    PlayerIsDead = true;
+                }
             }
         }
 
+    }
+
+    public boolean getPlayerIsDead(){
+        return PlayerIsDead;
     }
 
     public void GenerateObject(Class _class) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
