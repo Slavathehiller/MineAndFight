@@ -20,13 +20,21 @@ public class SubLevelController implements ISubLevelController {
         this.model = model;
     }
 
+    private void ProcessMessages(){
+        if(model.getMessages(MessageIndex.NotEnoughEnergy)){
+            viewer.ShowMessage_NotEnoughStamina();
+        }
+    }
+
     public void React(int direction){
         model.movePlayer(direction);
         model.tick();
         if(model.getPlayerIsDead()){
             viewer.PlayerDeadMessage();
             viewer.EndLevel();
+            player.StartTimers();
         }
+        ProcessMessages();
         viewer.DrawLocation();
         model.ClearLog();
     }

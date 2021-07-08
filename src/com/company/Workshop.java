@@ -15,7 +15,6 @@ public class Workshop extends JFrame{
     private JPanel ResourcesPanel;
     private Player player;
     private ArrayList<JLabel> componentLabels = new ArrayList<>();
-    private ArrayList<JLabel> resourceLabels = new ArrayList<>();
 
     public Workshop(Player player){
         setVisible(true);
@@ -36,7 +35,7 @@ public class Workshop extends JFrame{
     }
 
     private void UpdateResources(){
-        player.UpdateResources(ResourcesPanel, resourceLabels);
+        player.UpdateResources(ResourcesPanel);
     }
 
     private void SelectedRecipe(){

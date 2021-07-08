@@ -2,6 +2,8 @@ package com.company;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -16,6 +18,12 @@ public class SwingViewer extends JDialog implements ISubLevelViewer {
     private JPanel LogPanel;
     private JTextArea TALogger;
     private JPanel InfoPanel;
+    private JPanel StatsPanel;
+    private JProgressBar HealthBar;
+    private JProgressBar StaminaBar;
+    private JPanel ResourcePanel;
+    private JPanel SupplyPanel;
+    private JButton InventoryButton;
 
     public SwingViewer(ISubLevelModel model, ISubLevelController controller){
         this.model = model;
@@ -23,7 +31,7 @@ public class SwingViewer extends JDialog implements ISubLevelViewer {
         map = new JLabel[model.getMaxY()][model.getMaxX()];
         add(MainPanel);
         setVisible(true);
-        setBounds(700, 100, 1400, 1200);
+        setBounds(700, 100, 1450, 1200);
         GridLayout layout = new GridLayout(0, 1, 0, 0);
         LocationPanel.setLayout(layout);
         GridLayout panelLayout = new GridLayout(1, 0, 0, 0);
@@ -39,6 +47,8 @@ public class SwingViewer extends JDialog implements ISubLevelViewer {
             }
             LocationPanel.add(panel);
         }
+        ResourcePanel.setLayout(new BoxLayout(ResourcePanel, BoxLayout.Y_AXIS));
+        InventoryButton.addActionListener(OpenInventory);
         controller.Initializate(this, model);
         InitializeControl();
         DrawLocation();
@@ -49,9 +59,8 @@ public class SwingViewer extends JDialog implements ISubLevelViewer {
     }
 
     public void EndLevel(){
-         this.dispose();
+        this.dispose();
     }
-
 
     public void DrawLocation(){
         for(var i = 0; i < model.getMaxY(); i++){
@@ -67,7 +76,46 @@ public class SwingViewer extends JDialog implements ISubLevelViewer {
             }
         }
         Log(model.getLog());
+        RefreshPlayerInfo();
     }
+
+    private void RefreshStats(){
+        StaminaBar.setValue(Math.round(model.getPlayer().getStamina()));
+        StaminaBar.setToolTipText("Энергия (" + model.getPlayer().getStamina() + "/100)");
+        HealthBar.setValue(Math.round(model.getPlayer().getHealth()));
+        HealthBar.setToolTipText("Здоровье (" + model.getPlayer().getHealth() + "/100)");
+    }
+
+    public void RefreshPlayerInfo(){
+        RefreshStats();
+        RefreshResourcesInfo();
+        RefreshSupplyInfo();
+
+    }
+
+    @Override
+    public void ShowMessage_NotEnoughStamina(){
+        JOptionPane.showMessageDialog(LocationPanel, "Недостаточно энергии.", "Неудача", JOptionPane.WARNING_MESSAGE );
+    }
+
+    private final ActionListener OpenInventory = new ActionListener(){
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Inventory inventory = new Inventory(model.getPlayer());
+
+            RefreshPlayerInfo();
+            LocationPanel.setFocusable(true);
+        }
+    };
+
+    public void RefreshResourcesInfo(){
+        model.getPlayer().UpdateResources(ResourcePanel);
+    }
+
+    public void RefreshSupplyInfo(){
+        model.getPlayer().UpdateSuppliesInfo(SupplyPanel);
+    }
+
 
     public void Log(String message){
         if (message != null && message.length() > 0)

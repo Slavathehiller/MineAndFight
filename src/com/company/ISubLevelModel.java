@@ -15,5 +15,6 @@ public interface ISubLevelModel {
     void movePlayer(int direction);
     void tick();
     boolean getPlayerIsDead();
+    Boolean getMessages(int index);
 
 }

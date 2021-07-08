@@ -19,9 +19,10 @@ public class Player implements IDisplayable, IFighter{
     private float MaxStamina = 100;
     private float RegenerateHealthRatio = 1;
     private float RegenerateStaminaRatio = 1;
+    public float AttackEnergyCost = 5;
     private ImageIcon image;
 
-    public MineFrom InfoForm;
+    public MainForm InfoForm;
     public int additionalVisionArea = 0;
 
     public ArrayList<Resource> resources = new ArrayList<Resource>();
@@ -37,7 +38,7 @@ public class Player implements IDisplayable, IFighter{
                                 new Timer(200000, (x) -> setBuffOff(BuffTypes.EnLargeMaxStamina))
     };
 
-    public Player(MineFrom infoForm){
+    public Player(MainForm infoForm){
         InfoForm = infoForm;
         this.image = new ImageIcon(getClass().getResource("/hunter_30x30.png"));
         for(int i = 0; i <= ResourceType.LastItem; i++){
@@ -55,6 +56,7 @@ public class Player implements IDisplayable, IFighter{
     }
 
     public void StartTimers(){
+        RefreshInfo();
         InfoForm.StartTimers();
     }
 
@@ -125,15 +127,13 @@ public class Player implements IDisplayable, IFighter{
         return 0;
     }
 
-    public void UpdateResources(JPanel resourcePanel, ArrayList<JLabel> resourceLabels){
-        for(int i = resourceLabels.size() - 1; i >= 0; i--){
-            var lbl = resourceLabels.get(i);
+    public void UpdateResources(JPanel resourcePanel){
+        for(int i = resourcePanel.getComponents().length - 1; i >= 0; i--){
+            var lbl = resourcePanel.getComponent(i);
             resourcePanel.remove(lbl);
-            resourceLabels.remove(lbl);
         }
         for(Resource res:resources){
             JLabel resName = new JLabel();
-            resourceLabels.add(resName);
             resName.setIcon(res.Icon);
             resName.setText(": " + res.Number);
             resName.setToolTipText(res.Name);

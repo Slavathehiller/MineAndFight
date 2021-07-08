@@ -8,5 +8,7 @@ public interface ISubLevelViewer {
     void Log(String message);
     void PlayerDeadMessage();
     void EndLevel();
+    void ShowMessage_NotEnoughStamina();
+
 
 }

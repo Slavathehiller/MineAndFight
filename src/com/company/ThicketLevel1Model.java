@@ -16,6 +16,7 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
     ArrayList<Obstacle> obstacles = new ArrayList<>();
     ArrayList<Monster> monsters = new ArrayList<>();
     ArrayList<ArrayList<IDisplayable>> DisplayableObjects = new ArrayList<>();
+    public Boolean[] messages = new Boolean[]{false};
 
     public ThicketLevel1Model(Player player){
         this.player = player;
@@ -103,9 +104,15 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
         }
         else{
             if(object.getObjectType() == CollisionObjectTypes.Monster){
-                Monster monster = (Monster)object;
-                Log += "Игрок атакует " + monster.Name + "\n";
-                Attack(player, monster);
+                if(player.getStamina() >= player.AttackEnergyCost) {
+                    Monster monster = (Monster) object;
+                    Log += "Игрок атакует " + monster.Name + "\n";
+                    Attack(player, monster);
+                    player.addStamina(-player.AttackEnergyCost);
+                }
+                else{
+                    messages[MessageIndex.NotEnoughEnergy] = true;
+                }
             }
             return false;
         }
@@ -160,6 +167,13 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
 
     public boolean getPlayerIsDead(){
         return PlayerIsDead;
+    }
+
+    @Override
+    public Boolean getMessages(int index) {
+        var result = messages[index];
+        messages[index] = false;
+        return result;
     }
 
     public void GenerateObject(Class _class) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
