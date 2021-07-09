@@ -24,6 +24,8 @@ public class HuntForm extends JDialog{
     private JPanel StatsPanel;
     private JProgressBar HealthBar;
     private JProgressBar StaminaBar;
+    private JPanel ResourcePanel;
+    private JPanel SupplyPanel;
     private int size;
     private float StepStaminaConsumption = 0.5f;
 
@@ -46,7 +48,8 @@ public class HuntForm extends JDialog{
     ImageIcon hunterWithDogIcon = new ImageIcon(getClass().getResource("/hunter_with_dog_30x30.png"));
     ImageIcon questionIcon = new ImageIcon(getClass().getResource("/question_icon_30x30.png"));
 
-    public HuntForm(Player player, int size) {
+    public HuntForm(JDialog parent, Player player, int size) {
+        super(parent, "", ModalityType.DOCUMENT_MODAL);
         this.player = player;
         this.size = size;
         if(size == smallSize){
@@ -65,13 +68,15 @@ public class HuntForm extends JDialog{
         player.Y = maxY - 1;
         player.X = maxX / 2;
         PlayerInfoToForm();
-        setVisible(true);
         setSize(250 + maxX * 30, 100 + maxY * 30);
         setLocationRelativeTo(null);
         add(MainPanel);
         GridLayout layout = new GridLayout(0, 1, 0, 0);
         HuntPanel.setLayout(layout);
         GridLayout panelLayout = new GridLayout(1, 0, 0, 0);
+        var dimension = new Dimension();
+        dimension.setSize(maxX * 30, maxY * 30);
+        HuntPanel.setMaximumSize(dimension);
         for (int i = 0; i < maxY; i++) {
             JPanel panel = new JPanel();
 
@@ -119,6 +124,8 @@ public class HuntForm extends JDialog{
             }
         });
         ExitButton.addActionListener((x) -> CloseForm());
+        ResourcePanel.setLayout(new BoxLayout(ResourcePanel, BoxLayout.Y_AXIS));
+        setVisible(true);
     }
 
     private void RefreshStats(){
@@ -130,7 +137,6 @@ public class HuntForm extends JDialog{
 
 
     private void CloseForm(){
-        player.StartTimers();
         this.dispose();
     }
 
@@ -398,6 +404,8 @@ public class HuntForm extends JDialog{
         }
 
         RefreshStats();
+        player.UpdateResources(ResourcePanel);
+        player.UpdateSuppliesInfo(SupplyPanel);
 
         SpyGlassLbl.setVisible(player.haveEquipment(EquipmentType.SpyGlass));
         }

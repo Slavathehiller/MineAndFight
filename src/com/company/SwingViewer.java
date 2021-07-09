@@ -25,12 +25,12 @@ public class SwingViewer extends JDialog implements ISubLevelViewer {
     private JPanel SupplyPanel;
     private JButton InventoryButton;
 
-    public SwingViewer(ISubLevelModel model, ISubLevelController controller){
+    public SwingViewer(JDialog parent, ISubLevelModel model, ISubLevelController controller){
+        super(parent, "", ModalityType.DOCUMENT_MODAL);
         this.model = model;
         this.controller = controller;
         map = new JLabel[model.getMaxY()][model.getMaxX()];
         add(MainPanel);
-        setVisible(true);
         setBounds(700, 100, 1450, 1200);
         GridLayout layout = new GridLayout(0, 1, 0, 0);
         LocationPanel.setLayout(layout);
@@ -52,6 +52,7 @@ public class SwingViewer extends JDialog implements ISubLevelViewer {
         controller.Initializate(this, model);
         InitializeControl();
         DrawLocation();
+        setVisible(true);
     }
 
     public void PlayerDeadMessage(){
@@ -101,12 +102,16 @@ public class SwingViewer extends JDialog implements ISubLevelViewer {
     private final ActionListener OpenInventory = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
-            Inventory inventory = new Inventory(model.getPlayer());
+            Inventory inventory = new Inventory(self(), model.getPlayer());
 
             RefreshPlayerInfo();
-            LocationPanel.setFocusable(true);
+            self().requestFocusInWindow();
         }
     };
+
+    private SwingViewer self(){
+        return this;
+    }
 
     public void RefreshResourcesInfo(){
         model.getPlayer().UpdateResources(ResourcePanel);

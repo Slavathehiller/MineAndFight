@@ -5,7 +5,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.awt.LayoutManager;
 
-public class Workshop extends JFrame{
+public class Workshop extends JDialog{
     private JPanel MainPanel;
     private JList RecipeList;
     private JButton CreateButton;
@@ -16,8 +16,8 @@ public class Workshop extends JFrame{
     private Player player;
     private ArrayList<JLabel> componentLabels = new ArrayList<>();
 
-    public Workshop(Player player){
-        setVisible(true);
+    public Workshop(JDialog parent, Player player){
+        super(parent, "", ModalityType.DOCUMENT_MODAL);
         setBounds(600, 300, 700, 500);
         this.player = player;
         add(MainPanel);
@@ -32,6 +32,7 @@ public class Workshop extends JFrame{
         CreateButton.addActionListener((x) -> CreateItem());
         ToCityButton.addActionListener((x) -> this.dispose());
         UpdateResources();
+        setVisible(true);
     }
 
     private void UpdateResources(){

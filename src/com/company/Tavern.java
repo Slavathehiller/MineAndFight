@@ -2,7 +2,7 @@ package com.company;
 
 import javax.swing.*;
 
-public class Tavern extends JFrame{
+public class Tavern extends JDialog{
     private JPanel MainPanel;
     private JButton CookMushroomSoupButton;
     private JButton CookMeatSoupButton;
@@ -13,8 +13,8 @@ public class Tavern extends JFrame{
     private JButton CookRostMeatButton;
     Player player;
 
-    public Tavern(Player player){
-        setVisible(true);
+    public Tavern(JDialog parent, Player player){
+        super(parent, "", ModalityType.DOCUMENT_MODAL);
         add(MainPanel);
         setBounds(600, 300, 700, 500);
         this.player = player;
@@ -25,6 +25,7 @@ public class Tavern extends JFrame{
         MakeElixirOfHealthButton.addActionListener((x) -> MakeHealthPotion());
         MakeElixirOfStaminaButton.addActionListener((x) -> MakeStaminaPotion());
         MakeSpicedMeatButton.addActionListener((x) -> MakeSpicedMeat());
+        setVisible(true);
     }
 
     public void EatMushroomSoup(){

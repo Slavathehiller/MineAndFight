@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
-public class MainForm extends JFrame{
+public class MainForm extends JDialog{
     private JPanel MainPanel;
     private JPanel CityPanel;
     private JPanel MinePanel;
@@ -351,7 +351,8 @@ public class MainForm extends JFrame{
             player.StopTimers();
             ISubLevelModel model = new ThicketLevel1Model(player);
             ISubLevelController controller = new SubLevelController();
-            SwingViewer swingViewer = new SwingViewer(model, controller);
+            SwingViewer swingViewer = new SwingViewer(self(), model, controller);
+            player.StartTimers();
 
             dataFromPlayerToForm();
         }
@@ -360,16 +361,20 @@ public class MainForm extends JFrame{
     private final ActionListener OpenInventory = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
-            Inventory inventory = new Inventory(player);
+            Inventory inventory = new Inventory(self(), player);
 
             dataFromPlayerToForm();
         }
     };
 
+    private JDialog self(){
+        return this;
+    }
+
     private final ActionListener goToWorkshop = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
-            Workshop workshop = new Workshop(player);
+            Workshop workshop = new Workshop(self(), player);
 
             dataFromPlayerToForm();
         }
@@ -378,7 +383,7 @@ public class MainForm extends JFrame{
     private final ActionListener goToTavern = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
-            Tavern tavern = new Tavern(player);
+            Tavern tavern = new Tavern(self(), player);
 
             dataFromPlayerToForm();
         }

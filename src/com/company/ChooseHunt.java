@@ -73,8 +73,9 @@ public class ChooseHunt extends JFrame{
     }
 
     private void RunHunt(){
-        HuntForm huntForm = new HuntForm(player, size);
         player.StopTimers();
+        HuntForm huntForm = new HuntForm(player.InfoForm, player, size);
+        player.StartTimers();
     }
 
 

@@ -3,7 +3,7 @@ package com.company;
 import javax.swing.*;
 import java.util.ArrayList;
 
-public class Inventory extends JFrame{
+public class Inventory extends JDialog{
     private JPanel MainPanel;
     private JButton UseSupplyButton;
     private JButton ExitButton;
@@ -12,9 +12,12 @@ public class Inventory extends JFrame{
     private int NumberSelected = -1;
     Player player;
 
-    public Inventory(Player player){
+
+    public Inventory(JDialog parent, Player player){
+        super(parent, "", ModalityType.DOCUMENT_MODAL);
         add(MainPanel);
         setBounds(300, 300, 500, 500);
+        pack();
         setVisible(true);
         this.player = player;
         UseSupplyButton.addActionListener((x) -> {

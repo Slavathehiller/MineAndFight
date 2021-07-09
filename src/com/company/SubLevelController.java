@@ -32,7 +32,6 @@ public class SubLevelController implements ISubLevelController {
         if(model.getPlayerIsDead()){
             viewer.PlayerDeadMessage();
             viewer.EndLevel();
-            player.StartTimers();
         }
         ProcessMessages();
         viewer.DrawLocation();
