@@ -30,6 +30,8 @@ public class SubLevelController implements ISubLevelController {
         model.movePlayer(direction);
         model.tick();
         if(model.getPlayerIsDead()){
+            player.setDeBuffOn(DeBuffTypes.DeadlyWeakness);
+            player.setHealth(1);
             viewer.PlayerDeadMessage();
             viewer.EndLevel();
         }

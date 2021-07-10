@@ -30,12 +30,18 @@ public class Player implements IDisplayable, IFighter{
     public ArrayList<Equipment> equipments = new ArrayList<Equipment>();
     public ArrayList<Supply> supplies = new ArrayList<>();
     private ArrayList<ImageIcon> buffIcons;
+    private ArrayList<ImageIcon> deBuffIcons;
 
     public ArrayList<Integer> buffs = new ArrayList<>();
+    public ArrayList<Integer> deBuffs = new ArrayList<>();
+
+    private Timer[] deBuffTimers = new Timer[]{new Timer(600000, (x) -> setDeBuffOff(DeBuffTypes.DeadlyWeakness)),
+                                                new Timer(180000, (x) -> setDeBuffOff(DeBuffTypes.Bleed))
+    };
     private Timer[] buffTimers = new Timer[]{new Timer(300000, (x) -> setBuffOff(BuffTypes.FastHealthRegeneration)),
-                                new Timer(300000, (x) -> setBuffOff(BuffTypes.FastStaminaRegeneration)),
-                                new Timer(200000, (x) -> setBuffOff(BuffTypes.EnLargeMaxHealth)),
-                                new Timer(200000, (x) -> setBuffOff(BuffTypes.EnLargeMaxStamina))
+                                            new Timer(300000, (x) -> setBuffOff(BuffTypes.FastStaminaRegeneration)),
+                                            new Timer(200000, (x) -> setBuffOff(BuffTypes.EnLargeMaxHealth)),
+                                            new Timer(200000, (x) -> setBuffOff(BuffTypes.EnLargeMaxStamina))
     };
 
     public Player(MainForm infoForm){
@@ -43,6 +49,10 @@ public class Player implements IDisplayable, IFighter{
         this.image = new ImageIcon(getClass().getResource("/hunter_30x30.png"));
         for(int i = 0; i <= ResourceType.LastItem; i++){
             resources.add(new Resource(i));
+        }
+        deBuffIcons = new ArrayList<>();
+        for(var name:DeBuffTypes.deBuffImageNames){
+            deBuffIcons.add(new ImageIcon(getClass().getResource(name)));
         }
         buffIcons = new ArrayList<>();
         for(var name:BuffTypes.buffImageNames){
@@ -93,18 +103,24 @@ public class Player implements IDisplayable, IFighter{
         }
     }
 
-    public void UpdateBuffsInfo(JPanel buffPanel){
-        for(int i = buffPanel.getComponents().length - 1; i >= 0; i--){
-            var lbl = buffPanel.getComponent(i);
-            buffPanel.remove(lbl);
+    public void UpdateStateInfo(JPanel statePanel){
+        for(int i = statePanel.getComponents().length - 1; i >= 0; i--){
+            var lbl = statePanel.getComponent(i);
+            statePanel.remove(lbl);
         }
         for(var buff:buffs){
-            JLabel buffLabel = new JLabel();
-            buffLabel.setIcon(getBuffImage(buff));
-            buffLabel.setToolTipText(BuffTypes.toolTips[buff]);
-            buffPanel.add(buffLabel);
+            JLabel stateLabel = new JLabel();
+            stateLabel.setIcon(getBuffImage(buff));
+            stateLabel.setToolTipText(BuffTypes.toolTips[buff]);
+            statePanel.add(stateLabel);
         }
-        buffPanel.updateUI();
+        for(var deBuff:deBuffs){
+            JLabel stateLabel = new JLabel();
+            stateLabel.setIcon(getDeBuffImage(deBuff));
+            stateLabel.setToolTipText(DeBuffTypes.toolTips[deBuff]);
+            statePanel.add(stateLabel);
+        }
+        statePanel.updateUI();
     }
 
 
@@ -161,6 +177,10 @@ public class Player implements IDisplayable, IFighter{
         return buffIcons.get(buff);
     }
 
+    public ImageIcon getDeBuffImage(int deBuff){
+        return deBuffIcons.get(deBuff);
+    }
+
     public void upgradePickaxe(int lvl){
         if(getResourceNumber(ResourceType.Ore) >= PickaxeUpgradeCost){
                 addResource(ResourceType.Ore, -PickaxeUpgradeCost);
@@ -206,8 +226,12 @@ public class Player implements IDisplayable, IFighter{
 
     }
 
-    private void StartTimer(int index){
+    private void StartBuffTimer(int index){
         buffTimers[index].start();
+    }
+
+    private void StartDeBuffTimer(int index){
+        deBuffTimers[index].start();
     }
 
     public int SeenArea(){
@@ -261,15 +285,30 @@ public class Player implements IDisplayable, IFighter{
         if(buffs.contains(buff))
             buffs.remove((Object)buff);
         buffs.add(buff);
-        StartTimer(buff);
+        StartBuffTimer(buff);
     }
 
     public void setBuffOff(int buff){
         buffs.remove((Object)buff);
     }
 
+    public void setDeBuffOn(int deBuff){
+        if(deBuffs.contains(deBuff))
+            deBuffs.remove((Object)deBuff);
+        deBuffs.add(deBuff);
+        StartDeBuffTimer(deBuff);
+    }
+
+    public void setDeBuffOff(int deBuff){
+        deBuffs.remove((Object)deBuff);
+    }
+
     public boolean isBuffed(int buff){
         return buffs.contains(buff);
+    }
+
+    public boolean isDeBuffed(int deBuff){
+        return deBuffs.contains(deBuff);
     }
 
     public float getHealth() {
@@ -369,6 +408,10 @@ public class Player implements IDisplayable, IFighter{
     }
 
     public float getRegenerateHealthRatio() {
+        if(isDeBuffed(DeBuffTypes.DeadlyWeakness)){
+            return 0;
+        }
+
         var result = RegenerateHealthRatio;
         if(isBuffed(BuffTypes.FastHealthRegeneration))
         {
@@ -382,6 +425,9 @@ public class Player implements IDisplayable, IFighter{
     }
 
     public float getRegenerateStaminaRatio() {
+        if(isDeBuffed(DeBuffTypes.DeadlyWeakness)){
+            return 0;
+        }
         var result = RegenerateStaminaRatio;
         if(isBuffed(BuffTypes.FastStaminaRegeneration))
         {

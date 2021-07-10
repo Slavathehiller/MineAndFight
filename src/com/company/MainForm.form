@@ -372,8 +372,11 @@
               <grid row="13" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
+              <horizontalAlignment value="2"/>
               <icon value="bear_spear_icon_15x15.png"/>
+              <iconTextGap value="4"/>
               <text value="Рогатина"/>
+              <verticalTextPosition value="0"/>
             </properties>
           </component>
           <grid id="a658b" binding="ResourcePanel" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
@@ -462,7 +465,7 @@
               </grid>
             </children>
           </grid>
-          <grid id="77757" binding="BuffsPanel" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="0">
+          <grid id="77757" binding="StatePanel" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="0">
             <constraints>
               <grid row="1" column="1" row-span="1" col-span="4" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>

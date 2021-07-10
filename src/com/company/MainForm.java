@@ -2,7 +2,6 @@ package com.company;
 
 import javax.swing.*;
 import java.awt.event.*;
-import java.util.ArrayList;
 
 public class MainForm extends JDialog{
     private JPanel MainPanel;
@@ -90,7 +89,7 @@ public class MainForm extends JDialog{
     private JProgressBar StaminaBar;
     public JPanel StatsPanel;
     private JButton ToTavernButton;
-    public JPanel BuffsPanel;
+    public JPanel StatePanel;
     private JPanel SupplyPanel;
     private JButton InventoryButton;
     private JButton EnterThicketLevel1Button;
@@ -227,8 +226,16 @@ public class MainForm extends JDialog{
         RefreshHealthInfo();
     }
 
+    private boolean CanGoIntoBattle(){
+        if(player.isDeBuffed(DeBuffTypes.DeadlyWeakness)){
+            JOptionPane.showMessageDialog(MainPanel, "Смертельная слабость не позволяет вам идти в бой", "Действие невозможно", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+
     public void RefreshStats(){
-        player.UpdateBuffsInfo(BuffsPanel);
+        player.UpdateStateInfo(StatePanel);
         RefreshHealthInfo();
         RefreshStaminaInfo();
     }
@@ -346,6 +353,9 @@ public class MainForm extends JDialog{
     private final ActionListener EnterThicketLevel1 = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
+            if(!CanGoIntoBattle()){
+                return;
+            }
             player.X = 1;
             player.Y = 1;
             player.StopTimers();
