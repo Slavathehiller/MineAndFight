@@ -133,6 +133,7 @@ public class HuntForm extends JDialog{
         StaminaBar.setToolTipText("Энергия (" + player.getStamina() + "/100)");
         HealthBar.setValue(Math.round(player.getHealth()));
         HealthBar.setToolTipText("Здоровье (" + player.getHealth() + "/100)");
+        InfoPanel.updateUI();
     }
 
 

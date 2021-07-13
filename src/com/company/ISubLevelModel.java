@@ -16,5 +16,6 @@ public interface ISubLevelModel {
     void tick();
     boolean getPlayerIsDead();
     Boolean getMessages(int index);
+    ArrayList<String> getCustomMessages();
 
 }

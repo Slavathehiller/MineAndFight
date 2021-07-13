@@ -31,7 +31,7 @@ public class Tavern extends JDialog{
     public void EatMushroomSoup(){
         if(player.getResourceNumber(ResourceType.MushroomCap) >= 2){
             player.addResource(ResourceType.MushroomCap, -2);
-            player.setBuffOn(BuffTypes.FastStaminaRegeneration);
+            player.setGlobalBuffOn(GlobalBuffTypes.FastStaminaRegeneration);
             player.RefreshInfo();
             JOptionPane.showMessageDialog(this, "Вы поели грибного супа \n Скорость восстановления энергии увеличена.", "Насыщение", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -44,7 +44,7 @@ public class Tavern extends JDialog{
         if(player.getResourceNumber(ResourceType.Meat) >= 2 && player.getResourceNumber(ResourceType.WildOnionBulb) >= 2 ){
             player.addResource(ResourceType.Meat, -2);
             player.addResource(ResourceType.WildOnionBulb, -2);
-            player.setBuffOn(BuffTypes.FastHealthRegeneration);
+            player.setGlobalBuffOn(GlobalBuffTypes.FastHealthRegeneration);
             player.RefreshInfo();
             JOptionPane.showMessageDialog(this, "Вы поели мясной похлебки \n Скорость регенерации здоровья увеличена.", "Насыщение", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -58,8 +58,8 @@ public class Tavern extends JDialog{
             player.addResource(ResourceType.Meat, -4);
             player.addResource(ResourceType.WildOnionBulb, -2);
             player.addResource(ResourceType.SageLeaf, -2);
-            player.setBuffOn(BuffTypes.EnLargeMaxStamina);
-            player.setBuffOn(BuffTypes.EnLargeMaxHealth);
+            player.setGlobalBuffOn(GlobalBuffTypes.IncreaseMaxStamina);
+            player.setGlobalBuffOn(GlobalBuffTypes.IncreaseMaxHealth);
             player.RefreshInfo();
             JOptionPane.showMessageDialog(this, "Вы съели жаркое \n Максимальное здоровье увеличено.\n Максимальная энергия увеличена", "Насыщение", JOptionPane.INFORMATION_MESSAGE);
         }

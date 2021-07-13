@@ -14,6 +14,7 @@ public abstract class Monster implements IDisplayable, IFighter {
     protected IMap map;
     abstract protected String getImagePath();
     protected float frequencyMove = 1;
+    public Buffing[] buffings;
 
     protected void init(){
         image = new ImageIcon(Objects.requireNonNull(getClass().getResource(getImagePath())));

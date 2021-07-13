@@ -227,7 +227,7 @@ public class MainForm extends JDialog{
     }
 
     private boolean CanGoIntoBattle(){
-        if(player.isDeBuffed(DeBuffTypes.DeadlyWeakness)){
+        if(player.isGlobalBuff(GlobalBuffTypes.DeadlyWeakness)){
             JOptionPane.showMessageDialog(MainPanel, "Смертельная слабость не позволяет вам идти в бой", "Действие невозможно", JOptionPane.WARNING_MESSAGE);
             return false;
         }
@@ -235,7 +235,6 @@ public class MainForm extends JDialog{
     }
 
     public void RefreshStats(){
-        player.UpdateStateInfo(StatePanel);
         RefreshHealthInfo();
         RefreshStaminaInfo();
     }
@@ -244,6 +243,7 @@ public class MainForm extends JDialog{
         HealthBar.setMaximum(Math.round(player.getMaxHealth()));
         HealthBar.setValue(Math.round(player.getHealth()));
         HealthBar.setToolTipText("Здоровье (" + player.getHealth() + "/" + player.getMaxHealth());
+        player.UpdateStateInfo(StatePanel);
     }
 
     public void StartTimers(){
@@ -362,6 +362,7 @@ public class MainForm extends JDialog{
             ISubLevelModel model = new ThicketLevel1Model(player);
             ISubLevelController controller = new SubLevelController();
             SwingViewer swingViewer = new SwingViewer(self(), model, controller);
+            player.ClearBattleBuffs();
             player.StartTimers();
 
             dataFromPlayerToForm();

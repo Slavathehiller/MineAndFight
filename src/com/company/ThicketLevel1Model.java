@@ -1,7 +1,5 @@
 package com.company;
 
-import javax.swing.*;
-import java.awt.event.KeyEvent;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
@@ -11,12 +9,12 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
     private int maxY = 30;
     private int maxObstacles = 20;
     private int minObstacles = 12;
-    private boolean PlayerIsDead = false;
     public String Log;
     ArrayList<Obstacle> obstacles = new ArrayList<>();
     ArrayList<Monster> monsters = new ArrayList<>();
     ArrayList<ArrayList<IDisplayable>> DisplayableObjects = new ArrayList<>();
     public Boolean[] messages = new Boolean[]{false};
+    private ArrayList<String> customMessages = new ArrayList<>();
 
     public ThicketLevel1Model(Player player){
         this.player = player;
@@ -85,9 +83,18 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
             player.Y = y;
         }
     }
+    private void BattleBuffCountDown(){
+        for(var i = 0; i < player.battleBuffCounters.length; i++){
+            var count = player.battleBuffCounters[i];
+            if(count > 0)
+                player.setBattleBuff(i, count - 1);
+        }
+    }
 
     @Override
     public void tick() {
+        player.BattleBuffsProceed();
+        BattleBuffCountDown();
         ActMonsters();
     }
 
@@ -148,6 +155,15 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
             var damage = diff * 5;
             Log += attacker.getName() + " бьет " + target.getName() + " и наносит " + damage + " урона.\n";
             target.changeHealth(-damage);
+            if(target.getFighterType() == CollisionObjectTypes.Player){
+                for(Buffing buffing: attacker.getBuffing()){
+                    var chanceToBuff = Math.random();
+                    if(buffing.Chance >= chanceToBuff){
+                        ((Player)target).setBattleBuff(buffing.BuffType, buffing.Duration);
+                        AddCustomMessage("Вы получаете " + BattleBuffType.names[buffing.BuffType] + ".");
+                    }
+                }
+            }
             if(target.getHealth() <= 0){
                 if(target.getFighterType() == CollisionObjectTypes.Monster) {
                     Log += target.getName() + " погибает\n";
@@ -158,15 +174,18 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
                     }
                 }
                 if(target.getFighterType() == CollisionObjectTypes.Player){
-                    PlayerIsDead = true;
                 }
             }
         }
 
     }
 
+    private void AddCustomMessage(String message){
+        customMessages.add(message);
+    }
+
     public boolean getPlayerIsDead(){
-        return PlayerIsDead;
+        return player.getHealth() < 1;
     }
 
     @Override
@@ -174,6 +193,11 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
         var result = messages[index];
         messages[index] = false;
         return result;
+    }
+
+    @Override
+    public ArrayList<String> getCustomMessages() {
+        return customMessages;
     }
 
     public void GenerateObject(Class _class) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {

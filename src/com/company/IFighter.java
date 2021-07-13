@@ -7,5 +7,6 @@ public interface IFighter {
     int getFighterType();
     float getPower();
     String getName();
+    Buffing[] getBuffing();
 
 }

@@ -24,6 +24,7 @@ public class SwingViewer extends JDialog implements ISubLevelViewer {
     private JPanel ResourcePanel;
     private JPanel SupplyPanel;
     private JButton InventoryButton;
+    private JPanel StatePanel;
 
     public SwingViewer(JDialog parent, ISubLevelModel model, ISubLevelController controller){
         super(parent, "", ModalityType.DOCUMENT_MODAL);
@@ -91,12 +92,18 @@ public class SwingViewer extends JDialog implements ISubLevelViewer {
         RefreshStats();
         RefreshResourcesInfo();
         RefreshSupplyInfo();
+        model.getPlayer().UpdateStateInfo(StatePanel);
 
     }
 
     @Override
     public void ShowMessage_NotEnoughStamina(){
         JOptionPane.showMessageDialog(LocationPanel, "Недостаточно энергии.", "Неудача", JOptionPane.WARNING_MESSAGE );
+    }
+
+    @Override
+    public void ShowMessage_CustomMessage(String message) {
+        JOptionPane.showMessageDialog(LocationPanel, message, "", JOptionPane.WARNING_MESSAGE );
     }
 
     private final ActionListener OpenInventory = new ActionListener(){

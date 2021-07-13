@@ -24,16 +24,23 @@ public class SubLevelController implements ISubLevelController {
         if(model.getMessages(MessageIndex.NotEnoughEnergy)){
             viewer.ShowMessage_NotEnoughStamina();
         }
+        var customMessages = model.getCustomMessages();
+        for(var i = customMessages.size() - 1; i >= 0; i--){
+            var message = customMessages.get(i);
+            viewer.ShowMessage_CustomMessage(message);
+            customMessages.remove(message);
+        }
     }
 
     public void React(int direction){
         model.movePlayer(direction);
         model.tick();
         if(model.getPlayerIsDead()){
-            player.setDeBuffOn(DeBuffTypes.DeadlyWeakness);
+            player.setGlobalBuffOn(GlobalBuffTypes.DeadlyWeakness);
             player.setHealth(1);
             viewer.PlayerDeadMessage();
             viewer.EndLevel();
+            return;
         }
         ProcessMessages();
         viewer.DrawLocation();

@@ -63,6 +63,11 @@ public class BlackWolf extends Monster{
         Name = "Черный волк";
         frequencyMove = 0.1f;
         Power = 10;
+        Buffing bleed = new Buffing();
+        bleed.BuffType = BattleBuffType.Bleed;
+        bleed.Duration = 3;
+        bleed.Chance = 0.4f;
+        buffings = new Buffing[]{bleed};
     }
 
     @Override
@@ -91,4 +96,8 @@ public class BlackWolf extends Monster{
     }
 
 
+    @Override
+    public Buffing[] getBuffing() {
+        return buffings;
+    }
 }
