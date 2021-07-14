@@ -8,5 +8,6 @@ public interface IFighter {
     float getPower();
     String getName();
     Buffing[] getBuffing();
+    Drop getDrop();
 
 }

@@ -12,6 +12,7 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
     public String Log;
     ArrayList<Obstacle> obstacles = new ArrayList<>();
     ArrayList<Monster> monsters = new ArrayList<>();
+    ArrayList<Chest> chests = new ArrayList<>();
     ArrayList<ArrayList<IDisplayable>> DisplayableObjects = new ArrayList<>();
     public Boolean[] messages = new Boolean[]{false};
     private ArrayList<String> customMessages = new ArrayList<>();
@@ -20,6 +21,7 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
         this.player = player;
         GenerateMonsters();
         GenerateObstacles();
+        GenerateChests();
         ArrayList<IDisplayable> iPlayers = new ArrayList<>();
         iPlayers.add(player);
         DisplayableObjects.add(iPlayers);
@@ -113,13 +115,20 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
             if(object.getObjectType() == CollisionObjectTypes.Monster){
                 if(player.getStamina() >= player.AttackEnergyCost) {
                     Monster monster = (Monster) object;
-                    Log += "Игрок атакует " + monster.Name + "\n";
+//                    Log += "Игрок атакует " + monster.Name + "\n";
                     Attack(player, monster);
                     player.addStamina(-player.AttackEnergyCost);
                 }
                 else{
                     messages[MessageIndex.NotEnoughEnergy] = true;
                 }
+            }
+            if(object.getObjectType() == CollisionObjectTypes.Chest && !((Chest) object).isLooted){
+                Chest chest = (Chest) object;
+                player.addDrop(chest.drop);
+                chest.isLooted = true;
+                Log += "Вы открываете сундук и обнаруживаете: \n" + chest.drop.getDetails() + "\n";
+                player.addStamina(-player.OpenChestEnergyCost);
             }
             return false;
         }
@@ -167,6 +176,10 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
             if(target.getHealth() <= 0){
                 if(target.getFighterType() == CollisionObjectTypes.Monster) {
                     Log += target.getName() + " погибает\n";
+                    if(attacker.getFighterType() == CollisionObjectTypes.Player) {
+                        player.addDrop(target.getDrop());
+                        Log += "Вы получаете " + target.getDrop().getDetails();
+                    }
                     var monster = (Monster)target;
                     monsters.remove(monster);
                     for(var list:DisplayableObjects){
@@ -176,7 +189,10 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
                 if(target.getFighterType() == CollisionObjectTypes.Player){
                 }
             }
+        } else{
+            Log += attacker.getName() + " бьет " + target.getName() + " и промахивается.\n";
         }
+
 
     }
 
@@ -230,6 +246,30 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
             iMonsters.add(monster);
         }
         DisplayableObjects.add(iMonsters);
+    }
+
+    public void GenerateChests(){
+        ArrayList<IDisplayable> iChests = new ArrayList<>();
+        for(var i = 0; i < 1; i++){
+            int x = (int) Math.max(Math.round(Math.random() * maxX - 1), 0);
+            int y = (int) Math.max(Math.round(Math.random() * maxY - 1), 0);
+            Chest chest = new Chest( x, y);
+            chest.drop.addRandomResource(ResourceType.Coins, 10, 150);
+            chest.drop.addRandomResource(ResourceType.Ore, 250, 500, 0.25f);
+            chest.drop.addRandomResource(ResourceType.Wood, 250, 500, 0.25f);
+            chest.drop.addRandomResource(ResourceType.Stone, 250, 500, 0.25f);
+            chest.drop.addRandomResource(ResourceType.Leather, 1, 5, 0.10f);
+            chest.drop.addRandomResource(ResourceType.Fur, 1, 5, 0.10f);
+            chest.drop.addRandomResource(ResourceType.Ore, 250, 500, 0.25f);
+            chest.drop.addRandomEquipment(EquipmentType.Sling, 1, 2, 0.05f);
+            chest.drop.addRandomEquipment(EquipmentType.HuntBow, 1, 2, 0.03f);
+            chest.drop.addRandomEquipment(EquipmentType.CorralSpear, 1, 1, 0.01f);
+            chest.drop.addRandomEquipment(EquipmentType.BearSpear, 1, 1, 0.01f);
+            chest.drop.addRandomEquipment(EquipmentType.SpyGlass, 1, 1, 0.005f);
+            chests.add(chest);
+            iChests.add(chest);
+        }
+        DisplayableObjects.add(iChests);
     }
 
     @Override

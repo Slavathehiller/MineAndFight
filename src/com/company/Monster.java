@@ -15,10 +15,15 @@ public abstract class Monster implements IDisplayable, IFighter {
     abstract protected String getImagePath();
     protected float frequencyMove = 1;
     public Buffing[] buffings;
+    protected Drop drop;
 
     protected void init(){
         image = new ImageIcon(Objects.requireNonNull(getClass().getResource(getImagePath())));
         Health = getMaxHealth();
+    }
+
+    public Drop getDrop(){
+        return drop;
     }
 
     public Monster(){
@@ -30,6 +35,7 @@ public abstract class Monster implements IDisplayable, IFighter {
         this.X = x;
         this.Y = y;
         this.map = map;
+        drop = new Drop();
     }
     public abstract void Act();
 

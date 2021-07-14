@@ -68,6 +68,7 @@ public class BlackWolf extends Monster{
         bleed.Duration = 3;
         bleed.Chance = 0.4f;
         buffings = new Buffing[]{bleed};
+        drop.addResource(ResourceType.Fur, 3);
     }
 
     @Override

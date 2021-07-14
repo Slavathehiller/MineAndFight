@@ -20,6 +20,7 @@ public class Player implements IDisplayable, IFighter{
     private float RegenerateHealthRatio = 1;
     private float RegenerateStaminaRatio = 1;
     public float AttackEnergyCost = 5;
+    public float OpenChestEnergyCost = 5;
     private ImageIcon image;
 
     public MainForm InfoForm;
@@ -343,6 +344,11 @@ public class Player implements IDisplayable, IFighter{
     @Override
     public Buffing[] getBuffing() {
         return new Buffing[0];
+    }
+
+    @Override
+    public Drop getDrop() {
+        return null;
     }
 
     public void setHealth(float health) {
