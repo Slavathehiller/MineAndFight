@@ -15,31 +15,7 @@ public class BlackWolf extends Monster{
             if(AttackIfPlayerNear()){
                 return;
             }
-            int countOfTries = 0;
-            int nextX;
-            int nextY;
-            do {
-                nextX = X;
-                nextY = Y;
-                double a = Math.floor(Math.random() * 4);
-                if (a == 0)
-                    nextY -= 1;
-                if (a == 1)
-                    nextY += 1;
-                if (a == 2)
-                    nextX -= 1;
-                if (a == 3)
-                    nextX += 1;
-                System.out.println("nextX: " + nextX + " nextY: " + nextY);
-                countOfTries++;
-            }
-            while (!map.canMonsterMove(nextX, nextY) && countOfTries < 50);
-            if(countOfTries >= 50){
-                return;
-            }
-            X = nextX;
-            Y = nextY;
-//            System.out.println("X: " + X + " Y: " + Y);
+            RandomMove();
         }
     }
 
@@ -51,11 +27,6 @@ public class BlackWolf extends Monster{
     @Override
     protected boolean CanMove() {
         return super.CanMove();
-    }
-
-    @Override
-    public String getToolTip() {
-        return "Черный волк. " + "Здоровье: " + Health + "/" + getMaxHealth();
     }
 
     public BlackWolf(IMap map, int x, int y){
@@ -77,16 +48,6 @@ public class BlackWolf extends Monster{
     }
 
     @Override
-    public Integer getX() {
-        return X;
-    }
-
-    @Override
-    public Integer getY() {
-        return Y;
-    }
-
-    @Override
     public int getObjectType() {
         return CollisionObjectTypes.Monster;
     }
@@ -95,7 +56,6 @@ public class BlackWolf extends Monster{
     public Object getSelf() {
         return this;
     }
-
 
     @Override
     public Buffing[] getBuffing() {

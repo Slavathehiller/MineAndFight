@@ -124,6 +124,10 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
                 }
             }
             if(object.getObjectType() == CollisionObjectTypes.Chest && !((Chest) object).isLooted){
+                if(player.getStamina() == 0){
+                    Log += "Недостаточно энергии для открытия сундука\n";
+                    return false;
+                }
                 Chest chest = (Chest) object;
                 player.addDrop(chest.drop);
                 chest.isLooted = true;
@@ -162,6 +166,7 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
         System.out.println("Выпало: " + toHit);
         if(chance >= toHit){
             var damage = diff * 5;
+            damage = Math.round(damage * 10) / 10f;
             Log += attacker.getName() + " бьет " + target.getName() + " и наносит " + damage + " урона.\n";
             target.changeHealth(-damage);
             if(target.getFighterType() == CollisionObjectTypes.Player){
@@ -245,12 +250,18 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
             monsters.add(monster);
             iMonsters.add(monster);
         }
+        int x = (int) Math.max(Math.round(Math.random() * maxX - 1), 0);
+        int y = (int) Math.max(Math.round(Math.random() * maxY - 1), 0);
+        Monster monster = new BlackWolfChief(this, x, y);
+        monsters.add(monster);
+        iMonsters.add(monster);
+
         DisplayableObjects.add(iMonsters);
     }
 
     public void GenerateChests(){
         ArrayList<IDisplayable> iChests = new ArrayList<>();
-        for(var i = 0; i < 1; i++){
+        for(var i = 0; i < 2; i++){
             int x = (int) Math.max(Math.round(Math.random() * maxX - 1), 0);
             int y = (int) Math.max(Math.round(Math.random() * maxY - 1), 0);
             Chest chest = new Chest( x, y);
@@ -260,7 +271,6 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
             chest.drop.addRandomResource(ResourceType.Stone, 250, 500, 0.25f);
             chest.drop.addRandomResource(ResourceType.Leather, 1, 5, 0.10f);
             chest.drop.addRandomResource(ResourceType.Fur, 1, 5, 0.10f);
-            chest.drop.addRandomResource(ResourceType.Ore, 250, 500, 0.25f);
             chest.drop.addRandomEquipment(EquipmentType.Sling, 1, 2, 0.05f);
             chest.drop.addRandomEquipment(EquipmentType.HuntBow, 1, 2, 0.03f);
             chest.drop.addRandomEquipment(EquipmentType.CorralSpear, 1, 1, 0.01f);

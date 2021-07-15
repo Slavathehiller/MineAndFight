@@ -47,7 +47,7 @@ public class Drop {
     }
     public void addEquipment(int equipmentType, double number){
         equipments.add(new Equipment(equipmentType));
-        equipments.get(equipments.size() - 1).Number += number;
+        equipments.get(equipments.size() - 1).Number += number - 1;
     }
 
 

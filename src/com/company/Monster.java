@@ -60,7 +60,36 @@ public abstract class Monster implements IDisplayable, IFighter {
         return false;
     }
 
-    public abstract String getToolTip();
+    public String getToolTip() {
+        return Name + ". Здоровье: " + Health + "/" + getMaxHealth();
+    }
+
+    protected void RandomMove(){
+        int countOfTries = 0;
+        int nextX;
+        int nextY;
+        do {
+            nextX = X;
+            nextY = Y;
+            double a = Math.floor(Math.random() * 4);
+            if (a == 0)
+                nextY -= 1;
+            if (a == 1)
+                nextY += 1;
+            if (a == 2)
+                nextX -= 1;
+            if (a == 3)
+                nextX += 1;
+            System.out.println("nextX: " + nextX + " nextY: " + nextY);
+            countOfTries++;
+        }
+        while (!map.canMonsterMove(nextX, nextY) && countOfTries < 50);
+        if(countOfTries >= 50){
+            return;
+        }
+        X = nextX;
+        Y = nextY;
+    }
 
     @Override
     public float getHealth() {
@@ -81,10 +110,19 @@ public abstract class Monster implements IDisplayable, IFighter {
     public String getName() {
         return Name;
     }
+
     @Override
     public int getFighterType() {
         return CollisionObjectTypes.Monster;
     }
 
+    @Override
+    public Integer getX() {
+        return X;
+    }
 
+    @Override
+    public Integer getY() {
+        return Y;
+    }
 }

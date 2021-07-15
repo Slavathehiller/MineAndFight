@@ -121,6 +121,8 @@ public class MainForm extends JDialog{
         HuntBowNumlbl.setText(Integer.toString(player.numEquipment(EquipmentType.HuntBow)));
         CorralSpearNumlbl.setText(Integer.toString(player.numEquipment(EquipmentType.CorralSpear)));
         BearSpearNumlbl.setText(Integer.toString(player.numEquipment(EquipmentType.BearSpear)));
+        SpyGlassLabel.setVisible(player.haveEquipment(EquipmentType.SpyGlass));
+        HuntDogLabel.setVisible(player.haveEquipment(EquipmentType.HuntDog));
         player.UpdateResources(ResourcePanel);
         player.UpdateSuppliesInfo(SupplyPanel);
     }

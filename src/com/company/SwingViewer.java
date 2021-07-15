@@ -85,7 +85,9 @@ public class SwingViewer extends JDialog implements ISubLevelViewer {
         StaminaBar.setValue(Math.round(model.getPlayer().getStamina()));
         StaminaBar.setToolTipText("Энергия (" + model.getPlayer().getStamina() + "/100)");
         HealthBar.setValue(Math.round(model.getPlayer().getHealth()));
-        HealthBar.setToolTipText("Здоровье (" + model.getPlayer().getHealth() + "/100)");
+        var health = model.getPlayer().getHealth();
+        health = Math.round(health * 10) / 10f;
+        HealthBar.setToolTipText("Здоровье (" + health + "/100)");
     }
 
     public void RefreshPlayerInfo(){

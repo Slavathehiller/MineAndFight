@@ -102,6 +102,9 @@ public class Player implements IDisplayable, IFighter{
         for(var res:drop.resources){
             addResource(res.Type, res.Number);
         }
+        for(var eq:drop.equipments){
+            addEquipment(eq.Type, eq.Number);
+        }
     }
 
     public void UpdateStateInfo(JPanel statePanel){
@@ -217,6 +220,7 @@ public class Player implements IDisplayable, IFighter{
     public void addEquipment(int equip){
         addEquipment(equip, 1);
     }
+
     public void addEquipment(int equip, int count)
     {
         for (var i=0; i<equipments.size(); i++)
@@ -226,7 +230,9 @@ public class Player implements IDisplayable, IFighter{
                 return;
             }
         }
-        equipments.add(new Equipment(equip));
+        var eq = new Equipment(equip);
+        eq.Number = count;
+        equipments.add(eq);
     }
 
     public boolean haveArtefact(int artefact){
