@@ -55,4 +55,6 @@ public class Chest implements IDisplayable {
     public Object getSelf() {
         return this;
     }
+
+
 }

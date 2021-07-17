@@ -3,7 +3,7 @@ package com.company;
 import javax.swing.*;
 import java.util.ArrayList;
 
-public class Player implements IDisplayable, IFighter{
+public class Player implements IMovableDisplayable, IFighter{
 
     public int Pickaxe_lvl = 1;
     public int PickaxeUpgradeCost = 10;
@@ -494,5 +494,11 @@ public class Player implements IDisplayable, IFighter{
     @Override
     public Object getSelf() {
         return this;
+    }
+
+    @Override
+    public void Move(int x, int y) {
+        X = x;
+        Y = x;
     }
 }

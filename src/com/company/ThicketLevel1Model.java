@@ -54,6 +54,11 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
     }
 
     @Override
+    public String addToLog(String message) {
+        return Log += message + "\n";
+    }
+
+    @Override
     public ArrayList<Obstacle> getObstacles() {
         return obstacles;
     }
@@ -156,6 +161,49 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
         return null;
     }
 
+    private void MoveIfCan(IMovableDisplayable mover, int x, int y){
+        if(canMonsterMove(x, y)){
+            mover.Move(x, y);
+        }
+    }
+    @Override
+    public float RangeFromTo(int x1, int y1, int x2, int y2){
+        var deltaX = x1 - x2;
+        var deltaY = y1 - y2;
+        return (float) Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2));
+    }
+
+    @Override
+    public float DistanceToPlayer(IDisplayable object){
+        return DistanceToPlayer(object.getX(), object.getY());
+    }
+
+    @Override
+    public float DistanceToPlayer(int x, int y){
+        return RangeFromTo(player.X, player.Y, x, y);
+    }
+
+    public void MoveToward(IMovableDisplayable mover, int x, int y){
+        var deltaX = Math.abs(x - mover.getX());
+        var deltaY = Math.abs(y - mover.getY());
+        if(deltaX > deltaY){
+            if(x > mover.getX()){
+                MoveIfCan(mover, mover.getX() + 1, mover.getY());
+            }
+            else{
+                MoveIfCan(mover, mover.getX() - 1, mover.getY());
+            }
+        }
+        else{
+            if(y > mover.getY()){
+                MoveIfCan(mover, mover.getX(), mover.getY() + 1);
+            }
+            else{
+                MoveIfCan(mover, mover.getX(), mover.getY() - 1);
+            }
+        }
+    }
+
     public void Attack(IFighter attacker, IFighter target){
         var diff = attacker.getPower() / target.getPower();
         var chance = Math.sqrt(diff) * 50 / 100;
@@ -243,7 +291,7 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
 
     public void GenerateMonsters(){
         ArrayList<IDisplayable> iMonsters = new ArrayList<>();
-        for(var i = 0; i < 3; i++){
+        for(var i = 0; i < 4; i++){
             int x = (int) Math.max(Math.round(Math.random() * maxX - 1), 0);
             int y = (int) Math.max(Math.round(Math.random() * maxY - 1), 0);
             Monster monster = new BlackWolf(this, x, y);

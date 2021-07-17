@@ -4,10 +4,12 @@ import javax.swing.*;
 
 public class BlackWolfChief extends Monster{
 
+    private boolean FeelPLayer = false;
+
     public BlackWolfChief(IMap map, int x, int y){
         super(map, x, y);
         Name = "Черный волк вожак";
-        frequencyMove = 0.1f;
+        frequencyMove = 0.7f;
         Power = 20;
         Buffing bleed = new Buffing();
         bleed.BuffType = BattleBuffType.Bleed;
@@ -20,6 +22,11 @@ public class BlackWolfChief extends Monster{
     @Override
     public ImageIcon getImage() {
         return image;
+    }
+
+    @Override
+    public int FeelRadius() {
+        return 10;
     }
 
     @Override
@@ -42,11 +49,32 @@ public class BlackWolfChief extends Monster{
         return "/wolf_chief_icon_30x30.png";
     }
 
+    private void CallToPack(){
+        var monsters = map.getMonsters();
+        for(var monster:monsters){
+            if(monster.getSelf() instanceof BlackWolf){
+                ((BlackWolf)monster).CallToPack.Start(X, Y);
+            }
+        }
+        map.addToLog("Черный волк вожак использует призыв стаи");
+    }
+
     @Override
     public void Act() {
         if(CanMove()){
             if(AttackIfPlayerNear()){
                 return;
+            }
+            if(FeelRadius() >= map.DistanceToPlayer(this)) {
+                if(!FeelPLayer){
+                    FeelPLayer = true;
+                    CallToPack();
+                }
+                MoveToPlayer();
+                return;
+            }
+            else{
+                FeelPLayer = false;
             }
             RandomMove();
         }

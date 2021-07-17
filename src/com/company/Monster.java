@@ -3,7 +3,7 @@ package com.company;
 import javax.swing.*;
 import java.util.Objects;
 
-public abstract class Monster implements IDisplayable, IFighter {
+public abstract class Monster implements IMovableDisplayable, IFighter {
 
     public int X;
     public int Y;
@@ -47,9 +47,15 @@ public abstract class Monster implements IDisplayable, IFighter {
         return Math.random() < frequencyMove;
     }
 
+    public abstract int FeelRadius();
+
     public boolean IsPlayerNear(){
         return (X == map.getPlayer().X + 1 || X == map.getPlayer().X - 1) && Y == map.getPlayer().Y
                 || ((Y == map.getPlayer().Y - 1 || Y == map.getPlayer().Y + 1) && X == map.getPlayer().X);
+    }
+
+    public void MoveToPlayer(){
+        map.MoveToward(this, map.getPlayer().X, map.getPlayer().Y);
     }
 
     public boolean AttackIfPlayerNear(){
@@ -124,5 +130,11 @@ public abstract class Monster implements IDisplayable, IFighter {
     @Override
     public Integer getY() {
         return Y;
+    }
+
+    @Override
+    public void Move(int x, int y) {
+        X = x;
+        Y = y;
     }
 }

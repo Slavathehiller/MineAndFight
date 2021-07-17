@@ -4,6 +4,8 @@ import javax.swing.*;
 
 public class BlackWolf extends Monster{
 
+    public PointOfInterest_Place CallToPack;
+
     @Override
     protected String getImagePath() {
         return "/wolf_icon_30x30.png";
@@ -11,11 +13,23 @@ public class BlackWolf extends Monster{
 
     @Override
     public void Act() {
-        if(CanMove()){
-            if(AttackIfPlayerNear()){
-                return;
+        try {
+            if (CanMove()) {
+                if (AttackIfPlayerNear()) {
+                    return;
+                }
+                if (FeelRadius() >= map.DistanceToPlayer(this)) {
+                    MoveToPlayer();
+                    return;
+                }
+                if (CallToPack.IsActive()) {
+                    map.MoveToward(this, CallToPack.X, CallToPack.Y);
+                    return;
+                }
+                RandomMove();
             }
-            RandomMove();
+        }finally {
+            CallToPack.CountDown();
         }
     }
 
@@ -29,10 +43,15 @@ public class BlackWolf extends Monster{
         return super.CanMove();
     }
 
+    @Override
+    public int FeelRadius() {
+        return 7;
+    }
+
     public BlackWolf(IMap map, int x, int y){
         super(map, x, y);
         Name = "Черный волк";
-        frequencyMove = 0.1f;
+        frequencyMove = 0.8f;
         Power = 10;
         Buffing bleed = new Buffing();
         bleed.BuffType = BattleBuffType.Bleed;
@@ -40,6 +59,7 @@ public class BlackWolf extends Monster{
         bleed.Chance = 0.4f;
         buffings = new Buffing[]{bleed};
         drop.addResource(ResourceType.Fur, 3);
+        CallToPack = new PointOfInterest_Place(20);
     }
 
     @Override
