@@ -56,5 +56,11 @@ public class Chest implements IDisplayable {
         return this;
     }
 
+    @Override
+    public void init(IMap map, int x, int y) {
+        X = x;
+        Y = y;
+    }
+
 
 }

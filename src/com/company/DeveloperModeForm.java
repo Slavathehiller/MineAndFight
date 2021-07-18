@@ -30,7 +30,7 @@ public class DeveloperModeForm extends JFrame{
     }
 
     public void AddALotOfOre(){
-        player.addResource(ResourceType.Ore, 10000000);
+        player.addResource(ResourceType.Ore, 1000000000);
         player.RefreshInfo();
     }
 

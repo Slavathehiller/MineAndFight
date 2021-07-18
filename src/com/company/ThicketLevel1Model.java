@@ -10,14 +10,14 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
     private int maxObstacles = 20;
     private int minObstacles = 12;
     public String Log;
-    ArrayList<Obstacle> obstacles = new ArrayList<>();
-    ArrayList<Monster> monsters = new ArrayList<>();
-    ArrayList<Chest> chests = new ArrayList<>();
+    ArrayList<IDisplayable> obstacles = new ArrayList<>();
+    ArrayList<IDisplayable> monsters = new ArrayList<>();
+    ArrayList<IDisplayable> chests = new ArrayList<>();
     ArrayList<ArrayList<IDisplayable>> DisplayableObjects = new ArrayList<>();
     public Boolean[] messages = new Boolean[]{false};
     private ArrayList<String> customMessages = new ArrayList<>();
 
-    public ThicketLevel1Model(Player player){
+    public ThicketLevel1Model(Player player) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException {
         this.player = player;
         GenerateMonsters();
         GenerateObstacles();
@@ -49,7 +49,7 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
     }
 
     @Override
-    public ArrayList<Monster> getMonsters() {
+    public ArrayList<IDisplayable> getMonsters() {
         return monsters;
     }
 
@@ -59,7 +59,7 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
     }
 
     @Override
-    public ArrayList<Obstacle> getObstacles() {
+    public ArrayList<IDisplayable> getObstacles() {
         return obstacles;
     }
 
@@ -99,15 +99,15 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
     }
 
     @Override
-    public void tick() {
+    public void tick() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException {
         player.BattleBuffsProceed();
         BattleBuffCountDown();
         ActMonsters();
     }
 
-    private void ActMonsters(){
+    private void ActMonsters() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException {
         for(var monster:monsters){
-            monster.Act();
+            ((Monster)monster).Act();
         }
     }
 
@@ -235,9 +235,9 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
                     }
                     var monster = (Monster)target;
                     monsters.remove(monster);
-                    for(var list:DisplayableObjects){
-                        list.remove(monster);
-                    }
+//                    for(var list:DisplayableObjects){
+//                        list.remove(monster);
+//                    }
                 }
                 if(target.getFighterType() == CollisionObjectTypes.Player){
                 }
@@ -269,46 +269,51 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
         return customMessages;
     }
 
-    public void GenerateObject(Class _class) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
-        var object = _class.getDeclaredConstructor().newInstance();
-    }
+    public Object GenerateObject(Class _class) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+        return _class.getDeclaredConstructor().newInstance();
+   }
 
     private int getObstacleCount(){
         return (int) Math.round(Math.random() * ( maxObstacles - minObstacles )) + minObstacles;
     }
 
-    public void GenerateObstacles(){
-        ArrayList<IDisplayable> iObstacles = new ArrayList<>();
-        for(var i = 0; i < getObstacleCount(); i++){
-            int x = (int) Math.max(Math.round(Math.random() * maxX - 1), 0);
-            int y = (int) Math.max(Math.round(Math.random() * maxY - 1), 0);
-            Obstacle obstacle = new ForestObstacle(this, x, y);
-            obstacles.add(obstacle);
-            iObstacles.add(obstacle);
-        }
-        DisplayableObjects.add(iObstacles);
+    public void GenerateObstacles() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException {
+        GenerateObstacles(ForestObstacle.class, getObstacleCount());
+        DisplayableObjects.add(obstacles);
     }
 
-    public void GenerateMonsters(){
-        ArrayList<IDisplayable> iMonsters = new ArrayList<>();
-        for(var i = 0; i < 4; i++){
-            int x = (int) Math.max(Math.round(Math.random() * maxX - 1), 0);
-            int y = (int) Math.max(Math.round(Math.random() * maxY - 1), 0);
-            Monster monster = new BlackWolf(this, x, y);
-            monsters.add(monster);
-            iMonsters.add(monster);
+    public void GenerateObstacles(Class _class, int number) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException {
+        for(var i = 0; i < number; i++){
+            Obstacle obstacle = (Obstacle) GenerateDisplayable(_class);
+            obstacles.add(obstacle);
         }
+    }
+
+    private IDisplayable GenerateDisplayable(Class _class) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException {
+        IDisplayable object = (IDisplayable) GenerateObject(_class);
         int x = (int) Math.max(Math.round(Math.random() * maxX - 1), 0);
         int y = (int) Math.max(Math.round(Math.random() * maxY - 1), 0);
-        Monster monster = new BlackWolfChief(this, x, y);
-        monsters.add(monster);
-        iMonsters.add(monster);
+        object.init(this, x, y);
+        return object;
+    }
 
-        DisplayableObjects.add(iMonsters);
+    @Override
+    public void GenerateMonsters(Class _class, int number) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException {
+        for(var i = 0; i < number; i++){
+            Monster monster = (Monster) GenerateDisplayable(_class);
+            monsters.add(monster);
+        }
+    }
+
+    public void GenerateMonsters() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException {
+        GenerateMonsters(BlackWolf.class, 4);
+        GenerateMonsters(BlackWolfChief.class, 1);
+        GenerateMonsters(WolfKing.class, 1);
+
+        DisplayableObjects.add(monsters);
     }
 
     public void GenerateChests(){
-        ArrayList<IDisplayable> iChests = new ArrayList<>();
         for(var i = 0; i < 2; i++){
             int x = (int) Math.max(Math.round(Math.random() * maxX - 1), 0);
             int y = (int) Math.max(Math.round(Math.random() * maxY - 1), 0);
@@ -325,9 +330,8 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
             chest.drop.addRandomEquipment(EquipmentType.BearSpear, 1, 1, 0.01f);
             chest.drop.addRandomEquipment(EquipmentType.SpyGlass, 1, 1, 0.005f);
             chests.add(chest);
-            iChests.add(chest);
         }
-        DisplayableObjects.add(iChests);
+        DisplayableObjects.add(chests);
     }
 
     @Override

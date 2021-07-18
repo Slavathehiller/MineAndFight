@@ -1,5 +1,6 @@
 package com.company;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 public interface ISubLevelModel {
@@ -9,11 +10,11 @@ public interface ISubLevelModel {
     Integer getMaxY();
     String getLog();
     void ClearLog();
-    ArrayList<Monster> getMonsters();
-    ArrayList<Obstacle> getObstacles();
+    ArrayList<IDisplayable> getMonsters();
+    ArrayList<IDisplayable> getObstacles();
     ArrayList<ArrayList<IDisplayable>> getDisplayableObjects();
     void movePlayer(int direction);
-    void tick();
+    void tick() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException;
     boolean getPlayerIsDead();
     Boolean getMessages(int index);
     ArrayList<String> getCustomMessages();

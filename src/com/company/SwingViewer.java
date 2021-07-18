@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.lang.reflect.InvocationTargetException;
 
 public class SwingViewer extends JDialog implements ISubLevelViewer {
 
@@ -156,7 +157,17 @@ public class SwingViewer extends JDialog implements ISubLevelViewer {
                 if (e.getKeyCode() == KeyEvent.VK_D) {
                     direction = Direction.RIGHT;
                 }
-                controller.React(direction);
+                try {
+                    controller.React(direction);
+                } catch (InvocationTargetException invocationTargetException) {
+                    invocationTargetException.printStackTrace();
+                } catch (NoSuchMethodException noSuchMethodException) {
+                    noSuchMethodException.printStackTrace();
+                } catch (IllegalAccessException illegalAccessException) {
+                    illegalAccessException.printStackTrace();
+                } catch (InstantiationException instantiationException) {
+                    instantiationException.printStackTrace();
+                }
             }
         });
     }

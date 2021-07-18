@@ -61,6 +61,10 @@ public class Player implements IMovableDisplayable, IFighter{
         }
     }
 
+    @Override
+    public void init(IMap map, int x, int y) {
+    }
+
     public void RefreshInfo(){
         InfoForm.dataFromPlayerToForm();
         InfoForm.RefreshStats();

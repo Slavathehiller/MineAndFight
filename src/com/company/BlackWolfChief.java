@@ -6,8 +6,8 @@ public class BlackWolfChief extends Monster{
 
     private boolean FeelPLayer = false;
 
-    public BlackWolfChief(IMap map, int x, int y){
-        super(map, x, y);
+    public void init(IMap map, int x, int y){
+        super.init(map, x, y);
         Name = "Черный волк вожак";
         frequencyMove = 0.7f;
         Power = 20;
@@ -18,6 +18,7 @@ public class BlackWolfChief extends Monster{
         buffings = new Buffing[]{bleed};
         drop.addResource(ResourceType.Fur, 4);
     }
+
 
     @Override
     public ImageIcon getImage() {
@@ -41,7 +42,7 @@ public class BlackWolfChief extends Monster{
 
     @Override
     public Buffing[] getBuffing() {
-        return new Buffing[0];
+        return buffings;
     }
 
     @Override
@@ -56,25 +57,29 @@ public class BlackWolfChief extends Monster{
                 ((BlackWolf)monster).CallToPack.Start(X, Y);
             }
         }
-        map.addToLog("Черный волк вожак использует призыв стаи");
+        map.addToLog("Черный волк вожак использует зов стаи");
     }
 
     @Override
     public void Act() {
-        if(CanMove()){
+        if(FeelRadius() >= map.DistanceToPlayer(this)) {
+            if(!FeelPLayer){
+                FeelPLayer = true;
+                CallToPack();
+                return;
+            }
             if(AttackIfPlayerNear()){
                 return;
             }
-            if(FeelRadius() >= map.DistanceToPlayer(this)) {
-                if(!FeelPLayer){
-                    FeelPLayer = true;
-                    CallToPack();
-                }
-                MoveToPlayer();
+            MoveToPlayer();
+            return;
+        }
+        else{
+            FeelPLayer = false;
+        }
+        if(CanMove()){
+            if(AttackIfPlayerNear()){
                 return;
-            }
-            else{
-                FeelPLayer = false;
             }
             RandomMove();
         }

@@ -12,22 +12,22 @@ public abstract class Obstacle implements IDisplayable{
     protected IMap map;
     abstract protected String getImagePath();
 
-    protected void init(){
+    public void init(IMap map, int x, int y){
         if(getImagePath() == null){
             return;
         }
         image = new ImageIcon(Objects.requireNonNull(getClass().getResource(getImagePath())));
-    }
-
-    public Obstacle(){
-        init();
-    }
-
-    public Obstacle(IMap map, int x, int y){
-        init();
         this.X = x;
         this.Y = y;
         this.map = map;
+    }
+
+    public Obstacle(){
+    }
+
+    public Obstacle(IMap map, int x, int y){
+        init(map, x, y);
+
     }
 
     @Override

@@ -48,8 +48,8 @@ public class BlackWolf extends Monster{
         return 7;
     }
 
-    public BlackWolf(IMap map, int x, int y){
-        super(map, x, y);
+    public void init(IMap map, int x, int y){
+        super.init(map, x, y);
         Name = "Черный волк";
         frequencyMove = 0.8f;
         Power = 10;
@@ -60,6 +60,10 @@ public class BlackWolf extends Monster{
         buffings = new Buffing[]{bleed};
         drop.addResource(ResourceType.Fur, 3);
         CallToPack = new PointOfInterest_Place(20);
+    }
+
+    public BlackWolf(){
+
     }
 
     @Override

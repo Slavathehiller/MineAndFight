@@ -24,8 +24,8 @@ public class ForestObstacle extends Obstacle{
         }
     }
 
-    public ForestObstacle(IMap map, int x, int y){
-        super(map, x, y);
+    public void init(IMap map, int x, int y){
+        super.init(map, x, y);
         Name = "Камень";
     }
 

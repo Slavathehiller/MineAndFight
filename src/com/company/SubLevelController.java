@@ -2,6 +2,7 @@ package com.company;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.lang.reflect.InvocationTargetException;
 
 public class SubLevelController implements ISubLevelController {
 
@@ -32,7 +33,7 @@ public class SubLevelController implements ISubLevelController {
         }
     }
 
-    public void React(int direction){
+    public void React(int direction) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException {
         model.movePlayer(direction);
         model.tick();
         if(model.getPlayerIsDead()){

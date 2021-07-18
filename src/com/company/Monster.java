@@ -1,6 +1,7 @@
 package com.company;
 
 import javax.swing.*;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Objects;
 
 public abstract class Monster implements IMovableDisplayable, IFighter {
@@ -17,9 +18,13 @@ public abstract class Monster implements IMovableDisplayable, IFighter {
     public Buffing[] buffings;
     protected Drop drop;
 
-    protected void init(){
+    public void init(IMap map, int x, int y){
         image = new ImageIcon(Objects.requireNonNull(getClass().getResource(getImagePath())));
         Health = getMaxHealth();
+        this.X = x;
+        this.Y = y;
+        this.map = map;
+        drop = new Drop();
     }
 
     public Drop getDrop(){
@@ -27,17 +32,13 @@ public abstract class Monster implements IMovableDisplayable, IFighter {
     }
 
     public Monster(){
-        init();
     }
 
     public Monster(IMap map, int x, int y){
-        init();
-        this.X = x;
-        this.Y = y;
-        this.map = map;
-        drop = new Drop();
+        init(map, x, y);
+
     }
-    public abstract void Act();
+    public abstract void Act() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException;
 
     public abstract float getMaxHealth();
 
@@ -137,4 +138,5 @@ public abstract class Monster implements IMovableDisplayable, IFighter {
         X = x;
         Y = y;
     }
+
 }

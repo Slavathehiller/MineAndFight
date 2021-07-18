@@ -2,6 +2,7 @@ package com.company;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.lang.reflect.InvocationTargetException;
 
 public class MainForm extends JDialog{
     private JPanel MainPanel;
@@ -361,7 +362,18 @@ public class MainForm extends JDialog{
             player.X = 1;
             player.Y = 1;
             player.StopTimers();
-            ISubLevelModel model = new ThicketLevel1Model(player);
+            ISubLevelModel model = null;
+            try {
+                model = new ThicketLevel1Model(player);
+            } catch (InvocationTargetException invocationTargetException) {
+                invocationTargetException.printStackTrace();
+            } catch (NoSuchMethodException noSuchMethodException) {
+                noSuchMethodException.printStackTrace();
+            } catch (IllegalAccessException illegalAccessException) {
+                illegalAccessException.printStackTrace();
+            } catch (InstantiationException instantiationException) {
+                instantiationException.printStackTrace();
+            }
             ISubLevelController controller = new SubLevelController();
             SwingViewer swingViewer = new SwingViewer(self(), model, controller);
             player.ClearBattleBuffs();

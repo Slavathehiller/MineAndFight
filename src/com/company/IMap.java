@@ -1,5 +1,6 @@
 package com.company;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 public interface IMap {
@@ -11,6 +12,7 @@ public interface IMap {
     float DistanceToPlayer(int x, int y);
     float DistanceToPlayer(IDisplayable object);
     void MoveToward(IMovableDisplayable mover, int x, int y);
-    ArrayList<Monster> getMonsters();
+    ArrayList<IDisplayable> getMonsters();
     String addToLog(String message);
+    void GenerateMonsters(Class _class, int number) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException;
 }
