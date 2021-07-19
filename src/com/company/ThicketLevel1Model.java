@@ -19,12 +19,12 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
 
     public ThicketLevel1Model(Player player) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException {
         this.player = player;
-        GenerateMonsters();
-        GenerateObstacles();
-        GenerateChests();
         ArrayList<IDisplayable> iPlayers = new ArrayList<>();
         iPlayers.add(player);
         DisplayableObjects.add(iPlayers);
+        GenerateMonsters();
+        GenerateObstacles();
+        GenerateChests();
 
     }
 
@@ -111,6 +111,18 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
         }
     }
 
+    private Point GenerateFreeCords(){
+        int x;
+        int y;
+        do {
+            x = (int) Math.max(Math.round(Math.random() * maxX - 1), 0);
+            y = (int) Math.max(Math.round(Math.random() * maxY - 1), 0);
+        }
+        while (ObjectAt(x, y) != null);
+        return new Point(x, y);
+    }
+
+
     private Boolean TryMove(int x, int y){
         var object = ObjectAt(x, y);
         if(object == null){
@@ -139,6 +151,8 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
                 Log += "Вы открываете сундук и обнаруживаете: \n" + chest.drop.getDetails() + "\n";
                 player.addStamina(-player.OpenChestEnergyCost);
             }
+            System.out.println("Препятствие в точке: " + x + " : "+ y);
+            System.out.println(ObjectAt(x, y));
             return false;
         }
     }
@@ -235,9 +249,6 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
                     }
                     var monster = (Monster)target;
                     monsters.remove(monster);
-//                    for(var list:DisplayableObjects){
-//                        list.remove(monster);
-//                    }
                 }
                 if(target.getFighterType() == CollisionObjectTypes.Player){
                 }
@@ -278,8 +289,8 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
     }
 
     public void GenerateObstacles() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException {
-        GenerateObstacles(ForestObstacle.class, getObstacleCount());
         DisplayableObjects.add(obstacles);
+        GenerateObstacles(ForestObstacle.class, getObstacleCount());
     }
 
     public void GenerateObstacles(Class _class, int number) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException {
@@ -291,9 +302,8 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
 
     private IDisplayable GenerateDisplayable(Class _class) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException {
         IDisplayable object = (IDisplayable) GenerateObject(_class);
-        int x = (int) Math.max(Math.round(Math.random() * maxX - 1), 0);
-        int y = (int) Math.max(Math.round(Math.random() * maxY - 1), 0);
-        object.init(this, x, y);
+        var point = GenerateFreeCords();
+        object.init(this, point.X, point.Y);
         return object;
     }
 
@@ -306,18 +316,17 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
     }
 
     public void GenerateMonsters() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException {
+        DisplayableObjects.add(monsters);
         GenerateMonsters(BlackWolf.class, 4);
         GenerateMonsters(BlackWolfChief.class, 1);
         GenerateMonsters(WolfKing.class, 1);
-
-        DisplayableObjects.add(monsters);
     }
 
     public void GenerateChests(){
-        for(var i = 0; i < 2; i++){
-            int x = (int) Math.max(Math.round(Math.random() * maxX - 1), 0);
-            int y = (int) Math.max(Math.round(Math.random() * maxY - 1), 0);
-            Chest chest = new Chest( x, y);
+        DisplayableObjects.add(chests);
+        for(var i = 0; i < 181; i++){
+            var point = GenerateFreeCords();
+            Chest chest = new Chest(point.X, point.Y);
             chest.drop.addRandomResource(ResourceType.Coins, 10, 150);
             chest.drop.addRandomResource(ResourceType.Ore, 250, 500, 0.25f);
             chest.drop.addRandomResource(ResourceType.Wood, 250, 500, 0.25f);
@@ -331,7 +340,6 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
             chest.drop.addRandomEquipment(EquipmentType.SpyGlass, 1, 1, 0.005f);
             chests.add(chest);
         }
-        DisplayableObjects.add(chests);
     }
 
     @Override
