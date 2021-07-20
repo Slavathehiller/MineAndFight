@@ -105,6 +105,22 @@ public class SwingViewer extends JDialog implements ISubLevelViewer {
     }
 
     @Override
+    public boolean ShowMessage_AskWantToExit(){
+        var result = JOptionPane.showConfirmDialog(LocationPanel, "Хотите покинуть уровень?", "", JOptionPane.YES_NO_OPTION);
+        return result == JOptionPane.YES_OPTION;
+    }
+
+    @Override
+    public boolean ShowMessage_LevelBossIsDead(String bossLootInfo){
+        String message = "Босс уровня был повержен!\n";
+        message += "Вы получили: \n";
+        message += bossLootInfo;
+        message += "Хотите завершить уровень?";
+        var result = JOptionPane.showConfirmDialog(LocationPanel, message, "Победа", JOptionPane.YES_NO_OPTION);
+        return result == JOptionPane.YES_OPTION;
+    }
+
+    @Override
     public void ShowMessage_CustomMessage(String message) {
         JOptionPane.showMessageDialog(LocationPanel, message, "", JOptionPane.WARNING_MESSAGE );
     }

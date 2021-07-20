@@ -29,8 +29,6 @@ public class WolfKing extends Monster {
         drop.addRandomEquipment(EquipmentType.BearSpear, 1, 1, 0.25f);
     }
 
-
-
     @Override
     public void Act() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException {
         if (AttackIfPlayerNear()) {

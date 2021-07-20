@@ -35,6 +35,15 @@ public class SubLevelController implements ISubLevelController {
 
     public void React(int direction) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException {
         model.movePlayer(direction);
+        if(model.getWantToExit()){
+            if(viewer.ShowMessage_AskWantToExit()){
+                viewer.EndLevel();
+                return;
+            }
+            else{
+                model.setWantToExit(false);
+            }
+        }
         model.tick();
         if(model.getPlayerIsDead()){
             player.setGlobalBuffOn(GlobalBuffTypes.DeadlyWeakness);
@@ -44,6 +53,12 @@ public class SubLevelController implements ISubLevelController {
             return;
         }
         ProcessMessages();
+        if(model.getLevelBossHasDied()){
+            if(viewer.ShowMessage_LevelBossIsDead(model.getLevelBoss().drop.getDetails())){
+                viewer.EndLevel();
+                return;
+            }
+        }
         viewer.DrawLocation();
         model.ClearLog();
     }

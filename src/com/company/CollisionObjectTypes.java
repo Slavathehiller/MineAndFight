@@ -7,4 +7,5 @@ public class CollisionObjectTypes {
     public static int Chest = 3;
     public static int Drop = 4;
     public static int Edge = 5;
+    public static int ExitPoint = 6;
 }

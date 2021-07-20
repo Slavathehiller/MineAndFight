@@ -9,6 +9,9 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
     private int maxY = 30;
     private int maxObstacles = 20;
     private int minObstacles = 12;
+    private Monster LevelBoss;
+    public boolean LevelBossIsDead = false;
+    private boolean wantToExit = false;
     public String Log;
     ArrayList<IDisplayable> obstacles = new ArrayList<>();
     ArrayList<IDisplayable> monsters = new ArrayList<>();
@@ -19,13 +22,23 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
 
     public ThicketLevel1Model(Player player) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException {
         this.player = player;
+        player.X = 1;
+        player.Y = 1;
         ArrayList<IDisplayable> iPlayers = new ArrayList<>();
         iPlayers.add(player);
+        ArrayList<IDisplayable> iExitPoints = new ArrayList<>();
+        iExitPoints.add(new ExitPoint(this));
         DisplayableObjects.add(iPlayers);
+        DisplayableObjects.add(iExitPoints);
         GenerateMonsters();
         GenerateObstacles();
         GenerateChests();
 
+    }
+
+    @Override
+    public Monster getLevelBoss() {
+        return LevelBoss;
     }
 
     @Override
@@ -105,6 +118,10 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
         ActMonsters();
     }
 
+    public void setWantToExit(boolean value){
+        wantToExit = value;
+    }
+
     private void ActMonsters() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException {
         for(var monster:monsters){
             ((Monster)monster).Act();
@@ -151,10 +168,17 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
                 Log += "Вы открываете сундук и обнаруживаете: \n" + chest.drop.getDetails() + "\n";
                 player.addStamina(-player.OpenChestEnergyCost);
             }
+            if(object.getObjectType() == CollisionObjectTypes.ExitPoint){
+                wantToExit = true;
+            }
             System.out.println("Препятствие в точке: " + x + " : "+ y);
             System.out.println(ObjectAt(x, y));
             return false;
         }
+    }
+
+    public boolean getWantToExit(){
+        return wantToExit;
     }
 
     public void ClearLog(){
@@ -250,8 +274,6 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
                     var monster = (Monster)target;
                     monsters.remove(monster);
                 }
-                if(target.getFighterType() == CollisionObjectTypes.Player){
-                }
             }
         } else{
             Log += attacker.getName() + " бьет " + target.getName() + " и промахивается.\n";
@@ -262,6 +284,14 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
 
     private void AddCustomMessage(String message){
         customMessages.add(message);
+    }
+
+    public boolean getLevelBossHasDied(){
+        if(LevelBoss.getHealth() < 1 && !LevelBossIsDead){
+            LevelBossIsDead = true;
+            return true;
+        }
+        return false;
     }
 
     public boolean getPlayerIsDead(){
@@ -319,12 +349,16 @@ public class ThicketLevel1Model implements ISubLevelModel, IMap{
         DisplayableObjects.add(monsters);
         GenerateMonsters(BlackWolf.class, 4);
         GenerateMonsters(BlackWolfChief.class, 1);
-        GenerateMonsters(WolfKing.class, 1);
+        var cords = GenerateFreeCords();
+        LevelBoss = new WolfKing();
+        LevelBoss.init(this, cords.X, cords.Y);
+        monsters.add(LevelBoss);
+
     }
 
     public void GenerateChests(){
         DisplayableObjects.add(chests);
-        for(var i = 0; i < 181; i++){
+        for(var i = 0; i < 2; i++){
             var point = GenerateFreeCords();
             Chest chest = new Chest(point.X, point.Y);
             chest.drop.addRandomResource(ResourceType.Coins, 10, 150);
