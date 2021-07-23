@@ -28,8 +28,6 @@ public class MainForm extends JDialog{
     private JPanel AdventurePanel;
     private JButton ToAdventureButton;
     private JButton ToNewCityButton;
-    private JButton AttackWolfButton;
-    private JButton AttackGiantSpiderButton;
     private JButton AttackWhereBearButton;
     private JButton AttackCyclopeButton;
     private JButton AttackTrollButton;
@@ -94,6 +92,7 @@ public class MainForm extends JDialog{
     private JPanel SupplyPanel;
     private JButton InventoryButton;
     private JButton EnterThicketLevel1Button;
+    private JButton EnterThicketLevel2Button;
     private Timer staminaTimer;
     private Timer healthTimer;
     private int OreSellAmount = 1000;
@@ -167,8 +166,7 @@ public class MainForm extends JDialog{
         ToTavernButton.addActionListener(goToTavern);
         InventoryButton.addActionListener(OpenInventory);
         EnterThicketLevel1Button.addActionListener(EnterThicketLevel1);
-        AttackWolfButton.addActionListener(AttackWolf);
-        AttackGiantSpiderButton.addActionListener(AttackGiantSpider);
+        EnterThicketLevel2Button.addActionListener(EnterThicketLevel2);
         AttackWhereBearButton.addActionListener(AttackWhereBear);
         AttackCyclopeButton.addActionListener(AttackCyclope);
         AttackGoblinButton.addActionListener(AttackGoblin);
@@ -353,33 +351,41 @@ public class MainForm extends JDialog{
         }
     };
 
+    private void StartLevel(ISubLevelModel model){
+        if(!CanGoIntoBattle()){
+            return;
+        }
+        player.X = 1;
+        player.Y = 1;
+        player.StopTimers();
+        ISubLevelController controller = new SubLevelController();
+        SwingViewer swingViewer = new SwingViewer(self(), model, controller);
+        player.ClearBattleBuffs();
+        player.StartTimers();
+        dataFromPlayerToForm();
+    }
+
     private final ActionListener EnterThicketLevel1 = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(!CanGoIntoBattle()){
-                return;
-            }
-            player.X = 1;
-            player.Y = 1;
-            player.StopTimers();
-            ISubLevelModel model = null;
             try {
-                model = new ThicketLevel1Model(player);
-            } catch (InvocationTargetException invocationTargetException) {
+                var model = new ThicketLevel1Model(player);
+                StartLevel(model);
+            } catch (InvocationTargetException | NoSuchMethodException | IllegalAccessException | InstantiationException invocationTargetException) {
                 invocationTargetException.printStackTrace();
-            } catch (NoSuchMethodException noSuchMethodException) {
-                noSuchMethodException.printStackTrace();
-            } catch (IllegalAccessException illegalAccessException) {
-                illegalAccessException.printStackTrace();
-            } catch (InstantiationException instantiationException) {
-                instantiationException.printStackTrace();
             }
-            ISubLevelController controller = new SubLevelController();
-            SwingViewer swingViewer = new SwingViewer(self(), model, controller);
-            player.ClearBattleBuffs();
-            player.StartTimers();
+        }
+    };
 
-            dataFromPlayerToForm();
+    private final ActionListener EnterThicketLevel2 = new ActionListener(){
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            try {
+                var model = new ThicketLevel2Model(player);
+                StartLevel(model);
+            } catch (InvocationTargetException | NoSuchMethodException | IllegalAccessException | InstantiationException invocationTargetException) {
+                invocationTargetException.printStackTrace();
+            }
         }
     };
 
@@ -411,37 +417,6 @@ public class MainForm extends JDialog{
             Tavern tavern = new Tavern(self(), player);
 
             dataFromPlayerToForm();
-        }
-    };
-
-    private final ActionListener AttackWolf = new ActionListener(){
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            if(player.Armor_lvl < 5){
-                JOptionPane.showMessageDialog(ThicketPanel, "Уровень доспеха не достаточен", "Невозможно атаковать", JOptionPane.WARNING_MESSAGE);
-            }
-            else{
-                JOptionPane.showMessageDialog(ThicketPanel, "Волк побежден", "Победа!", JOptionPane.INFORMATION_MESSAGE);
-                AttackGiantSpiderButton.setEnabled(true);
-            }
-        }
-    };
-
-    private final ActionListener AttackGiantSpider = new ActionListener(){
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            if(player.Armor_lvl < 10){
-                JOptionPane.showMessageDialog(ThicketPanel, "Уровень доспеха не достаточен", "Невозможно атаковать", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-
-            if(!player.artefacts.contains(Artefacts.MagicTorch)){
-                JOptionPane.showMessageDialog(ThicketPanel, "Нужен артефакт: Магический факел", "Невозможно атаковать", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-                JOptionPane.showMessageDialog(ThicketPanel, "Гигантский паук побежден", "Победа!", JOptionPane.INFORMATION_MESSAGE);
-                AttackWhereBearButton.setEnabled(true);
-
         }
     };
 

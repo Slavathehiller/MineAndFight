@@ -8,4 +8,5 @@ public class CollisionObjectTypes {
     public static int Drop = 4;
     public static int Edge = 5;
     public static int ExitPoint = 6;
+    public static int Web = 7;
 }

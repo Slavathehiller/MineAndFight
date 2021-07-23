@@ -98,6 +98,10 @@ public abstract class Monster implements IMovableDisplayable, IFighter {
         Y = nextY;
     }
 
+    public void Die(){
+        map.getMonsters().remove(this);
+    }
+
     @Override
     public float getHealth() {
         return Health;

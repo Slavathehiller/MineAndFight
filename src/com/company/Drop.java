@@ -42,6 +42,10 @@ public class Drop {
         }
     }
 
+    public boolean isEmpty(){
+       return resources.size() == 0 && equipments.size() == 0 && artefacts.size() == 0;
+    }
+
     public void addRandomEquipment(int equipmentType, double minValue, double maxValue){
         addRandomEquipment(equipmentType, minValue, maxValue, 1);
     }

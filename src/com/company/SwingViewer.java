@@ -175,14 +175,8 @@ public class SwingViewer extends JDialog implements ISubLevelViewer {
                 }
                 try {
                     controller.React(direction);
-                } catch (InvocationTargetException invocationTargetException) {
+                } catch (InvocationTargetException | NoSuchMethodException | IllegalAccessException | InstantiationException invocationTargetException) {
                     invocationTargetException.printStackTrace();
-                } catch (NoSuchMethodException noSuchMethodException) {
-                    noSuchMethodException.printStackTrace();
-                } catch (IllegalAccessException illegalAccessException) {
-                    illegalAccessException.printStackTrace();
-                } catch (InstantiationException instantiationException) {
-                    instantiationException.printStackTrace();
                 }
             }
         });

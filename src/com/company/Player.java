@@ -9,7 +9,7 @@ public class Player implements IMovableDisplayable, IFighter{
     public int PickaxeUpgradeCost = 10;
     public int Axe_lvl = 1;
     public int AxeUpgradeCost = 10;
-    public int Armor_lvl = 1;
+    public int Armor_lvl = 199;
     public int ArmorUpgradeCost = 100;
     public int X = 0;
     public int Y = 0;
@@ -21,7 +21,11 @@ public class Player implements IMovableDisplayable, IFighter{
     private float RegenerateStaminaRatio = 1;
     public float AttackEnergyCost = 5;
     public float OpenChestEnergyCost = 5;
-    private ImageIcon image;
+    public Web inWeb = null;
+    private ImageIcon playerImage;
+    private ImageIcon playerWebedImage;
+
+
 
     public MainForm InfoForm;
     public int additionalVisionArea = 0;
@@ -36,7 +40,7 @@ public class Player implements IMovableDisplayable, IFighter{
     public ArrayList<Integer> globalBuffs = new ArrayList<>();
 
 
-    public int[] battleBuffCounters = new int[]{0};
+    public int[] battleBuffCounters = new int[]{0, 0};
 
     private Timer[] globalBuffTimers = new Timer[]{new Timer(300000, (x) -> setGlobalBuffOff(GlobalBuffTypes.FastHealthRegeneration)),
                                             new Timer(300000, (x) -> setGlobalBuffOff(GlobalBuffTypes.FastStaminaRegeneration)),
@@ -47,7 +51,9 @@ public class Player implements IMovableDisplayable, IFighter{
 
     public Player(MainForm infoForm){
         InfoForm = infoForm;
-        this.image = new ImageIcon(getClass().getResource("/hunter_30x30.png"));
+        this.playerImage = new ImageIcon(getClass().getResource("/hunter_30x30.png"));
+        this.playerWebedImage = new ImageIcon(getClass().getResource("/player_webed_icon_30x30.png"));
+
         for(int i = 0; i <= ResourceType.LastItem; i++){
             resources.add(new Resource(i));
         }
@@ -59,6 +65,14 @@ public class Player implements IMovableDisplayable, IFighter{
         for(var name:BattleBuffType.battleBuffImageNames){
             battleBuffIcons.add(new ImageIcon(getClass().getResource(name)));
         }
+    }
+
+    public void setWeb(Web web){
+        this.inWeb = web;
+    }
+
+    public boolean isWebed(){
+        return inWeb != null;
     }
 
     @Override
@@ -136,6 +150,10 @@ public class Player implements IMovableDisplayable, IFighter{
     public void BattleBuffsProceed(){
         if(isBattleBuff(BattleBuffType.Bleed)){
             addHealth(-2);
+        }
+        if(isBattleBuff(BattleBuffType.Poison)){
+            addHealth(-1);
+            addStamina(-1);
         }
     }
 
@@ -472,7 +490,12 @@ public class Player implements IMovableDisplayable, IFighter{
 
     @Override
     public ImageIcon getImage() {
-        return image;
+        if(isWebed()){
+            return playerWebedImage;
+        }
+        else{
+            return playerImage;
+        }
     }
 
     @Override
