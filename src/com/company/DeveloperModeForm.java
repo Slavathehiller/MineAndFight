@@ -10,6 +10,7 @@ public class DeveloperModeForm extends JFrame{
     private JTextField SetVisionField;
     private JPanel MainPanel;
     private JButton ExitButton;
+    private JButton AddArmorLevelButton;
     private Player player;
 
     public DeveloperModeForm(Player player){
@@ -22,6 +23,7 @@ public class DeveloperModeForm extends JFrame{
         AddALotOfWoodButton.addActionListener((x)->AddALotOfWood());
         ExitButton.addActionListener((x) -> this.dispose());
         SetVisionRadiusButton.addActionListener((x)->SetVision());
+        AddArmorLevelButton.addActionListener((x) -> IncreaseArmorLevel());
     }
 
     public void AddALotOfMoney(){
@@ -41,6 +43,11 @@ public class DeveloperModeForm extends JFrame{
 
     public void SetVision(){
         player.additionalVisionArea = Integer.parseInt(SetVisionField.getText().trim());
+        player.RefreshInfo();
+    }
+
+    public void IncreaseArmorLevel(){
+        player.Armor_lvl += 10;
         player.RefreshInfo();
     }
 

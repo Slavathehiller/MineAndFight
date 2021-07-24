@@ -264,7 +264,7 @@ public abstract class BaseLevelModel implements ISubLevelModel, IMap{
                     var chanceToBuff = Math.random();
                     if(buffing.Chance >= chanceToBuff){
                         ((Player)target).setBattleBuff(buffing.BuffType, buffing.Duration);
-                        AddCustomMessage("Вы получаете " + BattleBuffType.names[buffing.BuffType] + ".");
+                        Log += "Вы получаете " + BattleBuffType.names[buffing.BuffType] + ".\n";
                     }
                 }
             }

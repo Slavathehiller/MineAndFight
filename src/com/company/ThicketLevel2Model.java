@@ -43,6 +43,7 @@ public class ThicketLevel2Model extends ThicketLevelModel{
         for(int i = 0; i < 3; i++){
             GenerateSpider();
         }
+        GenerateMonsters(SpiderSpawn.class, 4);
         var cords = GenerateFreeCords();
         LevelBoss = new SpiderQueen();
         LevelBoss.init(this, cords.X, cords.Y);

@@ -9,7 +9,7 @@ public class Player implements IMovableDisplayable, IFighter{
     public int PickaxeUpgradeCost = 10;
     public int Axe_lvl = 1;
     public int AxeUpgradeCost = 10;
-    public int Armor_lvl = 199;
+    public int Armor_lvl = 1;
     public int ArmorUpgradeCost = 100;
     public int X = 0;
     public int Y = 0;
@@ -19,8 +19,8 @@ public class Player implements IMovableDisplayable, IFighter{
     private float MaxStamina = 100;
     private float RegenerateHealthRatio = 1;
     private float RegenerateStaminaRatio = 1;
-    public float AttackEnergyCost = 5;
-    public float OpenChestEnergyCost = 5;
+    public float AttackEnergyCost = 4;
+    public float OpenChestEnergyCost = 2;
     public Web inWeb = null;
     private ImageIcon playerImage;
     private ImageIcon playerWebedImage;

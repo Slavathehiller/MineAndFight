@@ -50,7 +50,8 @@ public class SpiderQueen extends Monster{
 
     @Override
     public void Act() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException {
-
+        if(AttackIfPlayerNear());
+            return;
     }
 
     @Override
