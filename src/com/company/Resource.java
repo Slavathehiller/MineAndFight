@@ -8,7 +8,7 @@ public class Resource {
     String Name;
     ImageIcon Icon;
 
-    static String[] names = new String[] {"Руда", "Дерево", "Камень", "Монеты", "Шкура", "Кожа", "Мясо", "Дикий лук", "Шалфей", "Подорожник", "Грибы"};
+    static String[] names = new String[] {"Руда", "Дерево", "Камень", "Монеты", "Шкура", "Кожа", "Мясо", "Дикий лук", "Шалфей", "Подорожник", "Грибы", "Волокно"};
     static String[] imageNames = new String[] {"/ore_icon_15x14.png",
                                                 "/wood_icon_15x15.png",
                                                 "/stone_icon_15x15.png",
@@ -19,7 +19,8 @@ public class Resource {
                                                 "/onion_bulb_icon_15x15.png",
                                                 "/sage_leaf_icon_15x15.png",
                                                 "/plantain_leaf_icon_15x15.png",
-                                                "/mushroom_icon_15x15.png"
+                                                "/mushroom_icon_15x15.png",
+                                                "/fiber_icon_15x15.png"
                                                 };
 
     public Resource(int type){

@@ -61,6 +61,7 @@ public class SpiderSpawn extends Monster{
         poison.Duration = 2;
         poison.Chance = 0.5f;
         buffings = new Buffing[]{poison};
+        drop.addResource(ResourceType.Fiber, 6);
         imageIcons = new ImageIcon[]{new ImageIcon(Objects.requireNonNull(getClass().getResource("/spider_spawn_icon_1_30x30.png"))),
                                     new ImageIcon(Objects.requireNonNull(getClass().getResource("/spider_spawn_icon_2_30x30.png"))),
                                     new ImageIcon(Objects.requireNonNull(getClass().getResource("/spider_spawn_icon_3_30x30.png")))

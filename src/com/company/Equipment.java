@@ -14,8 +14,8 @@ public class Equipment {
     static Double[] durabilities = new Double[] {0.7, 0.8, 0.75, 0.9, 0.9, 1.0, 1.0};
 
     static Resource[][] recipes = new Resource[][]{
-            new Resource[]{new Resource(ResourceType.Fur, 1)},
-            new Resource[]{new Resource(ResourceType.Fur, 1), new Resource(ResourceType.Wood, 200)},
+            new Resource[]{new Resource(ResourceType.Fiber, 1)},
+            new Resource[]{new Resource(ResourceType.Fiber, 1), new Resource(ResourceType.Wood, 200)},
             new Resource[]{new Resource(ResourceType.Ore, 500), new Resource(ResourceType.Wood, 500), new Resource(ResourceType.Leather, 1)},
             new Resource[]{new Resource(ResourceType.Ore, 1000), new Resource(ResourceType.Wood, 800), new Resource(ResourceType.Leather, 1)},
             new Resource[]{new Resource(ResourceType.Ore, 1000)},

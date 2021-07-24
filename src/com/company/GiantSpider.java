@@ -76,6 +76,7 @@ public class GiantSpider extends Monster{
         poison.Duration = 5;
         poison.Chance = 0.6f;
         buffings = new Buffing[]{poison};
+        drop.addResource(ResourceType.Fiber, 5);
     }
 
     public GiantSpider(){

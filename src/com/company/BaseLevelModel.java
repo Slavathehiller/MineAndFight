@@ -273,7 +273,7 @@ public abstract class BaseLevelModel implements ISubLevelModel, IMap{
                     Log += target.getName() + " погибает\n";
                     if(attacker.getFighterType() == CollisionObjectTypes.Player && !target.getDrop().isEmpty()) {
                         player.addDrop(target.getDrop());
-                        Log += "Вы получаете " + target.getDrop().getDetails();
+                        Log += "Вы получаете" + target.getDrop().getDetails();
                     }
                     var monster = (Monster)target;
                     monster.Die();

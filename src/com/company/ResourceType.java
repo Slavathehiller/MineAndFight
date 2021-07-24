@@ -12,7 +12,8 @@ public class ResourceType {
     public static final int SageLeaf = 8; // Шалфей
     public static final int PlantainLeaf = 9; // Подорожник
     public static final int MushroomCap = 10;
+    public static final int Fiber = 11;
 
-    public static final int LastItem = 10;
+    public static final int LastItem = 11;
 
 }

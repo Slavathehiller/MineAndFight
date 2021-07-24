@@ -18,6 +18,7 @@ public class SpiderQueen extends Monster{
         poison.Chance = 0.6f;
         buffings = new Buffing[]{poison};
         drop.addRandomResource(ResourceType.Coins, 200, 700);
+        drop.addResource(ResourceType.Fiber, 15);
         drop.addRandomEquipment(EquipmentType.HuntBow, 2, 3, 0.7f);
         drop.addRandomEquipment(EquipmentType.CorralSpear, 2, 4, 0.50f);
         drop.addRandomEquipment(EquipmentType.BearSpear, 2, 4, 0.25f);
