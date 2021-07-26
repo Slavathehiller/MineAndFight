@@ -68,7 +68,7 @@ public abstract class Monster implements IMovableDisplayable, IFighter {
     }
 
     public String getToolTip() {
-        return Name + ". Здоровье: " + Health + "/" + getMaxHealth();
+        return Name + ". Сила " + (int)getPower() + ". Здоровье: " + Health + "/" + getMaxHealth();
     }
 
     protected void RandomMove(){

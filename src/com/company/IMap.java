@@ -15,4 +15,6 @@ public interface IMap {
     ArrayList<IDisplayable> getMonsters();
     String addToLog(String message);
     void GenerateMonsters(Class _class, int number) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException;
+    Monster GenerateMonster(Class _class) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException;
+    Point GenerateFreeCordsWithin(Point point, int r);
 }

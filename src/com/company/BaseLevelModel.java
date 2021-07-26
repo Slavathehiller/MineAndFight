@@ -132,6 +132,23 @@ public abstract class BaseLevelModel implements ISubLevelModel, IMap{
         }
     }
 
+    public Point GenerateFreeCordsWithin(Point point, int r){
+        var startPoint = new Point();
+        startPoint.X  = point.X - r;
+        startPoint.Y = point.Y - r;
+        ArrayList<Point> points = new ArrayList<>();
+        for (var y = startPoint.Y; y <= point.Y + r; y++) {
+            for (var x = startPoint.X; x <= point.X + r; x++) {
+                 if(ObjectAt(x, y) == null && !(x == point.X && y == point.Y) && x >= 0 && y >= 0 && x < maxX && y < maxY)
+                    points.add(new Point(x, y));
+            }
+        }
+        if(points.size() > 0)
+            return points.get((int)Math.round(Math.random() * (points.size() - 1)));
+        else
+            return null;
+    }
+
     protected Point GenerateFreeCords(){
         int x;
         int y;

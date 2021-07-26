@@ -1,7 +1,6 @@
 package com.company;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 
 public class ThicketLevel2Model extends ThicketLevelModel{
 
@@ -14,7 +13,7 @@ public class ThicketLevel2Model extends ThicketLevelModel{
     protected Boolean TryMove(int x, int y){
         var result = super.TryMove(x, y);
         if(player.isWebed()){
-            if(Math.random() < 0.1f){
+            if(Math.random() < 0.05f){
                 if(player.inWeb.getMaster() != null){
                     player.inWeb.getMaster().ClearWebWarning();
                 }
@@ -29,6 +28,7 @@ public class ThicketLevel2Model extends ThicketLevelModel{
             if(ObjectAt(x, y) != null && ObjectAt(x, y).getObjectType() == CollisionObjectTypes.Web){
                 Web web = (Web) ObjectAt(x, y);
                 player.setWeb(web);
+                web.setVisible(true);
                 if(web.getMaster() != null)
                     web.getMaster().setWebWarning(web);
                 return true;
@@ -43,6 +43,7 @@ public class ThicketLevel2Model extends ThicketLevelModel{
         for(int i = 0; i < 3; i++){
             GenerateSpider();
         }
+        GenerateMonsters(SpiderHunter.class, 1);
         GenerateMonsters(SpiderSpawn.class, 4);
         var cords = GenerateFreeCords();
         LevelBoss = new SpiderQueen();

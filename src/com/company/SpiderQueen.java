@@ -6,12 +6,16 @@ import java.util.Objects;
 
 public class SpiderQueen extends Monster{
 
+    private int timeToLayEggs;
+    private int maxTimeToLayEggs = 7;
+
     @Override
     public void init(IMap map, int x, int y){
         super.init(map, x, y);
         Name = "Королева пауков";
         frequencyMove = 0.1f;
         Power = 30;
+        timeToLayEggs = maxTimeToLayEggs;
         Buffing poison = new Buffing();
         poison.BuffType = BattleBuffType.Bleed;
         poison.Duration = 5;
@@ -51,8 +55,22 @@ public class SpiderQueen extends Monster{
 
     @Override
     public void Act() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException {
-        if(AttackIfPlayerNear());
+        if(AttackIfPlayerNear())
             return;
+        CheckAndLay();
+    }
+
+    private void CheckAndLay() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException {
+        timeToLayEggs --;
+        if(timeToLayEggs < 1){
+            timeToLayEggs = maxTimeToLayEggs;
+            Point point = map.GenerateFreeCordsWithin(new Point(X, Y), 1);
+            if(point != null) {
+                var spiderClutch = map.GenerateMonster(SpiderClutch.class);
+                spiderClutch.X = point.X;
+                spiderClutch.Y = point.Y;
+            }
+        }
     }
 
     @Override

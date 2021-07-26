@@ -7,6 +7,7 @@ public class Web implements IDisplayable{
 
     public int X;
     public int Y;
+    private boolean isVisible;
     public IMap map;
     public ImageIcon imageIcon;
     private GiantSpider master;
@@ -15,12 +16,17 @@ public class Web implements IDisplayable{
     public void init(IMap map, int x, int y) {
         X = x;
         Y = y;
+        isVisible = Math.random() < 0.5f;
         this.map = map;
         imageIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/spider_web_icon_30x30.png")));
     }
 
     public Web(IMap map, int x, int y){
         init(map, x, y);
+    }
+
+    public void setVisible(boolean value){
+        isVisible = value;
     }
 
     public void setMaster(GiantSpider master){
@@ -35,7 +41,10 @@ public class Web implements IDisplayable{
 
     @Override
     public ImageIcon getImage() {
-        return imageIcon;
+        if(isVisible)
+            return imageIcon;
+        else
+            return null;
     }
 
     @Override
