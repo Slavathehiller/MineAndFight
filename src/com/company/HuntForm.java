@@ -190,17 +190,20 @@ public class HuntForm extends JDialog{
     private WildHerb GenerateHerb(){
         double chanceToSpawn = Math.floor(Math.random()*100);
         WildHerb herb = null;
-        if(chanceToSpawn < 25) {
+        if(chanceToSpawn < 15) {
             herb = new WildOnion();
         }
         else
-            if(chanceToSpawn < 50)
-                herb = new Sage();
+            if(chanceToSpawn < 25)
+                herb = new Hemp();
             else
-                if(chanceToSpawn < 75)
-                    herb = new Plantain();
+                if(chanceToSpawn < 50)
+                    herb = new Sage();
                 else
-                    herb = new Mushroom();
+                    if(chanceToSpawn < 75)
+                        herb = new Plantain();
+                    else
+                        herb = new Mushroom();
         return herb;
     }
 

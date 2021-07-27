@@ -4,6 +4,8 @@ import javax.swing.*;
 
 public class SpiderHunter extends Monster{
 
+    private int LeapRange = 3;
+
     @Override
     protected String getImagePath() {
         return "/spider_hunter_icon_30x30.png";
@@ -16,7 +18,14 @@ public class SpiderHunter extends Monster{
         }
         if(CanMove()){
             if (FeelRadius() >= map.DistanceToPlayer(this)) {
-                MoveToPlayer();
+                if(LeapRange >= map.DistanceToPlayer(this) && map.DistanceToPlayer(this) > 2.1f){
+                    LeapToPlayer();
+                    AttackIfPlayerNear();
+                    map.addToLog("Паук-охотник прыгает к своей добыче.");
+                }
+                else {
+                    MoveToPlayer();
+                }
                 return;
             }
             RandomMove();
@@ -52,6 +61,13 @@ public class SpiderHunter extends Monster{
 
     public SpiderHunter(){
 
+    }
+
+    private void LeapToPlayer(){
+        var point = map.GenerateFreeCordsWithin(new Point(map.getPlayer().X, map.getPlayer().Y), 1);
+        if(point != null){
+            Move(point.X, point.Y);
+        }
     }
 
     @Override

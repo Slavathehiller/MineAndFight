@@ -10,7 +10,7 @@ public class Sage extends WildHerb{
     @Override
     protected void init(){
         super.init();
-        habitat = new int[]{1};
+        habitat = new int[]{1, 2};
         Name = "Шалфей";
         drop.addResource(ResourceType.SageLeaf, 3);
     }

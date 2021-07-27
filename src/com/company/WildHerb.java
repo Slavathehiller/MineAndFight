@@ -28,7 +28,7 @@ public class WildHerb {
         return false;
     }
 
-    static WildHerb[] AllWildHerbs = new WildHerb[]{new WildOnion(), new Sage(), new Plantain(), new Mushroom()};
+    static WildHerb[] AllWildHerbs = new WildHerb[]{new WildOnion(), new Sage(), new Plantain(), new Mushroom(), new Hemp()};
 
     static ArrayList<WildHerb> GetInhabitants(int size){
         ArrayList<WildHerb> result = new ArrayList<>();

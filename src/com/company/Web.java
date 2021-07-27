@@ -59,7 +59,10 @@ public class Web implements IDisplayable{
 
     @Override
     public String getToolTip() {
-        return "Паутина гигантского паука";
+        if(isVisible)
+            return "Паутина гигантского паука";
+        else
+            return "";
     }
 
     @Override
