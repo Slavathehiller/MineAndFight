@@ -162,6 +162,10 @@ public abstract class BaseLevelModel implements ISubLevelModel, IMap{
 
 
     protected Boolean TryMove(int x, int y){
+        if(player.isBattleBuff(BattleBuffType.Stun)) {
+            Log += "Вы оглушены и не можете двигаться\n";
+            return false;
+        }
         var object = ObjectAt(x, y);
         if(object == null){
             return true;
@@ -243,24 +247,56 @@ public abstract class BaseLevelModel implements ISubLevelModel, IMap{
     }
 
     public void MoveToward(IMovableDisplayable mover, int x, int y){
-        var deltaX = Math.abs(x - mover.getX());
-        var deltaY = Math.abs(y - mover.getY());
+        var cord = GetStepToward(new Point(mover.getX(), mover.getY()), new Point(x, y));
+        MoveIfCan(mover, cord.X, cord.Y);
+    }
+
+    @Override
+    public boolean CheckPathToward(Point pointFrom, Point pointTo){
+        var currentPoint = new Point(GetStepToward(pointFrom, pointTo));
+        while (!currentPoint.Equal(pointTo)){
+            if(ObjectAt(currentPoint.X, currentPoint.Y) != null){
+                return false;
+            }
+            currentPoint = GetStepToward(currentPoint, pointTo);
+        }
+        return true;
+    }
+
+    public Point NearestPointToward(Point pointFrom, Point pointTo){
+        var predPoint = new Point(pointFrom);
+        var currentPoint = new Point(pointFrom);
+        while (!currentPoint.Equal(pointTo)){
+            predPoint = new Point(currentPoint);
+            currentPoint = GetStepToward(currentPoint, pointTo);
+        }
+        return predPoint;
+    }
+
+    public Point GetStepToward(Point pointFrom, Point pointTo){
+        var result = new Point(pointFrom.X, pointFrom.Y);
+        if(result.Equal(pointTo)){
+            return result;
+        }
+        var deltaX = Math.abs(pointTo.X - pointFrom.X);
+        var deltaY = Math.abs(pointTo.Y - pointFrom.Y);
         if(deltaX > deltaY){
-            if(x > mover.getX()){
-                MoveIfCan(mover, mover.getX() + 1, mover.getY());
+            if(pointTo.X > pointFrom.X){
+                result.X += 1;
             }
             else{
-                MoveIfCan(mover, mover.getX() - 1, mover.getY());
+                result.X -= 1;
             }
         }
         else{
-            if(y > mover.getY()){
-                MoveIfCan(mover, mover.getX(), mover.getY() + 1);
+            if(pointTo.Y > pointFrom.Y){
+                result.Y += 1;
             }
             else{
-                MoveIfCan(mover, mover.getX(), mover.getY() - 1);
+                result.Y -= 1;
             }
         }
+        return result;
     }
 
     public void Attack(IFighter attacker, IFighter target){
@@ -272,8 +308,8 @@ public abstract class BaseLevelModel implements ISubLevelModel, IMap{
         var toHit = Math.random();
         System.out.println("Выпало: " + toHit);
         if(chance >= toHit){
-            var damage = diff * 5;
-            damage = Math.round(damage * 10) / 10f;
+            float damage = diff * 5;
+            damage = (float) Math.round(damage * 10) / 10f;
             Log += attacker.getName() + " бьет " + target.getName() + " и наносит " + damage + " урона.\n";
             target.changeHealth(-damage);
             if(target.getFighterType() == CollisionObjectTypes.Player){
@@ -346,6 +382,13 @@ public abstract class BaseLevelModel implements ISubLevelModel, IMap{
             Obstacle obstacle = (Obstacle) GenerateDisplayable(_class);
             obstacles.add(obstacle);
         }
+    }
+
+    public void GenerateLevelBoss(Monster levelBoss){
+        var cords = GenerateFreeCordsWithin(new Point(maxX, maxY), 6);
+        levelBoss.init(this, cords.X - 3, cords.Y - 3);
+        LevelBoss = levelBoss;
+        monsters.add(LevelBoss);
     }
 
     private IDisplayable GenerateDisplayable(Class _class) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException {

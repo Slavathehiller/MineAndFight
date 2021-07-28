@@ -54,7 +54,7 @@ public class SpiderSpawn extends Monster{
     public void init(IMap map, int x, int y){
         super.init(map, x, y);
         Name = "Паучий выводок";
-        frequencyMove = 1f;
+        frequencyMove = 0.73f;
         Power = 7;
         Buffing poison = new Buffing();
         poison.BuffType = BattleBuffType.Poison;

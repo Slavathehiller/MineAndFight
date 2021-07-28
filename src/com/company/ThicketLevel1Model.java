@@ -13,11 +13,7 @@ public class ThicketLevel1Model extends ThicketLevelModel implements ISubLevelMo
         super.GenerateMonsters();
         GenerateMonsters(BlackWolf.class, 4);
         GenerateMonsters(BlackWolfChief.class, 1);
-        var cords = GenerateFreeCords();
-        LevelBoss = new WolfKing();
-        LevelBoss.init(this, cords.X, cords.Y);
-        monsters.add(LevelBoss);
-
+        GenerateLevelBoss(new WolfKing());
     }
 
     @Override

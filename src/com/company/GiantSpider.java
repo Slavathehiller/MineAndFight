@@ -69,7 +69,7 @@ public class GiantSpider extends Monster{
     public void init(IMap map, int x, int y){
         super.init(map, x, y);
         Name = "Гигантский паук";
-        frequencyMove = 1f;
+        frequencyMove = 0.9f;
         Power = 15;
         Buffing poison = new Buffing();
         poison.BuffType = BattleBuffType.Poison;

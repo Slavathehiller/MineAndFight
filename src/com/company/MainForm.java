@@ -28,8 +28,6 @@ public class MainForm extends JDialog{
     private JPanel AdventurePanel;
     private JButton ToAdventureButton;
     private JButton ToNewCityButton;
-    private JButton AttackWhereBearButton;
-    private JButton AttackCyclopeButton;
     private JButton AttackTrollButton;
     private JButton AttackOgreButton;
     private JButton ToAdventureButtonF;
@@ -93,6 +91,7 @@ public class MainForm extends JDialog{
     private JButton InventoryButton;
     private JButton EnterThicketLevel1Button;
     private JButton EnterThicketLevel2Button;
+    private JButton EnterThicketLevel3Button;
     private Timer staminaTimer;
     private Timer healthTimer;
     private int OreSellAmount = 1000;
@@ -167,8 +166,7 @@ public class MainForm extends JDialog{
         InventoryButton.addActionListener(OpenInventory);
         EnterThicketLevel1Button.addActionListener(EnterThicketLevel1);
         EnterThicketLevel2Button.addActionListener(EnterThicketLevel2);
-        AttackWhereBearButton.addActionListener(AttackWhereBear);
-        AttackCyclopeButton.addActionListener(AttackCyclope);
+        EnterThicketLevel3Button.addActionListener(EnterThicketLevel3);
         AttackGoblinButton.addActionListener(AttackGoblin);
         AttackOrcButton.addActionListener(AttackOrc);
         AttackTrollButton.addActionListener(AttackTroll);
@@ -389,6 +387,18 @@ public class MainForm extends JDialog{
         }
     };
 
+    private final ActionListener EnterThicketLevel3 = new ActionListener(){
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            try {
+                var model = new ThicketLevel3Model(player);
+                StartLevel(model);
+            } catch (InvocationTargetException | NoSuchMethodException | IllegalAccessException | InstantiationException invocationTargetException) {
+                invocationTargetException.printStackTrace();
+            }
+        }
+    };
+
     private final ActionListener OpenInventory = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -417,39 +427,6 @@ public class MainForm extends JDialog{
             Tavern tavern = new Tavern(self(), player);
 
             dataFromPlayerToForm();
-        }
-    };
-
-    private final ActionListener AttackWhereBear = new ActionListener(){
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            if(player.Armor_lvl < 25){
-                JOptionPane.showMessageDialog(ThicketPanel, "Уровень доспеха не достаточен", "Невозможно атаковать", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-            if(!player.artefacts.contains(Artefacts.SilverSpear)){
-                JOptionPane.showMessageDialog(ThicketPanel, "Нужен артефакт: Серебряное копье", "Невозможно атаковать", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-                JOptionPane.showMessageDialog(ThicketPanel, "Медведь-оборотень побежден", "Победа!", JOptionPane.INFORMATION_MESSAGE);
-                AttackCyclopeButton.setEnabled(true);
-
-        }
-    };
-
-    private final ActionListener AttackCyclope = new ActionListener(){
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            if(player.Armor_lvl < 50){
-                JOptionPane.showMessageDialog(ThicketPanel, "Уровень доспеха не достаточен", "Невозможно атаковать", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-            if(!player.haveArtefact(Artefacts.LightRing) || !player.haveArtefact(Artefacts.TheGiantKiller)){
-                JOptionPane.showMessageDialog(ThicketPanel, "Нужны артефакты: Кольцо света и Убийца великанов", "Невозможно атаковать", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-            JOptionPane.showMessageDialog(ThicketPanel, "Циклоп побежден", "Победа!", JOptionPane.INFORMATION_MESSAGE);
-            JOptionPane.showMessageDialog(ThicketPanel, "Локация \"Чаща\" пройдена", "Поздравляю!", JOptionPane.INFORMATION_MESSAGE);
         }
     };
 

@@ -17,4 +17,6 @@ public interface IMap {
     void GenerateMonsters(Class _class, int number) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException;
     Monster GenerateMonster(Class _class) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException;
     Point GenerateFreeCordsWithin(Point point, int r);
+    boolean CheckPathToward(Point pointFrom, Point pointTo);
+    Point NearestPointToward(Point pointFrom, Point pointTo);
 }

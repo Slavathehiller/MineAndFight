@@ -45,10 +45,7 @@ public class ThicketLevel2Model extends ThicketLevelModel{
         }
         GenerateMonsters(SpiderHunter.class, 1);
         GenerateMonsters(SpiderSpawn.class, 4);
-        var cords = GenerateFreeCords();
-        LevelBoss = new SpiderQueen();
-        LevelBoss.init(this, cords.X, cords.Y);
-        monsters.add(LevelBoss);
+        GenerateLevelBoss(new SpiderQueen());
     }
 
     public Web GenerateWeb(){
@@ -65,7 +62,23 @@ public class ThicketLevel2Model extends ThicketLevelModel{
     }
 
     @Override
-    public void GenerateChests() {
-
+    public void GenerateChests(){
+        DisplayableObjects.add(chests);
+        for(var i = 0; i < 3; i++){
+            var point = GenerateFreeCords();
+            Chest chest = new Chest(point.X, point.Y);
+            chest.drop.addRandomResource(ResourceType.Coins, 50, 250);
+            chest.drop.addRandomResource(ResourceType.Ore, 400, 600, 0.25f);
+            chest.drop.addRandomResource(ResourceType.Wood, 400, 600, 0.25f);
+            chest.drop.addRandomResource(ResourceType.Stone, 400, 600, 0.25f);
+            chest.drop.addRandomResource(ResourceType.Leather, 2, 6, 0.10f);
+            chest.drop.addRandomResource(ResourceType.Fur, 2, 6, 0.10f);
+            chest.drop.addRandomEquipment(EquipmentType.Sling, 2, 3, 0.05f);
+            chest.drop.addRandomEquipment(EquipmentType.HuntBow, 2, 3, 0.03f);
+            chest.drop.addRandomEquipment(EquipmentType.CorralSpear, 1, 2, 0.01f);
+            chest.drop.addRandomEquipment(EquipmentType.BearSpear, 1, 2, 0.01f);
+            chest.drop.addRandomEquipment(EquipmentType.SpyGlass, 1, 2, 0.005f);
+            chests.add(chest);
+        }
     }
 }

@@ -40,7 +40,7 @@ public class Player implements IMovableDisplayable, IFighter{
     public ArrayList<Integer> globalBuffs = new ArrayList<>();
 
 
-    public int[] battleBuffCounters = new int[]{0, 0};
+    public int[] battleBuffCounters = new int[]{0, 0, 0};
 
     private Timer[] globalBuffTimers = new Timer[]{new Timer(300000, (x) -> setGlobalBuffOff(GlobalBuffTypes.FastHealthRegeneration)),
                                             new Timer(300000, (x) -> setGlobalBuffOff(GlobalBuffTypes.FastStaminaRegeneration)),

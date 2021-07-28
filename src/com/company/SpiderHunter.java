@@ -50,7 +50,7 @@ public class SpiderHunter extends Monster{
     public void init(IMap map, int x, int y){
         super.init(map, x, y);
         Name = "Паук-охотник";
-        frequencyMove = 1f;
+        frequencyMove = 0.9f;
         Power = 20;
         Buffing poison = new Buffing();
         poison.BuffType = BattleBuffType.Poison;
