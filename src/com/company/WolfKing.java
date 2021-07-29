@@ -17,6 +17,7 @@ public class WolfKing extends Monster {
         Name = "Король волков";
         frequencyMove = 0.1f;
         Power = 30;
+        FeelRadius = 10;
         Buffing bleed = new Buffing();
         bleed.BuffType = BattleBuffType.Bleed;
         bleed.Duration = 5;
@@ -63,11 +64,6 @@ public class WolfKing extends Monster {
     @Override
     public float getMaxHealth() {
         return 100;
-    }
-
-    @Override
-    public int FeelRadius() {
-        return 10;
     }
 
     @Override

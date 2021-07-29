@@ -20,7 +20,7 @@ public class Goathorn extends Monster{
             }
             if (FeelRadius() >= map.DistanceToPlayer(this)) {
                 if(RamRadius >= map.DistanceToPlayer(this) && map.DistanceToPlayer(this) > MinRamRadius && map.CheckPathToward(new Point(this.X, this.Y), new Point(map.getPlayer().X, map.getPlayer().Y))){
-                    if(Math.random() < 0.7){
+                    if(Math.random() < 0.7 && !map.getPlayerIsMasked()){
                         RamPlayer();
                         map.addToLog("Козлорог таранит игрока");
                         return;
@@ -52,16 +52,12 @@ public class Goathorn extends Monster{
         }
     }
 
-    @Override
-    public int FeelRadius() {
-        return 4;
-    }
-
     public void init(IMap map, int x, int y){
         super.init(map, x, y);
         Name = "Козлорог";
         frequencyMove = 0.8f;
         Power = 20;
+        FeelRadius = 4;
         drop.addResource(ResourceType.Leather, 3);
     }
 

@@ -17,6 +17,7 @@ public abstract class Monster implements IMovableDisplayable, IFighter {
     protected float frequencyMove = 1;
     public Buffing[] buffings;
     protected Drop drop;
+    protected int FeelRadius;
 
     public void init(IMap map, int x, int y){
         image = new ImageIcon(Objects.requireNonNull(getClass().getResource(getImagePath())));
@@ -34,6 +35,11 @@ public abstract class Monster implements IMovableDisplayable, IFighter {
     public Monster(){
     }
 
+    public Monster(IMap map, Point point){
+        init(map, point.X, point.Y);
+
+    }
+
     public Monster(IMap map, int x, int y){
         init(map, x, y);
 
@@ -48,7 +54,14 @@ public abstract class Monster implements IMovableDisplayable, IFighter {
         return Math.random() < frequencyMove;
     }
 
-    public abstract int FeelRadius();
+    public int FeelRadius(){
+        if(map.getPlayerIsMasked()){
+            return 0;
+        }
+        else {
+            return FeelRadius;
+        }
+    }
 
     public boolean IsPlayerNear(){
         return (X == map.getPlayer().X + 1 || X == map.getPlayer().X - 1) && Y == map.getPlayer().Y
@@ -60,7 +73,7 @@ public abstract class Monster implements IMovableDisplayable, IFighter {
     }
 
     public boolean AttackIfPlayerNear(){
-        if(IsPlayerNear()){
+        if(IsPlayerNear() && !map.getPlayerIsMasked()){
             map.Attack(this, map.getPlayer());
             return true;
         }

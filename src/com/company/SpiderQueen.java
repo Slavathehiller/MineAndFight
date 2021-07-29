@@ -15,6 +15,7 @@ public class SpiderQueen extends Monster{
         Name = "Королева пауков";
         frequencyMove = 0.1f;
         Power = 30;
+        FeelRadius = 5;
         timeToLayEggs = maxTimeToLayEggs;
         Buffing poison = new Buffing();
         poison.BuffType = BattleBuffType.Bleed;
@@ -78,8 +79,4 @@ public class SpiderQueen extends Monster{
         return 100;
     }
 
-    @Override
-    public int FeelRadius() {
-        return 5;
-    }
 }

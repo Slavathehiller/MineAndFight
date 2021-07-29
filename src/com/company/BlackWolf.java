@@ -43,16 +43,12 @@ public class BlackWolf extends Monster{
         return super.CanMove();
     }
 
-    @Override
-    public int FeelRadius() {
-        return 7;
-    }
-
     public void init(IMap map, int x, int y){
         super.init(map, x, y);
         Name = "Черный волк";
         frequencyMove = 0.8f;
         Power = 10;
+        FeelRadius = 7;
         Buffing bleed = new Buffing();
         bleed.BuffType = BattleBuffType.Bleed;
         bleed.Duration = 3;

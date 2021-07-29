@@ -42,16 +42,12 @@ public class SpiderHunter extends Monster{
         return super.CanMove();
     }
 
-    @Override
-    public int FeelRadius() {
-        return 6;
-    }
-
     public void init(IMap map, int x, int y){
         super.init(map, x, y);
         Name = "Паук-охотник";
         frequencyMove = 0.9f;
         Power = 20;
+        FeelRadius = 6;
         Buffing poison = new Buffing();
         poison.BuffType = BattleBuffType.Poison;
         poison.Duration = 3;

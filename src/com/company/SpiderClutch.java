@@ -12,6 +12,7 @@ public class SpiderClutch extends Monster{
         Name = "Паучья кладка";
         frequencyMove = 0;
         Power = 3;
+        FeelRadius = 0;
     }
 
     public SpiderClutch(){
@@ -64,8 +65,4 @@ public class SpiderClutch extends Monster{
         return 5;
     }
 
-    @Override
-    public int FeelRadius() {
-        return 0;
-    }
 }

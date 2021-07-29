@@ -46,16 +46,12 @@ public class SpiderSpawn extends Monster{
         return super.CanMove();
     }
 
-    @Override
-    public int FeelRadius() {
-        return 4;
-    }
-
     public void init(IMap map, int x, int y){
         super.init(map, x, y);
         Name = "Паучий выводок";
         frequencyMove = 0.73f;
         Power = 7;
+        FeelRadius = 4;
         Buffing poison = new Buffing();
         poison.BuffType = BattleBuffType.Poison;
         poison.Duration = 2;

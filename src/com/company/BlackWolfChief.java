@@ -11,6 +11,7 @@ public class BlackWolfChief extends Monster{
         Name = "Черный волк вожак";
         frequencyMove = 0.7f;
         Power = 20;
+        FeelRadius = 10;
         Buffing bleed = new Buffing();
         bleed.BuffType = BattleBuffType.Bleed;
         bleed.Duration = 5;
@@ -23,11 +24,6 @@ public class BlackWolfChief extends Monster{
     @Override
     public ImageIcon getImage() {
         return image;
-    }
-
-    @Override
-    public int FeelRadius() {
-        return 10;
     }
 
     @Override

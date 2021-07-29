@@ -41,6 +41,11 @@ public abstract class BaseLevelModel implements ISubLevelModel, IMap{
     }
 
     @Override
+    public boolean getPlayerIsMasked(){
+        return false;
+    }
+
+    @Override
     public Monster getLevelBoss() {
         return LevelBoss;
     }

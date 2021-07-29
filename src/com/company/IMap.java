@@ -19,4 +19,5 @@ public interface IMap {
     Point GenerateFreeCordsWithin(Point point, int r);
     boolean CheckPathToward(Point pointFrom, Point pointTo);
     Point NearestPointToward(Point pointFrom, Point pointTo);
+    boolean getPlayerIsMasked();
 }
