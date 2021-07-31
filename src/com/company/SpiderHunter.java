@@ -46,7 +46,7 @@ public class SpiderHunter extends Monster{
         super.init(map, x, y);
         Name = "Паук-охотник";
         frequencyMove = 0.9f;
-        Power = 20;
+        Power = 25;
         FeelRadius = 6;
         Buffing poison = new Buffing();
         poison.BuffType = BattleBuffType.Poison;

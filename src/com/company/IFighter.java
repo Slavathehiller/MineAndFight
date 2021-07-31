@@ -9,5 +9,5 @@ public interface IFighter {
     String getName();
     Buffing[] getBuffing();
     Drop getDrop();
-
+    public boolean getLycanthrope();
 }

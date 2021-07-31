@@ -315,6 +315,10 @@ public abstract class BaseLevelModel implements ISubLevelModel, IMap{
         if(chance >= toHit){
             float damage = diff * 5;
             damage = (float) Math.round(damage * 10) / 10f;
+            if(target.getLycanthrope() && attacker.getFighterType() == CollisionObjectTypes.Player && ((Player)attacker).haveArtefact(Artefacts.SilverSpear)){
+                damage *= 2;
+                Log += "Серебрянное копье наносит оборотню двойной урон.\n";
+            }
             Log += attacker.getName() + " бьет " + target.getName() + " и наносит " + damage + " урона.\n";
             target.changeHealth(-damage);
             if(target.getFighterType() == CollisionObjectTypes.Player){

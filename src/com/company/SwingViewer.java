@@ -26,6 +26,7 @@ public class SwingViewer extends JDialog implements ISubLevelViewer {
     private JPanel SupplyPanel;
     private JButton InventoryButton;
     private JPanel StatePanel;
+    private JLabel ArmorLabel;
 
     public SwingViewer(JDialog parent, ISubLevelModel model, ISubLevelController controller){
         super(parent, "", ModalityType.DOCUMENT_MODAL);
@@ -95,8 +96,8 @@ public class SwingViewer extends JDialog implements ISubLevelViewer {
         RefreshStats();
         RefreshResourcesInfo();
         RefreshSupplyInfo();
+        RefreshArmorInfo();
         model.getPlayer().UpdateStateInfo(StatePanel);
-
     }
 
     @Override
@@ -147,6 +148,9 @@ public class SwingViewer extends JDialog implements ISubLevelViewer {
         model.getPlayer().UpdateSuppliesInfo(SupplyPanel);
     }
 
+    public void RefreshArmorInfo(){
+        ArmorLabel.setText("Доспех: " + model.getPlayer().Armor_lvl);
+    }
 
     public void Log(String message){
         if (message != null && message.length() > 0)

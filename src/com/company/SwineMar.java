@@ -39,6 +39,7 @@ public class SwineMar extends Monster{
         frequencyMove = 0.7f;
         Power = 30;
         FeelRadius = 4;
+        Lycanthrope = true;
         Buffing bleed = new Buffing();
         bleed.BuffType = BattleBuffType.Bleed;
         bleed.Duration = 5;

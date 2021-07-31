@@ -58,6 +58,7 @@ public class Goathorn extends Monster{
         frequencyMove = 0.8f;
         Power = 20;
         FeelRadius = 4;
+        Lycanthrope = true;
         drop.addResource(ResourceType.Leather, 3);
     }
 

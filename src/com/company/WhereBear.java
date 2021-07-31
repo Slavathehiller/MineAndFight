@@ -2,11 +2,11 @@ package com.company;
 
 import javax.swing.*;
 
-public class Cultist extends Monster{
+public class WhereBear extends Monster{
 
     @Override
     protected String getImagePath() {
-        return "/cultist_icon_30x30.png";
+        return "/wherebear_icon_30x30.png";
     }
 
     @Override
@@ -15,19 +15,17 @@ public class Cultist extends Monster{
             if (AttackIfPlayerNear()) {
                 return;
             }
-            if(FeelRadius() >= map.DistanceToPlayer(this)) {
+            if (FeelRadius() >= map.DistanceToPlayer(this)) {
                 MoveToPlayer();
                 return;
             }
-            else
-                RandomMove();
+            RandomMove();
         }
     }
 
-
     @Override
     public float getMaxHealth() {
-        return 15;
+        return 60;
     }
 
     @Override
@@ -35,21 +33,26 @@ public class Cultist extends Monster{
         return super.CanMove();
     }
 
-    @Override
-    public int FeelRadius() {
-        return FeelRadius;
-    }
-
     public void init(IMap map, int x, int y){
         super.init(map, x, y);
-        Name = "Культист";
-        frequencyMove = 0.2f;
-        Power = 5;
-        FeelRadius = 4;
-        drop.addRandomResource(ResourceType.Coins, 30, 70, 0.7f);
+        Name = "Медведь-оборотень";
+        frequencyMove = 0.7f;
+        Power = 40;
+        FeelRadius = 5;
+        Lycanthrope = true;
+        Buffing bleed = new Buffing();
+        bleed.BuffType = BattleBuffType.Bleed;
+        bleed.Duration = 7;
+        bleed.Chance = 0.4f;
+        Buffing stun = new Buffing();
+        stun.BuffType = BattleBuffType.Stun;
+        stun.Duration = 2;
+        stun.Chance = 0.4f;
+        buffings = new Buffing[]{bleed, stun};
+        drop.addResource(ResourceType.Fur, 4);
     }
 
-    public Cultist(){
+    public WhereBear(){
 
     }
 
@@ -70,6 +73,6 @@ public class Cultist extends Monster{
 
     @Override
     public Buffing[] getBuffing() {
-        return new Buffing[0];
+        return buffings;
     }
 }

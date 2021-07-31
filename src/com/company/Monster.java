@@ -18,6 +18,7 @@ public abstract class Monster implements IMovableDisplayable, IFighter {
     public Buffing[] buffings;
     protected Drop drop;
     protected int FeelRadius;
+    protected boolean Lycanthrope = false;
 
     public void init(IMap map, int x, int y){
         image = new ImageIcon(Objects.requireNonNull(getClass().getResource(getImagePath())));
@@ -42,8 +43,12 @@ public abstract class Monster implements IMovableDisplayable, IFighter {
 
     public Monster(IMap map, int x, int y){
         init(map, x, y);
-
     }
+
+    public boolean getLycanthrope(){
+        return Lycanthrope;
+    }
+
     public abstract void Act() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException;
 
     public abstract float getMaxHealth();
