@@ -18,7 +18,6 @@ public class Inventory extends JDialog{
         add(MainPanel);
         setBounds(300, 300, 500, 500);
         pack();
-        setVisible(true);
         this.player = player;
         UseSupplyButton.addActionListener((x) -> {
             try {
@@ -29,6 +28,7 @@ public class Inventory extends JDialog{
         });
         ExitButton.addActionListener((x) -> this.dispose());
         RefreshSupplyNumbers();
+        setVisible(true);
     }
 
     private void SelectSupply(){

@@ -1,11 +1,9 @@
 package com.company;
 
-import java.lang.reflect.InvocationTargetException;
-
 public class ThicketLevel2Model extends ThicketLevelModel{
 
 
-    public ThicketLevel2Model(Player player) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException {
+    public ThicketLevel2Model(Player player){
         super(player);
     }
 
@@ -38,7 +36,7 @@ public class ThicketLevel2Model extends ThicketLevelModel{
     }
 
     @Override
-    public void GenerateMonsters() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException {
+    public void GenerateMonsters(){
         super.GenerateMonsters();
         for(int i = 0; i < 3; i++){
             GenerateSpider();
@@ -55,7 +53,7 @@ public class ThicketLevel2Model extends ThicketLevelModel{
         return web;
     }
 
-    private void GenerateSpider() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException {
+    private void GenerateSpider(){
         GiantSpider spider = (GiantSpider) GenerateMonster(GiantSpider.class);
         var web = GenerateWeb();
         web.setMaster(spider);

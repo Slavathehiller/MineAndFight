@@ -1,9 +1,7 @@
 package com.company;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
-import java.awt.LayoutManager;
 
 public class Workshop extends JDialog{
     private JPanel MainPanel;
@@ -13,8 +11,8 @@ public class Workshop extends JDialog{
     private JPanel ComponentPanel;
     private JLabel EquipmentNameLabel;
     private JPanel ResourcesPanel;
-    private Player player;
-    private ArrayList<JLabel> componentLabels = new ArrayList<>();
+    private final Player player;
+    private final ArrayList<JLabel> componentLabels = new ArrayList<>();
 
     public Workshop(JDialog parent, Player player){
         super(parent, "", ModalityType.DOCUMENT_MODAL);

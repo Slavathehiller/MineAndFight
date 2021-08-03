@@ -1,15 +1,13 @@
 package com.company;
 
-import java.lang.reflect.InvocationTargetException;
-
 public class ThicketLevel1Model extends ThicketLevelModel implements ISubLevelModel, IMap{
 
-    public ThicketLevel1Model(Player player) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException {
+    public ThicketLevel1Model(Player player){
         super(player);
     }
 
     @Override
-    public void GenerateMonsters() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException {
+    public void GenerateMonsters(){
         super.GenerateMonsters();
         GenerateMonsters(BlackWolf.class, 4);
         GenerateMonsters(BlackWolfChief.class, 1);

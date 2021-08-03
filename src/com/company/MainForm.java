@@ -1,5 +1,4 @@
 package com.company;
-import java.util.Objects;
 import javax.swing.*;
 import java.awt.event.*;
 import java.lang.reflect.InvocationTargetException;
@@ -16,22 +15,19 @@ public class MainForm extends JDialog{
     private JButton UpgradeArmorButton;
     private JButton UpgradePickaxeButton;
     private JButton ToCityButtonBS;
-    private JLabel OreLabelM;
-    private JLabel OreLabel;
     private JLabel PickaxeLabel;
     private JLabel ArmorLabel;
     private JPanel ThicketPanel;
     private JButton ThicketButton;
     private JButton DungeonButton;
     private JButton ToCityButtonAD;
+    private JPanel InfoPanel;
     private JButton ToRuinsButton;
     private JPanel AdventurePanel;
     private JButton ToAdventureButton;
-    private JButton ToNewCityButton;
     private JButton AttackTrollButton;
     private JButton AttackOgreButton;
     private JButton ToAdventureButtonF;
-    private JPanel InfoPanel;
     private JPanel RuinsPanel;
     private JButton AttackGoblinButton;
     private JButton AttackOrcButton;
@@ -43,14 +39,11 @@ public class MainForm extends JDialog{
     private JButton GoToCityButtonS;
     private JButton BuySilverSpearButton;
     private JLabel SilverSpearLabel;
-    private JButton AddThousandOfOre;
     private JButton SellOreButton;
     private JButton OreSellAmountUpButton;
     private JButton OreSellAmountDownButton;
-    private JLabel CoinsLabel;
     private JButton BuyLightRingButton;
     private JLabel LightRingLabel;
-    private JLabel WoodLabel;
     private JButton ToForestButton;
     private JButton ExtractWoodButton;
     private JButton HuntButton;
@@ -66,9 +59,6 @@ public class MainForm extends JDialog{
     private JLabel HuntDogLabel;
     private JButton BuySpyGlassButton;
     private JLabel SpyGlassLabel;
-    private JLabel MeatLabel;
-    private JLabel FurLabel;
-    private JLabel LeatherLabel;
     private JLabel CorralSpearNumlbl;
     private JButton BuyCorralSpearButton;
     private JButton ExitButton;
@@ -92,10 +82,11 @@ public class MainForm extends JDialog{
     private JButton EnterThicketLevel1Button;
     private JButton EnterThicketLevel2Button;
     private JButton EnterThicketLevel3Button;
-    private Timer staminaTimer;
-    private Timer healthTimer;
+    private JButton ToAlchemistButton;
+    private final Timer staminaTimer;
+    private final Timer healthTimer;
     private int OreSellAmount = 1000;
-    private double OreCost = 0.02;
+    private final double OreCost = 0.02;
 
     Player player = new Player(this);
     Shop shop = new Shop();
@@ -163,6 +154,7 @@ public class MainForm extends JDialog{
         ToAdventureButtonF.addActionListener(goToAdventure);
         ToWorkshopButton.addActionListener(goToWorkshop);
         ToTavernButton.addActionListener(goToTavern);
+        ToAlchemistButton.addActionListener(goToAlchemist);
         InventoryButton.addActionListener(OpenInventory);
         EnterThicketLevel1Button.addActionListener(EnterThicketLevel1);
         EnterThicketLevel2Button.addActionListener(EnterThicketLevel2);
@@ -366,36 +358,24 @@ public class MainForm extends JDialog{
     private final ActionListener EnterThicketLevel1 = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
-            try {
-                var model = new ThicketLevel1Model(player);
-                StartLevel(model);
-            } catch (InvocationTargetException | NoSuchMethodException | IllegalAccessException | InstantiationException invocationTargetException) {
-                invocationTargetException.printStackTrace();
-            }
+            var model = new ThicketLevel1Model(player);
+            StartLevel(model);
         }
     };
 
     private final ActionListener EnterThicketLevel2 = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
-            try {
-                var model = new ThicketLevel2Model(player);
-                StartLevel(model);
-            } catch (InvocationTargetException | NoSuchMethodException | IllegalAccessException | InstantiationException invocationTargetException) {
-                invocationTargetException.printStackTrace();
-            }
+            var model = new ThicketLevel2Model(player);
+            StartLevel(model);
         }
     };
 
     private final ActionListener EnterThicketLevel3 = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
-            try {
-                var model = new ThicketLevel3Model(player);
-                StartLevel(model);
-            } catch (InvocationTargetException | NoSuchMethodException | IllegalAccessException | InstantiationException invocationTargetException) {
-                invocationTargetException.printStackTrace();
-            }
+            var model = new ThicketLevel3Model(player);
+            StartLevel(model);
         }
     };
 
@@ -416,6 +396,15 @@ public class MainForm extends JDialog{
         @Override
         public void actionPerformed(ActionEvent e) {
             Workshop workshop = new Workshop(self(), player);
+
+            dataFromPlayerToForm();
+        }
+    };
+
+    private final ActionListener goToAlchemist = new ActionListener(){
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Alchemist alchemist = new Alchemist(self(), player);
 
             dataFromPlayerToForm();
         }

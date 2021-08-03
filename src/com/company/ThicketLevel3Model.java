@@ -1,18 +1,17 @@
 package com.company;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 
 public class ThicketLevel3Model extends ThicketLevelModel{
 
     public boolean PlayerIsMasked = false;
 
-    public ThicketLevel3Model(Player player) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException {
+    public ThicketLevel3Model(Player player){
         super(player);
     }
 
     @Override
-    public void GenerateMonsters() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException {
+    public void GenerateMonsters(){
         super.GenerateMonsters();
         GenerateMonsters(Goathorn.class, 3);
         GenerateMonsters(SwineMar.class, 2);

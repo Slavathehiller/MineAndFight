@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class HuntForm extends JDialog{
     private JPanel MainPanel;
@@ -26,8 +27,8 @@ public class HuntForm extends JDialog{
     private JProgressBar StaminaBar;
     private JPanel ResourcePanel;
     private JPanel SupplyPanel;
-    private int size;
-    private float StepStaminaConsumption = 0.5f;
+    private final int size;
+    private final float StepStaminaConsumption = 0.5f;
 
     static int smallSize = 1;
     static int mediumSize = 2;
@@ -43,10 +44,10 @@ public class HuntForm extends JDialog{
 
     Player player;
 
-    ImageIcon hiddenIcon = new ImageIcon(getClass().getResource("/forest_icon_30x30.png"));
-    ImageIcon hunterIcon = new ImageIcon(getClass().getResource("/hunter_30x30.png"));
-    ImageIcon hunterWithDogIcon = new ImageIcon(getClass().getResource("/hunter_with_dog_30x30.png"));
-    ImageIcon questionIcon = new ImageIcon(getClass().getResource("/question_icon_30x30.png"));
+    ImageIcon hiddenIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/forest_icon_30x30.png")));
+    ImageIcon hunterIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/hunter_30x30.png")));
+    ImageIcon hunterWithDogIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/hunter_with_dog_30x30.png")));
+    ImageIcon questionIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/question_icon_30x30.png")));
 
     public HuntForm(JDialog parent, Player player, int size) {
         super(parent, "", ModalityType.DOCUMENT_MODAL);
@@ -189,7 +190,7 @@ public class HuntForm extends JDialog{
 
     private WildHerb GenerateHerb(){
         double chanceToSpawn = Math.floor(Math.random()*100);
-        WildHerb herb = null;
+        WildHerb herb;
         if(chanceToSpawn < 15) {
             herb = new WildOnion();
         }

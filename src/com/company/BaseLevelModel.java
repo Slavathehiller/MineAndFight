@@ -20,7 +20,7 @@ public abstract class BaseLevelModel implements ISubLevelModel, IMap{
     public Boolean[] messages = new Boolean[]{false};
     protected ArrayList<String> customMessages = new ArrayList<>();
 
-    public BaseLevelModel(Player player) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException {
+    public BaseLevelModel(Player player){
         this.player = player;
         player.X = 1;
         player.Y = 1;
@@ -376,17 +376,23 @@ public abstract class BaseLevelModel implements ISubLevelModel, IMap{
         return customMessages;
     }
 
-    public Object GenerateObject(Class _class) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
-        return _class.getDeclaredConstructor().newInstance();
+    public Object GenerateObject(Class _class){
+        try{
+            return _class.getDeclaredConstructor().newInstance();
+        }
+        catch (InvocationTargetException | NoSuchMethodException | IllegalAccessException | InstantiationException invocationTargetException) {
+            invocationTargetException.printStackTrace();
+            return null;
+        }
     }
 
     protected int getObstacleCount(){
         return (int) Math.round(Math.random() * ( maxObstacles - minObstacles )) + minObstacles;
     }
 
-    public abstract void GenerateObstacles() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException;
+    public abstract void GenerateObstacles();
 
-    public void GenerateObstacles(Class _class, int number) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException {
+    public void GenerateObstacles(Class _class, int number){
         for(var i = 0; i < number; i++){
             Obstacle obstacle = (Obstacle) GenerateDisplayable(_class);
             obstacles.add(obstacle);
@@ -400,7 +406,7 @@ public abstract class BaseLevelModel implements ISubLevelModel, IMap{
         monsters.add(LevelBoss);
     }
 
-    private IDisplayable GenerateDisplayable(Class _class) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException {
+    private IDisplayable GenerateDisplayable(Class _class){
         IDisplayable object = (IDisplayable) GenerateObject(_class);
         var point = GenerateFreeCords();
         object.init(this, point.X, point.Y);
@@ -408,19 +414,19 @@ public abstract class BaseLevelModel implements ISubLevelModel, IMap{
     }
 
     @Override
-    public void GenerateMonsters(Class _class, int number) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException {
+    public void GenerateMonsters(Class _class, int number){
         for(var i = 0; i < number; i++){
             GenerateMonster(_class);
         }
     }
 
-    public Monster GenerateMonster(Class _class) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException {
+    public Monster GenerateMonster(Class _class){
         Monster monster = (Monster) GenerateDisplayable(_class);
         monsters.add(monster);
         return monster;
     }
 
-    public void GenerateMonsters() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException{
+    public void GenerateMonsters(){
         DisplayableObjects.add(monsters);
     }
 

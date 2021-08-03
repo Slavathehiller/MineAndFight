@@ -1,8 +1,8 @@
 package com.company;
 
 import javax.swing.*;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
+import java.util.Objects;
 
 public class Equipment {
     public int Type;
@@ -35,13 +35,11 @@ public class Equipment {
     {
         Type = type;
         Number = 1;
-        Icon = new ImageIcon(getClass().getResource(imageNames[Type]));
+        Icon = new ImageIcon(Objects.requireNonNull(getClass().getResource(imageNames[Type])));
 
         Name = Equipment.names[Type];
         if(recipes[Type] != null) {
-            for (Resource res : recipes[Type]) {
-                recipe.resources.add(res);
-            }
+            Collections.addAll(recipe.resources, recipes[Type]);
         }
     }
 }

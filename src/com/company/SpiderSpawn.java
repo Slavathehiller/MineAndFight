@@ -1,7 +1,6 @@
 package com.company;
 
 import javax.swing.*;
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class SpiderSpawn extends Monster{

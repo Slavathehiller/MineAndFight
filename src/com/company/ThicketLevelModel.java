@@ -4,7 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 
 public abstract class ThicketLevelModel extends BaseLevelModel{
 
-    public ThicketLevelModel(Player player) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException {
+    public ThicketLevelModel(Player player){
         super(player);
     }
 
@@ -12,7 +12,7 @@ public abstract class ThicketLevelModel extends BaseLevelModel{
         super();
     }
 
-    public void GenerateObstacles() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException {
+    public void GenerateObstacles(){
         DisplayableObjects.add(obstacles);
         GenerateObstacles(ForestObstacle.class, getObstacleCount());
     }

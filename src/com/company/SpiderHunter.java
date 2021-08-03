@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class SpiderHunter extends Monster{
 
-    private int LeapRange = 3;
+    private final int LeapRange = 3;
 
     @Override
     protected String getImagePath() {

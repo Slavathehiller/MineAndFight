@@ -6,8 +6,6 @@ public class Tavern extends JDialog{
     private JPanel MainPanel;
     private JButton CookMushroomSoupButton;
     private JButton CookMeatSoupButton;
-    private JButton MakeElixirOfHealthButton;
-    private JButton MakeElixirOfStaminaButton;
     private JButton MakeSpicedMeatButton;
     private JButton ToCityButton;
     private JButton CookRostMeatButton;
@@ -22,8 +20,6 @@ public class Tavern extends JDialog{
         CookMushroomSoupButton.addActionListener((x) -> EatMushroomSoup());
         CookMeatSoupButton.addActionListener((x) -> EatMeatSoup());
         CookRostMeatButton.addActionListener((x) -> EatRostMeat());
-        MakeElixirOfHealthButton.addActionListener((x) -> MakeHealthPotion());
-        MakeElixirOfStaminaButton.addActionListener((x) -> MakeStaminaPotion());
         MakeSpicedMeatButton.addActionListener((x) -> MakeSpicedMeat());
         setVisible(true);
     }
@@ -66,50 +62,6 @@ public class Tavern extends JDialog{
         else{
             JOptionPane.showMessageDialog(this, "Не хватает ингредиентов", "Неудача", JOptionPane.WARNING_MESSAGE);
         }
-    }
-
-    public void MakeHealthPotion(){
-        HealthPotion healthPotion = new HealthPotion();
-        if(player.isEnoughResource(healthPotion.recipe)){
-            boolean isExists = false;
-            for (var supply : player.getSupplies()) {
-                if (supply.getClass() == healthPotion.getClass()) {
-                    isExists = true;
-                    supply.Number++;
-                    break;
-                }
-            }
-            if(!isExists){
-                player.getSupplies().add(healthPotion);
-            }
-            player.addResource(ResourceType.PlantainLeaf, -6);
-        }
-        else{
-            JOptionPane.showMessageDialog(this, "Не хватает ингредиентов", "Неудача", JOptionPane.WARNING_MESSAGE);
-        }
-        player.RefreshInfo();
-    }
-
-    public void MakeStaminaPotion(){
-        StaminaPotion staminaPotion = new StaminaPotion();
-        if(player.isEnoughResource(staminaPotion.recipe)){
-            boolean isExists = false;
-            for (var supply : player.getSupplies()) {
-                if (supply.getClass() == staminaPotion.getClass()) {
-                    isExists = true;
-                    supply.Number++;
-                    break;
-                }
-            }
-            if(!isExists){
-                player.getSupplies().add(staminaPotion);
-            }
-            player.addResource(ResourceType.SageLeaf, -6);
-        }
-        else{
-            JOptionPane.showMessageDialog(this, "Не хватает ингредиентов", "Неудача", JOptionPane.WARNING_MESSAGE);
-        }
-        player.RefreshInfo();
     }
 
     public void MakeSpicedMeat(){

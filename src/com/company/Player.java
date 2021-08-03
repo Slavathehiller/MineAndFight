@@ -1,6 +1,7 @@
 package com.company;
 
 import javax.swing.*;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 public class Player implements IMovableDisplayable, IFighter{
@@ -170,6 +171,22 @@ public class Player implements IMovableDisplayable, IFighter{
             }
         }
         return null;
+    }
+
+    public void addSupply(Class _class) {
+        var supply = GetSupply(_class);
+        if(supply != null)
+            supply.Number++;
+        else {
+            try {
+                supply = (Supply) _class.getDeclaredConstructor().newInstance();
+                supplies.add(supply);
+            }
+            catch (InvocationTargetException | NoSuchMethodException | IllegalAccessException | InstantiationException invocationTargetException) {
+                invocationTargetException.printStackTrace();
+            }
+
+        }
     }
 
     public long GetSupplyNumber(Class _class){
