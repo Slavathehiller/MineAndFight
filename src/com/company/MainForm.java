@@ -3,7 +3,7 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.lang.reflect.InvocationTargetException;
 
-public class MainForm extends JDialog{
+public class MainForm extends JDialog implements IInfoForm {
     private JPanel MainPanel;
     private JPanel CityPanel;
     private JPanel MinePanel;
@@ -382,7 +382,7 @@ public class MainForm extends JDialog{
     private final ActionListener OpenInventory = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
-            Inventory inventory = new Inventory(self(), player);
+            Inventory inventory = new Inventory(self(), self, player);
 
             dataFromPlayerToForm();
         }
@@ -737,4 +737,9 @@ public class MainForm extends JDialog{
             }
         }
     };
+
+    @Override
+    public void RefreshInfo() {
+        dataFromPlayerToForm();
+    }
 }

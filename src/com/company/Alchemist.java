@@ -2,7 +2,7 @@ package com.company;
 
 import javax.swing.*;
 import java.awt.*;
-import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 
 public class Alchemist extends JDialog{
 
@@ -23,29 +23,35 @@ public class Alchemist extends JDialog{
         this.player = player;
         GridLayout layout = new GridLayout(0, 3, 0, 0);
         ChoosePanel.setLayout(layout);
+        var rButtons = UIService.DisplaySupply(ChoosePanel, new ArrayList<>(java.util.List.of(supplies)));
         var index = 0;
-        for (Supply supply : supplies) {
-            var elementPanel = new JPanel();
-            GridLayout elementLayout = new GridLayout(0, 1, 0, 0);
-            elementPanel.setLayout(elementLayout);
-            ChoosePanel.add(elementPanel);
-            var ImageLabel = new JLabel();
-            ImageLabel.setHorizontalAlignment(SwingConstants.CENTER);
-            ImageLabel.setIcon(supply.image);
-            var TextLabel = new JLabel();
-            TextLabel.setHorizontalAlignment(SwingConstants.CENTER);
-            TextLabel.setText(supply.Name);
-            elementPanel.add(ImageLabel);
-            elementPanel.add(TextLabel);
-            var elementRButton = new JRadioButton();
-            elementRButton.setHorizontalAlignment(SwingConstants.CENTER);
-            elementRButton.setVerticalAlignment(SwingConstants.TOP);
+        for(var rb:rButtons){
             int finalIndex = index;
-            elementRButton.addItemListener((x) -> ChooseElement(finalIndex));
+            rb.addItemListener((x) -> ChooseElement(finalIndex));
             index++;
-            buttonGroup.add(elementRButton);
-            elementPanel.add(elementRButton);
         }
+//        for (Supply supply : supplies) {
+//            var elementPanel = new JPanel();
+//            GridLayout elementLayout = new GridLayout(0, 1, 0, 0);
+//            elementPanel.setLayout(elementLayout);
+//            ChoosePanel.add(elementPanel);
+//            var ImageLabel = new JLabel();
+//            ImageLabel.setHorizontalAlignment(SwingConstants.CENTER);
+//            ImageLabel.setIcon(supply.image);
+//            var TextLabel = new JLabel();
+//            TextLabel.setHorizontalAlignment(SwingConstants.CENTER);
+//            TextLabel.setText(supply.Name);
+//            elementPanel.add(ImageLabel);
+//            elementPanel.add(TextLabel);
+//            var elementRButton = new JRadioButton();
+//            elementRButton.setHorizontalAlignment(SwingConstants.CENTER);
+//            elementRButton.setVerticalAlignment(SwingConstants.TOP);
+//            int finalIndex = index;
+//            elementRButton.addItemListener((x) -> ChooseElement(finalIndex));
+//            index++;
+//            buttonGroup.add(elementRButton);
+//            elementPanel.add(elementRButton);
+//        }
         GridLayout recipeLayout = new GridLayout(0, 5, 0, 0);
         RecipePanel.setLayout(recipeLayout);
         CreateButton.addActionListener((x) -> Create());

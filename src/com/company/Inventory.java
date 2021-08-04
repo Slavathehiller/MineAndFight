@@ -9,15 +9,17 @@ public class Inventory extends JDialog{
     private JButton ExitButton;
     private JPanel SuppliesPanel;
     private ArrayList<JRadioButton> radioButtons;
+    IInfoForm InfoForm;
     private int NumberSelected = -1;
     Player player;
 
 
-    public Inventory(JDialog parent, Player player){
+    public Inventory(JDialog parent, IInfoForm iForm, Player player){
         super(parent, "", ModalityType.DOCUMENT_MODAL);
         add(MainPanel);
         setBounds(300, 300, 500, 500);
         pack();
+        InfoForm = iForm;
         this.player = player;
         UseSupplyButton.addActionListener((x) -> {
             try {
@@ -41,7 +43,7 @@ public class Inventory extends JDialog{
     }
 
     private void RefreshSupplyNumbers(){
-        radioButtons = UIService.DisplaySupplyWithNumbers(SuppliesPanel, player.supplies);
+        radioButtons = UIService.DisplaySupply(SuppliesPanel, player.supplies, true);
         for(var radioButton:radioButtons){
             radioButton.addChangeListener((x) -> SelectSupply());
         }
@@ -60,6 +62,6 @@ public class Inventory extends JDialog{
             }
         }
         RefreshSupplyNumbers();
-        player.RefreshInfo();
+        InfoForm.RefreshInfo();
     }
 }

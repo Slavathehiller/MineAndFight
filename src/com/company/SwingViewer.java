@@ -8,7 +8,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.lang.reflect.InvocationTargetException;
 
-public class SwingViewer extends JDialog implements ISubLevelViewer {
+public class SwingViewer extends JDialog implements ISubLevelViewer, IInfoForm {
 
     JLabel[][] map;
     ISubLevelModel model;
@@ -129,7 +129,7 @@ public class SwingViewer extends JDialog implements ISubLevelViewer {
     private final ActionListener OpenInventory = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
-            Inventory inventory = new Inventory(self(), model.getPlayer());
+            Inventory inventory = new Inventory(self(), self(), model.getPlayer());
 
             RefreshPlayerInfo();
             self().requestFocusInWindow();
@@ -184,5 +184,10 @@ public class SwingViewer extends JDialog implements ISubLevelViewer {
                 }
             }
         });
+    }
+
+    @Override
+    public void RefreshInfo() {
+        RefreshPlayerInfo();
     }
 }
