@@ -17,7 +17,7 @@
         <children>
           <grid id="dac25" layout-manager="BorderLayout" hgap="0" vgap="0">
             <constraints>
-              <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
               <gridbag weightx="1.0" weighty="1.0" ipadx="5"/>
             </constraints>
             <properties/>
@@ -38,27 +38,15 @@
                 <border type="line"/>
                 <children/>
               </grid>
-              <grid id="c96a9" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+              <grid id="c96a9" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="0" left="0" bottom="10" right="10"/>
                 <constraints border-constraint="South"/>
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="ca912" class="javax.swing.JButton" binding="CreateButton">
-                    <constraints>
-                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="6" fill="0" indent="0" use-parent-layout="false">
-                        <minimum-size width="130" height="30"/>
-                        <maximum-size width="130" height="30"/>
-                      </grid>
-                    </constraints>
-                    <properties>
-                      <icon value="workshop_icon_30x30.png"/>
-                      <text value="Создать"/>
-                    </properties>
-                  </component>
                   <component id="ad35a" class="javax.swing.JButton" binding="ToCityButton">
                     <constraints>
-                      <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="6" fill="0" indent="0" use-parent-layout="false">
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="6" fill="0" indent="0" use-parent-layout="false">
                         <minimum-size width="130" height="30"/>
                         <maximum-size width="130" height="30"/>
                       </grid>
@@ -72,34 +60,105 @@
               </grid>
             </children>
           </grid>
-          <hspacer id="417e7">
-            <constraints>
-              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-              <gridbag weightx="0.05" weighty="0.0"/>
-            </constraints>
-          </hspacer>
           <vspacer id="7ac4a">
             <constraints>
-              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
               <gridbag weightx="0.0" weighty="0.0"/>
             </constraints>
           </vspacer>
-          <grid id="a1584" layout-manager="BorderLayout" hgap="0" vgap="0">
+          <tabbedpane id="e4979" binding="ComponentTabbedPane">
             <constraints>
-              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                <preferred-size width="200" height="200"/>
+              </grid>
               <gridbag weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties/>
-            <border type="line" title="Рецепты"/>
+            <border type="none"/>
             <children>
-              <component id="c1d6f" class="javax.swing.JList" binding="RecipeList">
-                <constraints border-constraint="Center"/>
-                <properties>
-                  <model/>
-                </properties>
-              </component>
+              <grid id="69742" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
+                <constraints>
+                  <tabbedpane title="Экипировка"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <grid id="a1584" layout-manager="BorderLayout" hgap="0" vgap="0">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties/>
+                    <border type="line" title="Рецепты"/>
+                    <children>
+                      <component id="c1d6f" class="javax.swing.JList" binding="EquipmentRecipeList">
+                        <constraints border-constraint="Center"/>
+                        <properties>
+                          <model/>
+                        </properties>
+                      </component>
+                    </children>
+                  </grid>
+                  <vspacer id="45069">
+                    <constraints>
+                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                  </vspacer>
+                  <component id="ca912" class="javax.swing.JButton" binding="CreateButton">
+                    <constraints>
+                      <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                        <minimum-size width="130" height="30"/>
+                        <maximum-size width="130" height="30"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <icon value="workshop_icon_30x30.png"/>
+                      <text value="Создать"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+              <grid id="eb555" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
+                <constraints>
+                  <tabbedpane title="Прочее"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <grid id="e5bd2" layout-manager="BorderLayout" hgap="0" vgap="0">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties/>
+                    <border type="line" title="Рецепты"/>
+                    <children>
+                      <component id="5879d" class="javax.swing.JList" binding="OtherRecipeList">
+                        <constraints border-constraint="Center"/>
+                        <properties>
+                          <model>
+                            <item value="Маскировка(1)"/>
+                          </model>
+                        </properties>
+                      </component>
+                    </children>
+                  </grid>
+                  <component id="4caf4" class="javax.swing.JButton" binding="UpgradeButton">
+                    <constraints>
+                      <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                        <minimum-size width="130" height="30"/>
+                        <maximum-size width="130" height="30"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <icon value="upgrade_icon_30x30.png"/>
+                      <text value="Улучшить"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
             </children>
-          </grid>
+          </tabbedpane>
         </children>
       </grid>
       <component id="dabed" class="javax.swing.JLabel">

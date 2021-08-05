@@ -39,4 +39,11 @@ public class UIService {
         panel.updateUI();
         return result;
     }
+
+    public static void ClearPanel(JPanel panel){
+        for(int i = panel.getComponents().length - 1; i >= 0; i--){
+            var lbl = panel.getComponent(i);
+            panel.remove(lbl);
+        }
+    }
 }

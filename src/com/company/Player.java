@@ -12,6 +12,8 @@ public class Player implements IMovableDisplayable, IFighter{
     public int AxeUpgradeCost = 10;
     public int Armor_lvl = 1;
     public int ArmorUpgradeCost = 100;
+    public int Masked_lvl = 1;
+    public Recipe MaskedUpgradeCost = new Recipe();
     public int X = 0;
     public int Y = 0;
     private float Health = 100;
@@ -66,6 +68,9 @@ public class Player implements IMovableDisplayable, IFighter{
         for(var name:BattleBuffType.battleBuffImageNames){
             battleBuffIcons.add(new ImageIcon(getClass().getResource(name)));
         }
+        MaskedUpgradeCost.addResource(ResourceType.Fur, 3);
+        MaskedUpgradeCost.addResource(ResourceType.Fiber, 2);
+
     }
 
     public void setWeb(Web web){
@@ -102,7 +107,7 @@ public class Player implements IMovableDisplayable, IFighter{
         upgradeAxe(1);
     }
 
-    public long getResourceNumber(int resourceType){
+    public double getResourceNumber(int resourceType){
         return resources.get(resourceType).Number;
     }
 
@@ -146,6 +151,22 @@ public class Player implements IMovableDisplayable, IFighter{
             }
         }
         statePanel.updateUI();
+    }
+
+    public void UpgradeMaskedLevel(){
+        if(isEnoughResource(MaskedUpgradeCost)){
+            Masked_lvl++;
+            TakeResourcesForRecipe(MaskedUpgradeCost);
+            for(var res:MaskedUpgradeCost.resources){
+                res.Number = res.Number * 1.2f;
+            }
+        }
+    }
+
+    public void TakeResourcesForRecipe(Recipe recipe){
+        for(var res:recipe.resources) {
+            addResource(res.Type, -res.Number);
+        }
     }
 
     public void BattleBuffsProceed(){
@@ -206,7 +227,7 @@ public class Player implements IMovableDisplayable, IFighter{
         for(Resource res:resources){
             JLabel resName = new JLabel();
             resName.setIcon(res.Icon);
-            resName.setText(": " + res.Number);
+            resName.setText(": " + Math.round(res.Number));
             resName.setToolTipText(res.Name);
             resourcePanel.add(resName);
         }

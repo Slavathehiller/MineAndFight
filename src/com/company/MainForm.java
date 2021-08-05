@@ -83,6 +83,7 @@ public class MainForm extends JDialog implements IInfoForm {
     private JButton EnterThicketLevel2Button;
     private JButton EnterThicketLevel3Button;
     private JButton ToAlchemistButton;
+    private JLabel MaskedLabel;
     private final Timer staminaTimer;
     private final Timer healthTimer;
     private int OreSellAmount = 1000;
@@ -100,6 +101,7 @@ public class MainForm extends JDialog implements IInfoForm {
         MineOreButton.setText("Добывать руду(" + player.Pickaxe_lvl + ")");
         UpgradePickaxeButton.setText("Улучшение кирки(" + player.PickaxeUpgradeCost + ")");
         ArmorLabel.setText("Доспех: " + player.Armor_lvl);
+        MaskedLabel.setText("Маскировка: " + player.Masked_lvl);
         UpgradeArmorButton.setText("Улучшение доспеха(" + player.ArmorUpgradeCost + ")");
         MagicTorchLabel.setVisible(player.haveArtefact(Artefacts.MagicTorch));
         SilverSpearLabel.setVisible(player.haveArtefact(Artefacts.SilverSpear));

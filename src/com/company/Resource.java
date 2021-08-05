@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class Resource {
     int Type;
-    long Number;
+    double Number;
     String Name;
     ImageIcon Icon;
 

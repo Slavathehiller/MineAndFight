@@ -5,14 +5,16 @@ import java.util.ArrayList;
 
 public class Workshop extends JDialog{
     private JPanel MainPanel;
-    private JList RecipeList;
+    private JList EquipmentRecipeList;
     private JButton CreateButton;
     private JButton ToCityButton;
     private JPanel ComponentPanel;
     private JLabel EquipmentNameLabel;
     private JPanel ResourcesPanel;
+    private JTabbedPane ComponentTabbedPane;
+    private JList OtherRecipeList;
+    private JButton UpgradeButton;
     private final Player player;
-    private final ArrayList<JLabel> componentLabels = new ArrayList<>();
 
     public Workshop(JDialog parent, Player player){
         super(parent, "", ModalityType.DOCUMENT_MODAL);
@@ -24,48 +26,74 @@ public class Workshop extends JDialog{
             if(Equipment.recipes[i] != null)
                 listModel.addElement(Equipment.names[i]);
         }
-        RecipeList.setModel(listModel);
+        ComponentTabbedPane.addChangeListener((x) -> ChangeTab());
+        EquipmentRecipeList.setModel(listModel);
         ComponentPanel.setLayout(new BoxLayout(ComponentPanel, BoxLayout.Y_AXIS));
-        RecipeList.addListSelectionListener((x) -> SelectedRecipe());
-        CreateButton.addActionListener((x) -> CreateItem());
+        EquipmentRecipeList.addListSelectionListener((x) -> SelectedEquipmentRecipe());
+        OtherRecipeList.addListSelectionListener((x) -> SelectedOtherRecipe());
+        CreateButton.addActionListener((x) -> CreateEquipment());
+        UpgradeButton.addActionListener((x) -> CreateOtherItem());
         ToCityButton.addActionListener((x) -> this.dispose());
         UpdateResources();
         setVisible(true);
+    }
+
+    private void ChangeTab() {
+        UIService.ClearPanel(ComponentPanel);
+        var index = ComponentTabbedPane.getSelectedIndex();
+        if(index == 0){
+            SelectedEquipmentRecipe();
+        }
+        if(index == 1){
+            SelectedOtherRecipe();
+        }
     }
 
     private void UpdateResources(){
         player.UpdateResources(ResourcesPanel);
     }
 
-    private void SelectedRecipe(){
-        for(int i = componentLabels.size() - 1; i >= 0; i--){
-            var lbl = componentLabels.get(i);
-            ComponentPanel.remove(lbl);
-            componentLabels.remove(lbl);
-        }
-        var equip = new Equipment(RecipeList.getSelectedIndex());
-        var recipe = equip.recipe;
-        EquipmentNameLabel.setText(Equipment.names[RecipeList.getSelectedIndex()]);
-        EquipmentNameLabel.setIcon(equip.Icon);
+    private void SelectedEquipmentRecipe(){
+        UIService.ClearPanel(ComponentPanel);
+        var index = EquipmentRecipeList.getSelectedIndex();
+        if(index < 0)
+            return;
+        var equip = new Equipment(index);
+        FillRecipePanel(equip.recipe);
+    }
+
+    private void SelectedOtherRecipe(){
+        UIService.ClearPanel(ComponentPanel);
+        var recipe = getOtherRecipe(OtherRecipeList.getSelectedIndex());
+        FillRecipePanel(recipe);
+    }
+
+    private void FillRecipePanel(Recipe recipe){
+        UIService.ClearPanel(ComponentPanel);
+        if(recipe == null)
+            return;
         for(Resource res:recipe.resources){
             JLabel resName = new JLabel();
-            componentLabels.add(resName);
             resName.setIcon(res.Icon);
-            resName.setText(res.Name + ": " + res.Number);
+            resName.setText(res.Name + ": " + Math.round(res.Number));
             ComponentPanel.add(resName);
         }
         ComponentPanel.updateUI();
     }
 
+    private Recipe getOtherRecipe(int selectedIndex) {
+        if(selectedIndex == 0){
+            return player.MaskedUpgradeCost;
+        }
+        return null;
+    }
 
 
-    private void CreateItem(){
-        var equip = new Equipment(RecipeList.getSelectedIndex());
+    private void CreateEquipment(){
+        var equip = new Equipment(EquipmentRecipeList.getSelectedIndex());
         if(player.isEnoughResource(equip.recipe)){
             player.addEquipment(equip.Type);
-            for(var res:equip.recipe.resources) {
-                player.addResource(res.Type, -res.Number);
-            }
+            player.TakeResourcesForRecipe(equip.recipe);
             UpdateResources();
             player.RefreshInfo();
         }
@@ -73,6 +101,25 @@ public class Workshop extends JDialog{
             JOptionPane.showMessageDialog(this, "Не достаточно ресурсов!", "Ошибка", JOptionPane.WARNING_MESSAGE);
         }
     }
+
+    private void CreateOtherItem(){
+        if(OtherRecipeList.getSelectedIndex() == 0){
+            UpgradeMaskedLevel();
+        }
+    }
+
+    private void UpgradeMaskedLevel(){
+        if(player.isEnoughResource(player.MaskedUpgradeCost)){
+            player.UpgradeMaskedLevel();
+            FillRecipePanel(player.MaskedUpgradeCost);
+            UpdateResources();
+            player.RefreshInfo();
+        }
+        else {
+            JOptionPane.showMessageDialog(this, "Не достаточно ресурсов!", "Ошибка", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
 
 
 }

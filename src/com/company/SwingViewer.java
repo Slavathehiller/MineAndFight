@@ -27,6 +27,7 @@ public class SwingViewer extends JDialog implements ISubLevelViewer, IInfoForm {
     private JButton InventoryButton;
     private JPanel StatePanel;
     private JLabel ArmorLabel;
+    private JLabel MaskedLabel;
 
     public SwingViewer(JDialog parent, ISubLevelModel model, ISubLevelController controller){
         super(parent, "", ModalityType.DOCUMENT_MODAL);
@@ -90,6 +91,7 @@ public class SwingViewer extends JDialog implements ISubLevelViewer, IInfoForm {
         var health = model.getPlayer().getHealth();
         health = Math.round(health * 10) / 10f;
         HealthBar.setToolTipText("Здоровье (" + health + "/100)");
+
     }
 
     public void RefreshPlayerInfo(){
@@ -97,6 +99,7 @@ public class SwingViewer extends JDialog implements ISubLevelViewer, IInfoForm {
         RefreshResourcesInfo();
         RefreshSupplyInfo();
         RefreshArmorInfo();
+        RefreshMaskedInfo();
         model.getPlayer().UpdateStateInfo(StatePanel);
     }
 
@@ -150,6 +153,10 @@ public class SwingViewer extends JDialog implements ISubLevelViewer, IInfoForm {
 
     public void RefreshArmorInfo(){
         ArmorLabel.setText("Доспех: " + model.getPlayer().Armor_lvl);
+    }
+
+    public void RefreshMaskedInfo(){
+        MaskedLabel.setText("Маскировка: " + model.getPlayer().Masked_lvl);
     }
 
     public void Log(String message){
