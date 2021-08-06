@@ -1,7 +1,5 @@
 package com.company;
 
-import java.lang.reflect.InvocationTargetException;
-
 public class ThicketLevel3Model extends ThicketLevelModel{
 
     public boolean PlayerIsMasked = false;

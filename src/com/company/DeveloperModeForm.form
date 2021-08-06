@@ -127,6 +127,14 @@
           <text value="Увеличить уровень доспеха"/>
         </properties>
       </component>
+      <component id="74e74" class="javax.swing.JButton" binding="AddMaskedLevelButton">
+        <constraints>
+          <grid row="3" column="3" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Увеличить уровень маскировки"/>
+        </properties>
+      </component>
     </children>
   </grid>
 </form>

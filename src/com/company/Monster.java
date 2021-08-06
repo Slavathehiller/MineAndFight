@@ -19,6 +19,7 @@ public abstract class Monster implements IMovableDisplayable, IFighter {
     protected Drop drop;
     protected int FeelRadius;
     protected boolean Lycanthrope = false;
+    protected boolean isBlind = false;
 
     public void init(IMap map, int x, int y){
         image = new ImageIcon(Objects.requireNonNull(getClass().getResource(getImagePath())));
@@ -60,11 +61,13 @@ public abstract class Monster implements IMovableDisplayable, IFighter {
     }
 
     public int FeelRadius(){
-        if(map.getPlayerIsMasked()){
+        if(map.getPlayerIsMasked())
             return 0;
-        }
         else {
-            return FeelRadius;
+            if(isBlind)
+                return FeelRadius;
+            else
+                return Math.max((FeelRadius - (map.getPlayer().Masked_lvl - 1) / 10), 1);
         }
     }
 

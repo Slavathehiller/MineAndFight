@@ -15,7 +15,7 @@ public class SwingViewer extends JDialog implements ISubLevelViewer, IInfoForm {
     ISubLevelController controller;
     private JPanel MainPanel;
     private JPanel LocationPanel;
-    private JPanel ControllPanel;
+    private JPanel ControlPanel;
     private JPanel LogPanel;
     private JTextArea TALogger;
     private JPanel InfoPanel;

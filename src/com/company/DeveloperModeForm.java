@@ -11,6 +11,7 @@ public class DeveloperModeForm extends JFrame{
     private JPanel MainPanel;
     private JButton ExitButton;
     private JButton AddArmorLevelButton;
+    private JButton AddMaskedLevelButton;
     private Player player;
 
     public DeveloperModeForm(Player player){
@@ -24,6 +25,7 @@ public class DeveloperModeForm extends JFrame{
         ExitButton.addActionListener((x) -> this.dispose());
         SetVisionRadiusButton.addActionListener((x)->SetVision());
         AddArmorLevelButton.addActionListener((x) -> IncreaseArmorLevel());
+        AddMaskedLevelButton.addActionListener((x) -> IncreaseMaskedLevel());
     }
 
     public void AddALotOfMoney(){
@@ -48,6 +50,11 @@ public class DeveloperModeForm extends JFrame{
 
     public void IncreaseArmorLevel(){
         player.Armor_lvl += 10;
+        player.RefreshInfo();
+    }
+
+    public void IncreaseMaskedLevel(){
+        player.Masked_lvl += 10;
         player.RefreshInfo();
     }
 

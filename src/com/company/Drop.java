@@ -10,10 +10,10 @@ public class Drop {
     public String getDetails(){
         String message = "";
         for (Resource resource : resources) {
-            message += "    " + resource.Name + ": " + resource.Number + "\n";
+            message += "    " + resource.Name + ": " + Math.round(resource.Number) + "\n";
         }
         for (Equipment equipment : equipments) {
-            message += "    " + equipment.Name + ": " + equipment.Number + "\n";
+            message += "    " + equipment.Name + ": " + Math.round(equipment.Number) + "\n";
         }
         return message;
     }

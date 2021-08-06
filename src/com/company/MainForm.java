@@ -82,6 +82,7 @@ public class MainForm extends JDialog implements IInfoForm {
     private JButton EnterThicketLevel1Button;
     private JButton EnterThicketLevel2Button;
     private JButton EnterThicketLevel3Button;
+    private JButton EnterThicketLevel4Button;
     private JButton ToAlchemistButton;
     private JLabel MaskedLabel;
     private final Timer staminaTimer;
@@ -161,6 +162,7 @@ public class MainForm extends JDialog implements IInfoForm {
         EnterThicketLevel1Button.addActionListener(EnterThicketLevel1);
         EnterThicketLevel2Button.addActionListener(EnterThicketLevel2);
         EnterThicketLevel3Button.addActionListener(EnterThicketLevel3);
+        EnterThicketLevel4Button.addActionListener(EnterThicketLevel4);
         AttackGoblinButton.addActionListener(AttackGoblin);
         AttackOrcButton.addActionListener(AttackOrc);
         AttackTrollButton.addActionListener(AttackTroll);
@@ -377,6 +379,14 @@ public class MainForm extends JDialog implements IInfoForm {
         @Override
         public void actionPerformed(ActionEvent e) {
             var model = new ThicketLevel3Model(player);
+            StartLevel(model);
+        }
+    };
+
+    private final ActionListener EnterThicketLevel4 = new ActionListener(){
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            var model = new ThicketLevel4Model(player);
             StartLevel(model);
         }
     };
