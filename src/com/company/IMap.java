@@ -19,5 +19,8 @@ public interface IMap {
     Point GenerateFreeCordsWithin(Point point, int r);
     boolean CheckPathToward(Point pointFrom, Point pointTo);
     Point NearestPointToward(Point pointFrom, Point pointTo);
+    public float RangeFromToObject(int x, int y, IDisplayable object);
+    public float DistanceBetweenObjects(IDisplayable object1, IDisplayable object2);
+    public void MoveTowardObject(IMovableDisplayable mover, IDisplayable object);
     boolean getPlayerIsMasked();
 }

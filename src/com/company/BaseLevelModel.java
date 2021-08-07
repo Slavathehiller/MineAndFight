@@ -242,6 +242,16 @@ public abstract class BaseLevelModel implements ISubLevelModel, IMap{
     }
 
     @Override
+    public float RangeFromToObject(int x, int y, IDisplayable object){
+        return RangeFromTo(x, y, object.getX(), object.getY());
+    }
+
+    @Override
+    public float DistanceBetweenObjects(IDisplayable object1, IDisplayable object2){
+        return RangeFromTo(object1.getX(), object2.getY(), object2.getX(), object2.getY());
+    }
+
+    @Override
     public float DistanceToPlayer(IDisplayable object){
         return DistanceToPlayer(object.getX(), object.getY());
     }
@@ -254,6 +264,11 @@ public abstract class BaseLevelModel implements ISubLevelModel, IMap{
     public void MoveToward(IMovableDisplayable mover, int x, int y){
         var cord = GetStepToward(new Point(mover.getX(), mover.getY()), new Point(x, y));
         MoveIfCan(mover, cord.X, cord.Y);
+    }
+
+    @Override
+    public void MoveTowardObject(IMovableDisplayable mover, IDisplayable object){
+        MoveToward(mover, object.getX(), object.getY());
     }
 
     @Override

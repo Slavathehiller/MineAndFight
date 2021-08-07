@@ -60,6 +60,10 @@ public abstract class Monster implements IMovableDisplayable, IFighter {
         return Math.random() < frequencyMove;
     }
 
+    public boolean IsWounded(){
+        return getHealth() < getMaxHealth();
+    }
+
     public int FeelRadius(){
         if(map.getPlayerIsMasked())
             return 0;
