@@ -422,6 +422,11 @@ public class Player implements IMovableDisplayable, IFighter{
         return false;
     }
 
+    @Override
+    public boolean getGiant() {
+        return false;
+    }
+
     public void setHealth(float health) {
         if(health > getMaxHealth()){
             Health = getMaxHealth();

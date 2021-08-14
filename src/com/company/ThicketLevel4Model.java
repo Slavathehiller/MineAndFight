@@ -9,11 +9,16 @@ public class ThicketLevel4Model extends ThicketLevelModel {
     @Override
     public void GenerateMonsters() {
         super.GenerateMonsters();
-        GenerateMonsters(Troglodyte.class, 3);
-        GenerateLevelBoss(new TroglodyteHerber());
+        GenerateMonsters(Troglodyte.class, 4);
+        GenerateMonsters(TroglodyteHerber.class, 2);
+        GenerateLevelBoss(new Cyclope());
     }
 
-
+    @Override
+    public void GenerateObstacles(){
+        DisplayableObjects.add(obstacles);
+        GenerateObstacles(CaveObstacle.class, getObstacleCount());
+    }
 
     @Override
     public void GenerateChests() {

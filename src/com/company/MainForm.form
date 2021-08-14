@@ -1352,7 +1352,7 @@
                   <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text value="Пещера циклопа(босс)"/>
+                  <text value="Пещера циклопа"/>
                 </properties>
               </component>
               <component id="f3471" class="javax.swing.JLabel">
@@ -1456,7 +1456,7 @@
                 </constraints>
                 <properties>
                   <icon value="armor_icon_15x15.png"/>
-                  <text value=": ?"/>
+                  <text value=": 80"/>
                 </properties>
               </component>
               <vspacer id="c323c">

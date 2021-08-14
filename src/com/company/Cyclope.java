@@ -2,11 +2,11 @@ package com.company;
 
 import javax.swing.*;
 
-public class Troglodyte extends Monster{
+public class Cyclope extends Monster{
 
     @Override
     protected String getImagePath() {
-        return "/troglodyte_icon_30x30.png";
+        return "/cyclope_icon_30x30.png";
     }
 
     @Override
@@ -15,17 +15,19 @@ public class Troglodyte extends Monster{
             return;
         }
         if (CanMove()) {
-            if (FeelRadius() >= map.DistanceToPlayer(this)) {
+            if(FeelRadius() >= map.DistanceToPlayer(this)) {
                 MoveToPlayer();
                 return;
             }
-            RandomMove();
+            else
+                RandomMove();
         }
     }
 
+
     @Override
     public float getMaxHealth() {
-        return 45;
+        return 100;
     }
 
     @Override
@@ -33,20 +35,29 @@ public class Troglodyte extends Monster{
         return super.CanMove();
     }
 
-    public void init(IMap map, int x, int y){
-        super.init(map, x, y);
-        Name = "Троглодит";
-        frequencyMove = 0.8f;
-        Power = 60;
-        FeelRadius = 5;
-        isBlind = true;
-        drop.addRandomResource(ResourceType.Coins, 25, 70, 0.3f);
-        drop.addRandomResource(ResourceType.Ore, 100, 200, 0.5f);
-        drop.addRandomResource(ResourceType.Stone, 100, 200, 0.7f);
-        drop.addRandomEquipment(EquipmentType.CorralSpear, 1, 1, 0.2f);
+    @Override
+    public int FeelRadius() {
+        return FeelRadius;
     }
 
-    public Troglodyte(){
+    public void init(IMap map, int x, int y){
+        super.init(map, x, y);
+        Name = "Циклоп";
+        frequencyMove = 0.1f;
+        Power = 80;
+        FeelRadius = 4;
+        Giant = true;
+        Buffing stun = new Buffing();
+        stun.BuffType = BattleBuffType.Stun;
+        stun.Duration = 1;
+        stun.Chance = 0.8f;
+        buffings = new Buffing[]{stun};
+        drop.addRandomResource(ResourceType.Coins, 5000, 10000);
+        drop.addRandomEquipment(EquipmentType.CorralSpear, 2, 6, 0.7f);
+        drop.addRandomEquipment(EquipmentType.BearSpear, 2, 6, 0.5f);
+    }
+
+    public Cyclope(){
 
     }
 
@@ -67,6 +78,6 @@ public class Troglodyte extends Monster{
 
     @Override
     public Buffing[] getBuffing() {
-        return new Buffing[0];
+        return buffings;
     }
 }

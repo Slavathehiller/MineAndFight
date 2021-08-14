@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class TroglodyteHerber extends Monster{
 
-    private final float healPower = 10;
+    private final float healPower = 5;
     private final float healRadius = 2;
 
     @Override
@@ -48,13 +48,13 @@ public class TroglodyteHerber extends Monster{
         super.init(map, x, y);
         Name = "Троглодит-травник";
         frequencyMove = 0.6f;
-        Power = 25;
+        Power = 35;
         FeelRadius = 9;
         isBlind = true;
         drop.addRandomResource(ResourceType.Coins, 10, 35, 0.3f);
-        drop.addRandomEquipment(ResourceType.SageLeaf, 1, 2, 0.2f);
-        drop.addRandomEquipment(ResourceType.PlantainLeaf, 1, 2, 0.2f);
-        drop.addRandomEquipment(ResourceType.MushroomCap, 1, 4, 0.5f);
+        drop.addRandomResource(ResourceType.SageLeaf, 1, 2, 0.2f);
+        drop.addRandomResource(ResourceType.PlantainLeaf, 1, 2, 0.2f);
+        drop.addRandomResource(ResourceType.MushroomCap, 1, 4, 0.5f);
     }
 
     public TroglodyteHerber(){
@@ -83,7 +83,10 @@ public class TroglodyteHerber extends Monster{
 
     public void Heal(Monster monster){
         monster.Health = Math.min(healPower + monster.Health, monster.getMaxHealth());
-        map.addToLog(Name + " лечит раненого союзника.");
+        if(monster == this)
+            map.addToLog(Name + " лечит себя, восстанавливая " + healPower + ".");
+        else
+            map.addToLog(Name + " лечит раненого союзника, восстанавливая " + healPower + ".");
     }
 
     private Monster getNearestWounded(){

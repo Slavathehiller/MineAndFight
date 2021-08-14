@@ -334,6 +334,10 @@ public abstract class BaseLevelModel implements ISubLevelModel, IMap{
                 damage *= 2;
                 Log += "Серебрянное копье наносит оборотню двойной урон.\n";
             }
+            if(target.getGiant() && attacker.getFighterType() == CollisionObjectTypes.Player && ((Player)attacker).haveArtefact(Artefacts.TheGiantKiller)){
+                damage *= 2;
+                Log += "Убийца великанов наносит великану двойной урон.\n";
+            }
             Log += attacker.getName() + " бьет " + target.getName() + " и наносит " + damage + " урона.\n";
             target.changeHealth(-damage);
             if(target.getFighterType() == CollisionObjectTypes.Player){
