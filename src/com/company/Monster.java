@@ -19,6 +19,7 @@ public abstract class Monster implements IMovableDisplayable, IFighter {
     protected Drop drop;
     protected int FeelRadius;
     protected boolean Lycanthrope = false;
+    protected float HideRadius = 0;
     protected boolean Giant = false;
     protected boolean isBlind = false;
 
@@ -53,6 +54,7 @@ public abstract class Monster implements IMovableDisplayable, IFighter {
 
     public abstract void Act() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException;
 
+    @Override
     public abstract float getMaxHealth();
 
     protected boolean CanMove() {
@@ -79,6 +81,16 @@ public abstract class Monster implements IMovableDisplayable, IFighter {
     @Override
     public boolean getGiant(){
         return Giant;
+    }
+
+    @Override
+    public boolean getVisible(){
+        if(HideRadius == 0){
+            return true;
+        }
+        else {
+            return map.DistanceToPlayer(this) <= HideRadius;
+        }
     }
 
     public boolean IsPlayerNear(){

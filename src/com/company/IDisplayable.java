@@ -11,6 +11,7 @@ public interface IDisplayable {
     int getObjectType();
     Object getSelf();
     void init(IMap map, int x, int y);
+    boolean getVisible();
 
 
 }

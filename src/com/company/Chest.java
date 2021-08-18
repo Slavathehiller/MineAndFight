@@ -62,5 +62,10 @@ public class Chest implements IDisplayable {
         Y = y;
     }
 
+    @Override
+    public boolean getVisible() {
+        return true;
+    }
+
 
 }

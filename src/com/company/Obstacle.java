@@ -31,6 +31,11 @@ public abstract class Obstacle implements IDisplayable{
     }
 
     @Override
+    public boolean getVisible() {
+        return true;
+    }
+
+    @Override
     public ImageIcon getImage() {
         return null;
     }

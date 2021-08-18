@@ -10,7 +10,7 @@ import java.lang.reflect.InvocationTargetException;
 
 public class SwingViewer extends JDialog implements ISubLevelViewer, IInfoForm {
 
-    JLabel[][] map;
+    DisplayableObject[][] map;
     ISubLevelModel model;
     ISubLevelController controller;
     private JPanel MainPanel;
@@ -33,7 +33,7 @@ public class SwingViewer extends JDialog implements ISubLevelViewer, IInfoForm {
         super(parent, "", ModalityType.DOCUMENT_MODAL);
         this.model = model;
         this.controller = controller;
-        map = new JLabel[model.getMaxY()][model.getMaxX()];
+        map = new DisplayableObject[model.getMaxY()][model.getMaxX()];
         add(MainPanel);
         setBounds(700, 100, 1450, 1200);
         GridLayout layout = new GridLayout(0, 1, 0, 0);
@@ -41,13 +41,11 @@ public class SwingViewer extends JDialog implements ISubLevelViewer, IInfoForm {
         GridLayout panelLayout = new GridLayout(1, 0, 0, 0);
         for (int i = 0; i < model.getMaxY(); i++) {
             JPanel panel = new JPanel();
-
             panel.setLayout(panelLayout);
-
             for (int j = 0; j < model.getMaxX(); j++) {
-                JLabel jlabel = new JLabel();
-                map[i][j] = jlabel;
-                panel.add(jlabel);
+                var object = new DisplayableObject(new JLabel());
+                map[i][j] = object;
+                panel.add(object.foundation);
             }
             LocationPanel.add(panel);
         }
@@ -70,14 +68,20 @@ public class SwingViewer extends JDialog implements ISubLevelViewer, IInfoForm {
     public void DrawLocation(){
         for(var i = 0; i < model.getMaxY(); i++){
             for (var j = 0; j < model.getMaxX(); j++){
-                map[i][j].setIcon(null);
-                map[i][j].setToolTipText(null);
+                map[i][j].setImage(null);
+                map[i][j].setDescription(null);
+                map[i][j].setHealthBar(null);
             }
         }
         for(var objectArray:model.getDisplayableObjects()){
             for(var object:objectArray) {
-                map[object.getY()][object.getX()].setIcon(object.getImage());
-                map[object.getY()][object.getX()].setToolTipText(object.getToolTip());
+                if(object.getVisible()) {
+                    map[object.getY()][object.getX()].setImage(object.getImage());
+                    map[object.getY()][object.getX()].setDescription(object.getToolTip());
+                    if(object instanceof IFighter){
+                        map[object.getY()][object.getX()].setHealthBar((IFighter) object);
+                    }
+                }
             }
         }
         Log(model.getLog());

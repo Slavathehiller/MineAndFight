@@ -21,6 +21,11 @@ public class Web implements IDisplayable{
         imageIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/spider_web_icon_30x30.png")));
     }
 
+    @Override
+    public boolean getVisible() {
+        return isVisible;
+    }
+
     public Web(IMap map, int x, int y){
         init(map, x, y);
     }

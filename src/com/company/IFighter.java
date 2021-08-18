@@ -11,5 +11,6 @@ public interface IFighter {
     Drop getDrop();
     boolean getLycanthrope();
     boolean getGiant();
+    float getMaxHealth();
 
 }

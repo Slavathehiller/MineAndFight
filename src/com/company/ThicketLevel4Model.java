@@ -11,6 +11,7 @@ public class ThicketLevel4Model extends ThicketLevelModel {
         super.GenerateMonsters();
         GenerateMonsters(Troglodyte.class, 4);
         GenerateMonsters(TroglodyteHerber.class, 2);
+        GenerateMonsters(Cobold.class, 3);
         GenerateLevelBoss(new Cyclope());
     }
 

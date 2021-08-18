@@ -85,6 +85,11 @@ public class Player implements IMovableDisplayable, IFighter{
     public void init(IMap map, int x, int y) {
     }
 
+    @Override
+    public boolean getVisible() {
+        return true;
+    }
+
     public void RefreshInfo(){
         InfoForm.dataFromPlayerToForm();
         InfoForm.RefreshStats();
@@ -463,6 +468,7 @@ public class Player implements IMovableDisplayable, IFighter{
         setHealth(Health + health);
     }
 
+    @Override
     public float getMaxHealth() {
         var result = MaxHealth;
         if(isGlobalBuff(GlobalBuffTypes.IncreaseMaxHealth))
