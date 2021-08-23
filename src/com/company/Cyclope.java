@@ -52,9 +52,9 @@ public class Cyclope extends Monster{
         stun.Duration = 1;
         stun.Chance = 0.8f;
         buffings = new Buffing[]{stun};
-        drop.addRandomResource(ResourceType.Coins, 5000, 10000);
-        drop.addRandomEquipment(EquipmentType.CorralSpear, 2, 6, 0.7f);
-        drop.addRandomEquipment(EquipmentType.BearSpear, 2, 6, 0.5f);
+        drop.addRandomResource(ResourceType.Coins, 10000, 100000);
+        drop.addRandomEquipment(EquipmentType.CorralSpear, 2, 15, 0.7f);
+        drop.addRandomEquipment(EquipmentType.BearSpear, 2, 15, 0.5f);
     }
 
     public Cyclope(){

@@ -100,7 +100,9 @@ public class MainForm extends JDialog implements IInfoForm {
         PickaxeLabel.setText("Кирка: " + player.Pickaxe_lvl);
         AxeLabel.setText("Топор: " + player.Axe_lvl);
         MineOreButton.setText("Добывать руду(" + player.Pickaxe_lvl + ")");
+        ExtractWoodButton.setText("(" + player.Axe_lvl + ")");
         UpgradePickaxeButton.setText("Улучшение кирки(" + player.PickaxeUpgradeCost + ")");
+        UpgradeAxeButton.setText("Улучшение топора(" + player.AxeUpgradeCost + ")");
         ArmorLabel.setText("Доспех: " + player.Armor_lvl);
         MaskedLabel.setText("Маскировка: " + player.Masked_lvl);
         UpgradeArmorButton.setText("Улучшение доспеха(" + player.ArmorUpgradeCost + ")");
@@ -574,9 +576,9 @@ public class MainForm extends JDialog implements IInfoForm {
     private final ActionListener buyArtefact1 = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(player.getResourceNumber(ResourceType.Coins) >= 500) {
+            if(player.getResourceNumber(ResourceType.Coins) >= 1000) {
                 player.addArtefact(Artefacts.MagicTorch);
-                player.addResource(ResourceType.Coins, - 500);
+                player.addResource(ResourceType.Coins, - 1000);
                 BuyMagicTorchButton.setEnabled(false);
                 dataFromPlayerToForm();
             }
@@ -589,9 +591,9 @@ public class MainForm extends JDialog implements IInfoForm {
     private final ActionListener buyArtefact2 = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(player.getResourceNumber(ResourceType.Coins) >= 2500) {
+            if(player.getResourceNumber(ResourceType.Coins) >= 10000) {
                 player.addArtefact(Artefacts.SilverSpear);
-                player.addResource(ResourceType.Coins, - 2500);
+                player.addResource(ResourceType.Coins, - 10000);
                 BuySilverSpearButton.setEnabled(false);
                 dataFromPlayerToForm();
             }
@@ -619,9 +621,9 @@ public class MainForm extends JDialog implements IInfoForm {
     private final ActionListener buyArtefact4 = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(player.getResourceNumber(ResourceType.Coins) >= 7000) {
+            if(player.getResourceNumber(ResourceType.Coins) >= 100000) {
                 player.addArtefact(Artefacts.TheGiantKiller);
-                player.addResource(ResourceType.Coins, - 7000);
+                player.addResource(ResourceType.Coins, - 100000);
                 BuyTheGiantKillerButton.setEnabled(false);
                 dataFromPlayerToForm();
             }
@@ -649,9 +651,9 @@ public class MainForm extends JDialog implements IInfoForm {
     private final ActionListener buyArtefact6 = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(player.getResourceNumber(ResourceType.Coins) >= 15000) {
+            if(player.getResourceNumber(ResourceType.Coins) >= 1000) {
                 player.addArtefact(Artefacts.DuelistsSaber);
-                player.addResource(ResourceType.Coins, - 15000);
+                player.addResource(ResourceType.Coins, - 1000);
                 BuyDuelistsSaberButton.setEnabled(false);
                 dataFromPlayerToForm();
             }
@@ -664,9 +666,9 @@ public class MainForm extends JDialog implements IInfoForm {
     private final ActionListener buyEquipment1 = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(player.getResourceNumber(ResourceType.Coins) >= 100) {
+            if(player.getResourceNumber(ResourceType.Coins) >= 20) {
                 player.addEquipment(EquipmentType.Sling);
-                player.addResource(ResourceType.Coins, - 100);
+                player.addResource(ResourceType.Coins, - 20);
                 dataFromPlayerToForm();
             }
             else{
@@ -678,9 +680,9 @@ public class MainForm extends JDialog implements IInfoForm {
     private final ActionListener buyEquipment2 = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(player.getResourceNumber(ResourceType.Coins) >= 500) {
+            if(player.getResourceNumber(ResourceType.Coins) >= 100) {
                 player.addEquipment(EquipmentType.HuntBow);
-                player.addResource(ResourceType.Coins, - 500);
+                player.addResource(ResourceType.Coins, - 100);
                 dataFromPlayerToForm();
             }
             else{
@@ -725,9 +727,9 @@ public class MainForm extends JDialog implements IInfoForm {
     private final ActionListener buyEquipment5 = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(player.getResourceNumber(ResourceType.Coins) >= 800) {
+            if(player.getResourceNumber(ResourceType.Coins) >= 300) {
                 player.addEquipment(EquipmentType.CorralSpear);
-                player.addResource(ResourceType.Coins, - 800);
+                player.addResource(ResourceType.Coins, - 300);
                 dataFromPlayerToForm();
             }
             else{
@@ -739,9 +741,9 @@ public class MainForm extends JDialog implements IInfoForm {
     private final ActionListener buyEquipment6 = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(player.getResourceNumber(ResourceType.Coins) >= 1200) {
+            if(player.getResourceNumber(ResourceType.Coins) >= 500) {
                 player.addEquipment(EquipmentType.BearSpear);
-                player.addResource(ResourceType.Coins, - 1200);
+                player.addResource(ResourceType.Coins, - 500);
                 dataFromPlayerToForm();
             }
             else{

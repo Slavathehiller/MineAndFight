@@ -51,17 +51,17 @@ public class ThicketLevel3Model extends ThicketLevelModel{
         for(var i = 0; i < 5; i++){
             var point = GenerateFreeCords();
             Chest chest = new Chest(point.X, point.Y);
-            chest.drop.addRandomResource(ResourceType.Coins, 100, 350);
-            chest.drop.addRandomResource(ResourceType.Ore, 600, 800, 0.25f);
-            chest.drop.addRandomResource(ResourceType.Wood, 600, 800, 0.25f);
-            chest.drop.addRandomResource(ResourceType.Stone, 600, 800, 0.25f);
-            chest.drop.addRandomResource(ResourceType.Leather, 3, 7, 0.10f);
-            chest.drop.addRandomResource(ResourceType.Fur, 3, 7, 0.10f);
-            chest.drop.addRandomEquipment(EquipmentType.Sling, 3, 4, 0.05f);
-            chest.drop.addRandomEquipment(EquipmentType.HuntBow, 2, 4, 0.03f);
-            chest.drop.addRandomEquipment(EquipmentType.CorralSpear, 1, 3, 0.01f);
-            chest.drop.addRandomEquipment(EquipmentType.BearSpear, 1, 3, 0.01f);
-            chest.drop.addRandomEquipment(EquipmentType.SpyGlass, 1, 3, 0.005f);
+            chest.drop.addRandomResource(ResourceType.Coins, 1500, 4000);
+            chest.drop.addRandomResource(ResourceType.Ore, 3000, 10000, 0.25f);
+            chest.drop.addRandomResource(ResourceType.Wood, 3000, 10000, 0.25f);
+            chest.drop.addRandomResource(ResourceType.Stone, 3000, 10000, 0.25f);
+            chest.drop.addRandomResource(ResourceType.Leather, 3, 25, 0.10f);
+            chest.drop.addRandomResource(ResourceType.Fur, 3, 25, 0.10f);
+            chest.drop.addRandomEquipment(EquipmentType.Sling, 3, 7, 0.05f);
+            chest.drop.addRandomEquipment(EquipmentType.HuntBow, 2, 7, 0.03f);
+            chest.drop.addRandomEquipment(EquipmentType.CorralSpear, 1, 5, 0.01f);
+            chest.drop.addRandomEquipment(EquipmentType.BearSpear, 1, 5, 0.01f);
+            chest.drop.addRandomEquipment(EquipmentType.SpyGlass, 1, 1, 0.005f);
             chests.add(chest);
         }
     }

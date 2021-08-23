@@ -26,10 +26,10 @@ public class MoonMaiden extends Monster {
         Power = 10;
         FeelRadius = 2;
         TransformationCooldown = TransformationFrequency;
-        drop.addRandomResource(ResourceType.Coins, 700, 1200);
-        drop.addRandomEquipment(EquipmentType.HuntBow, 1, 3, 0.7f);
-        drop.addRandomEquipment(EquipmentType.CorralSpear, 1, 2, 0.50f);
-        drop.addRandomEquipment(EquipmentType.BearSpear, 1, 1, 0.25f);
+        drop.addRandomResource(ResourceType.Coins, 1500, 20000);
+        drop.addRandomEquipment(EquipmentType.HuntBow, 1, 7, 0.7f);
+        drop.addRandomEquipment(EquipmentType.CorralSpear, 1, 6, 0.50f);
+        drop.addRandomEquipment(EquipmentType.BearSpear, 1, 6, 0.25f);
     }
 
     private void TransformCultist(Monster monster) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException {
