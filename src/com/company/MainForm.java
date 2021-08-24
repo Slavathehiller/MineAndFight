@@ -25,12 +25,8 @@ public class MainForm extends JDialog implements IInfoForm {
     private JButton ToRuinsButton;
     private JPanel AdventurePanel;
     private JButton ToAdventureButton;
-    private JButton AttackTrollButton;
-    private JButton AttackOgreButton;
     private JButton ToAdventureButtonF;
     private JPanel RuinsPanel;
-    private JButton AttackGoblinButton;
-    private JButton AttackOrcButton;
     private JButton ToAdventureButtonR;
     private JPanel ShopPanel;
     private JButton BuyMagicTorchButton;
@@ -85,6 +81,10 @@ public class MainForm extends JDialog implements IInfoForm {
     private JButton EnterThicketLevel4Button;
     private JButton ToAlchemistButton;
     private JLabel MaskedLabel;
+    private JButton EnterRuinLevel1Button;
+    private JButton EnterRuinLevel2Button;
+    private JButton EnterRuinLevel3Button;
+    private JButton EnterRuinLevel4Button;
     private final Timer staminaTimer;
     private final Timer healthTimer;
     private int OreSellAmount = 1000;
@@ -165,10 +165,7 @@ public class MainForm extends JDialog implements IInfoForm {
         EnterThicketLevel2Button.addActionListener(EnterThicketLevel2);
         EnterThicketLevel3Button.addActionListener(EnterThicketLevel3);
         EnterThicketLevel4Button.addActionListener(EnterThicketLevel4);
-        AttackGoblinButton.addActionListener(AttackGoblin);
-        AttackOrcButton.addActionListener(AttackOrc);
-        AttackTrollButton.addActionListener(AttackTroll);
-        AttackOgreButton.addActionListener(AttackOgre);
+        EnterRuinLevel1Button.addActionListener(EnterRuinLevel1);
         ToAdventureButtonR.addActionListener(goToAdventure);
         HuntButton.addActionListener(goHunt);
         BuySlingButton.addActionListener(buyEquipment1);
@@ -393,6 +390,14 @@ public class MainForm extends JDialog implements IInfoForm {
         }
     };
 
+    private final ActionListener EnterRuinLevel1 = new ActionListener(){
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            var model = new RuinLevel1Model(player);
+            StartLevel(model);
+        }
+    };
+
     private final ActionListener OpenInventory = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -432,71 +437,6 @@ public class MainForm extends JDialog implements IInfoForm {
             dataFromPlayerToForm();
         }
     };
-
-    private final ActionListener AttackGoblin = new ActionListener(){
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            if(player.Armor_lvl < 5){
-                JOptionPane.showMessageDialog(RuinsPanel, "Уровень доспеха не достаточен", "Невозможно атаковать", JOptionPane.WARNING_MESSAGE);
-            }
-            else{
-                JOptionPane.showMessageDialog(RuinsPanel, "Гоблин побежден", "Победа!", JOptionPane.INFORMATION_MESSAGE);
-                AttackOrcButton.setEnabled(true);
-            }
-        }
-    };
-
-    private final ActionListener AttackOrc = new ActionListener(){
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            if(player.Armor_lvl < 10){
-                JOptionPane.showMessageDialog(RuinsPanel, "Уровень доспеха не достаточен", "Невозможно атаковать", JOptionPane.WARNING_MESSAGE);
-            }
-            if(!player.haveArtefact(Artefacts.DuelistsSaber)){
-                JOptionPane.showMessageDialog(ThicketPanel, "Нужен артефакт: Сабля поединщика", "Невозможно атаковать", JOptionPane.WARNING_MESSAGE);
-            }
-            else{
-                JOptionPane.showMessageDialog(RuinsPanel, "Орк побежден", "Победа!", JOptionPane.INFORMATION_MESSAGE);
-                AttackTrollButton.setEnabled(true);
-            }
-        }
-    };
-
-    private final ActionListener AttackTroll = new ActionListener(){
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            if(player.Armor_lvl < 25){
-                JOptionPane.showMessageDialog(RuinsPanel, "Уровень доспеха не достаточен", "Невозможно атаковать", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-            if(!player.haveArtefact(Artefacts.FlameSword)){
-                JOptionPane.showMessageDialog(ThicketPanel, "Нужен артефакт: Огненный меч", "Невозможно атаковать", JOptionPane.WARNING_MESSAGE);
-            }
-            else{
-                JOptionPane.showMessageDialog(RuinsPanel, "Тролль побежден", "Победа!", JOptionPane.INFORMATION_MESSAGE);
-                AttackOgreButton.setEnabled(true);
-            }
-        }
-    };
-
-    private final ActionListener AttackOgre = new ActionListener(){
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            if(player.Armor_lvl < 50){
-                JOptionPane.showMessageDialog(RuinsPanel, "Уровень доспеха не достаточен", "Невозможно атаковать", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-            if(!player.haveArtefact((Artefacts.TheGiantKiller))){
-                JOptionPane.showMessageDialog(RuinsPanel, "Нужен артефакт: Убийца великанов", "Невозможно атаковать", JOptionPane.WARNING_MESSAGE);
-            }
-            else{
-                JOptionPane.showMessageDialog(RuinsPanel, "Огр побежден", "Победа!", JOptionPane.INFORMATION_MESSAGE);
-                JOptionPane.showMessageDialog(RuinsPanel, "Локация \"Руины\" пройдена", "Поздравляю!", JOptionPane.INFORMATION_MESSAGE);
-            }
-        }
-    };
-
-
 
     private final ActionListener mineOre = new ActionListener(){
         @Override
