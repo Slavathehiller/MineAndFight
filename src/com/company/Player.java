@@ -478,6 +478,16 @@ public class Player implements IMovableDisplayable, IFighter{
         return result;
     }
 
+    @Override
+    public float getMasked() {
+        return Masked_lvl;
+    }
+
+    @Override
+    public float getRangedPower() {
+        return 0;
+    }
+
     public void setMaxHealth(float maxHealth) {
         if(maxHealth > 0){
             MaxHealth = maxHealth;

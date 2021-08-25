@@ -324,6 +324,7 @@ public abstract class BaseLevelModel implements ISubLevelModel, IMap{
         var chance = Math.sqrt(diff) * 50 / 100;
         chance = Math.min(chance, 0.999);
         chance = Math.max(chance, 0.001);
+        System.out.println("Расчет удара");
         System.out.println("Шанс попадания: " + chance);
         var toHit = Math.random();
         System.out.println("Выпало: " + toHit);
@@ -363,8 +364,35 @@ public abstract class BaseLevelModel implements ISubLevelModel, IMap{
         } else{
             Log += attacker.getName() + " бьет " + target.getName() + " и промахивается.\n";
         }
+    }
 
-
+    public void RangedAttack(IFighter attacker, IFighter target) {
+        var diff = attacker.getPower() / target.getMasked();
+        var chance = Math.sqrt(diff) * 50 / 100;
+        chance = Math.min(chance, 0.999);
+        chance = Math.max(chance, 0.001);
+        System.out.println("Расчет стрельбы");
+        System.out.println("Шанс попадания: " + chance);
+        var toHit = Math.random();
+        System.out.println("Выпало: " + toHit);
+        if(chance >= toHit) {
+            float damage = attacker.getRangedPower() / target.getPower() * 10;
+            damage = (float) Math.round(damage * 10) / 10f;
+            Log += attacker.getName() + " стреляет по " + target.getName() + " и наносит " + damage + " урона.\n";
+            target.changeHealth(-damage);
+            if(target.getFighterType() == CollisionObjectTypes.Player){
+                for(Buffing buffing: attacker.getBuffing()){
+                    var chanceToBuff = Math.random();
+                    if(buffing.Chance >= chanceToBuff){
+                        ((Player)target).setBattleBuff(buffing.BuffType, buffing.Duration);
+                        Log += "Вы получаете " + BattleBuffType.names[buffing.BuffType] + ".\n";
+                    }
+                }
+            }
+        }
+        else{
+            Log += attacker.getName() + " стреляет по " + target.getName() + " и промахивается.\n";
+        }
     }
 
     private void AddCustomMessage(String message){

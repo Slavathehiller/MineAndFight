@@ -12,6 +12,8 @@ public abstract class Monster implements IMovableDisplayable, IFighter {
     public ImageIcon image;
     public float Health;
     public float Power;
+    public float RangedPower = 0;
+    public float RangedDistance = 0;
     protected IMap map;
     abstract protected String getImagePath();
     protected float frequencyMove = 1;
@@ -110,6 +112,14 @@ public abstract class Monster implements IMovableDisplayable, IFighter {
         return false;
     }
 
+    public boolean ShootIfPlayerInRange(){
+        if(map.DistanceToPlayer(this) <= RangedDistance){
+            map.RangedAttack(this, map.getPlayer());
+            return true;
+        }
+        return false;
+    }
+
     public String getToolTip() {
         float displHealth = Math.round(Health * 10) / 10f;
         return Name + ". Сила " + (int)getPower() + ". Здоровье: " + displHealth + "/" + (int)getMaxHealth();
@@ -185,6 +195,16 @@ public abstract class Monster implements IMovableDisplayable, IFighter {
     public void Move(int x, int y) {
         X = x;
         Y = y;
+    }
+
+    @Override
+    public float getMasked() {
+        return 0;
+    }
+
+    @Override
+    public float getRangedPower() {
+        return 0;
     }
 
 }

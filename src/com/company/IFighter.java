@@ -12,5 +12,7 @@ public interface IFighter {
     boolean getLycanthrope();
     boolean getGiant();
     float getMaxHealth();
+    float getMasked();
+    float getRangedPower();
 
 }

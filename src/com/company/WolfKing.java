@@ -66,6 +66,7 @@ public class WolfKing extends Monster {
         return 100;
     }
 
+
     @Override
     public ImageIcon getImage() {
         return image;

@@ -40,7 +40,7 @@ public class DisplayableObject {
         }
         else {
             float p1 = object.getMaxHealth() / 100;
-            n = Math.round((object.getHealth() / p1) / 10);
+            n = (int) Math.ceil((object.getHealth() / p1) / 10);
             for(var i = 0; i < n; i++){
                 health += "■";
             }

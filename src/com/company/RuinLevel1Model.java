@@ -10,6 +10,7 @@ public class RuinLevel1Model extends RuinLevelModel implements ISubLevelModel, I
     public void GenerateMonsters(){
         super.GenerateMonsters();
         GenerateLevelBoss(new GoblinMarauder());
+        GenerateMonsters(GoblinSlinger.class, 3);
     }
 
     @Override
