@@ -35,7 +35,7 @@ public class SwingViewer extends JDialog implements ISubLevelViewer, IInfoForm {
         this.controller = controller;
         map = new DisplayableObject[model.getMaxY()][model.getMaxX()];
         add(MainPanel);
-        setBounds(700, 100, 1450, 1200);
+        setBounds(20, 0, 1850, 1050);
         GridLayout layout = new GridLayout(0, 1, 0, 0);
         LocationPanel.setLayout(layout);
         GridLayout panelLayout = new GridLayout(1, 0, 0, 0);

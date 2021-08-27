@@ -30,7 +30,7 @@ public class GoblinSlinger extends Monster {
     @Override
     public void Act() {
         if (CanMove()) {
-            if (ShootIfPlayerInRange()) {
+            if (ShootIfPlayerInRange(" стреляет в ")) {
                 return;
             }
             if (FeelRadius() >= map.DistanceToPlayer(this) && RangedDistance < map.DistanceToPlayer(this)){

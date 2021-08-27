@@ -2,39 +2,15 @@ package com.company;
 
 import javax.swing.*;
 
-public class Cyclope extends Monster{
+public class Hobgoblin extends Monster{
 
     @Override
     protected String getImagePath() {
-        return "/cyclope_icon_30x30.png";
-    }
-
-    public void init(IMap map, int x, int y){
-        super.init(map, x, y);
-        Name = "Циклоп";
-        frequencyMove = 0.1f;
-        Power = 80;
-        FeelRadius = 4;
-        RangedPower = 50;
-        RangedDistance = 2;
-        Giant = true;
-        Buffing stun = new Buffing();
-        stun.BuffType = BattleBuffType.Stun;
-        stun.Duration = 1;
-        stun.Chance = 0.8f;
-        buffings = new Buffing[]{stun};
-        drop.addRandomResource(ResourceType.Coins, 10000, 100000);
-        drop.addRandomEquipment(EquipmentType.CorralSpear, 2, 15, 0.7f);
-        drop.addRandomEquipment(EquipmentType.BearSpear, 2, 15, 0.5f);
+        return "/hobgoblin_icon_30x30.png";
     }
 
     @Override
     public void Act() {
-        if(Math.random() <= 0.25f){
-            if(ShootIfPlayerInRange(" обрушивает свод пещеры на ")){
-                return;
-            }
-        }
         if (AttackIfPlayerNear()) {
             return;
         }
@@ -64,7 +40,24 @@ public class Cyclope extends Monster{
         return FeelRadius;
     }
 
-    public Cyclope(){
+    public void init(IMap map, int x, int y){
+        super.init(map, x, y);
+        Name = "Хобгоблин";
+        frequencyMove = 0.3f;
+        Power = 30;
+        FeelRadius = 4;
+        Buffing bleed = new Buffing();
+        bleed.BuffType = BattleBuffType.Bleed;
+        bleed.Duration = 7;
+        bleed.Chance = 0.5f;
+        buffings = new Buffing[]{bleed};
+        drop.addRandomResource(ResourceType.Coins,50 ,200);
+        drop.addRandomResource(ResourceType.Fur, 2, 10);
+        drop.addRandomResource(ResourceType.Leather, 1, 5);
+        drop.addRandomEquipment(EquipmentType.CorralSpear, 1, 3, 0.7f);
+    }
+
+    public Hobgoblin(){
 
     }
 
@@ -87,6 +80,4 @@ public class Cyclope extends Monster{
     public Buffing[] getBuffing() {
         return buffings;
     }
-
-
 }

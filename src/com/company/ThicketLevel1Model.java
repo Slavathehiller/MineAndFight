@@ -20,7 +20,7 @@ public class ThicketLevel1Model extends ThicketLevelModel implements ISubLevelMo
         for(var i = 0; i < 2; i++){
             var point = GenerateFreeCords();
             Chest chest = new Chest(point.X, point.Y);
-            chest.drop.addRandomResource(ResourceType.Coins, 10, 150);
+            chest.drop.addRandomResource(ResourceType.Coins, 10, 50);
             chest.drop.addRandomResource(ResourceType.Ore, 250, 500, 0.25f);
             chest.drop.addRandomResource(ResourceType.Wood, 250, 500, 0.25f);
             chest.drop.addRandomResource(ResourceType.Stone, 250, 500, 0.25f);

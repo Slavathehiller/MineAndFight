@@ -112,9 +112,9 @@ public abstract class Monster implements IMovableDisplayable, IFighter {
         return false;
     }
 
-    public boolean ShootIfPlayerInRange(){
+    public boolean ShootIfPlayerInRange(String actionMessage){
         if(map.DistanceToPlayer(this) <= RangedDistance){
-            map.RangedAttack(this, map.getPlayer());
+            map.RangedAttack(this, map.getPlayer(), actionMessage);
             return true;
         }
         return false;

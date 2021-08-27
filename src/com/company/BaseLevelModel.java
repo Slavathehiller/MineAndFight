@@ -5,8 +5,8 @@ import java.util.ArrayList;
 
 public abstract class BaseLevelModel implements ISubLevelModel, IMap{
     Player player;
-    protected int maxX = 40;
-    protected int maxY = 30;
+    protected int maxX = 50;
+    protected int maxY = 20;
     protected int maxObstacles = 20;
     protected int minObstacles = 12;
     protected Monster LevelBoss;
@@ -366,7 +366,7 @@ public abstract class BaseLevelModel implements ISubLevelModel, IMap{
         }
     }
 
-    public void RangedAttack(IFighter attacker, IFighter target) {
+    public void RangedAttack(IFighter attacker, IFighter target, String actionMessage) {
         var diff = attacker.getPower() / target.getMasked();
         var chance = Math.sqrt(diff) * 50 / 100;
         chance = Math.min(chance, 0.999);
@@ -378,7 +378,7 @@ public abstract class BaseLevelModel implements ISubLevelModel, IMap{
         if(chance >= toHit) {
             float damage = attacker.getRangedPower() / target.getPower() * 10;
             damage = (float) Math.round(damage * 10) / 10f;
-            Log += attacker.getName() + " стреляет по " + target.getName() + " и наносит " + damage + " урона.\n";
+            Log += attacker.getName() + actionMessage + target.getName() + " и наносит " + damage + " урона.\n";
             target.changeHealth(-damage);
             if(target.getFighterType() == CollisionObjectTypes.Player){
                 for(Buffing buffing: attacker.getBuffing()){

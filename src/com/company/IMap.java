@@ -23,5 +23,5 @@ public interface IMap {
     public float DistanceBetweenObjects(IDisplayable object1, IDisplayable object2);
     public void MoveTowardObject(IMovableDisplayable mover, IDisplayable object);
     boolean getPlayerIsMasked();
-    void RangedAttack(IFighter attacker, IFighter target);
+    void RangedAttack(IFighter attacker, IFighter target, String actionMessage);
 }
