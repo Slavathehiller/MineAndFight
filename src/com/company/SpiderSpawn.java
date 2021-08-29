@@ -54,6 +54,7 @@ public class SpiderSpawn extends Monster{
         Buffing poison = new Buffing();
         poison.BuffType = BattleBuffType.Poison;
         poison.Duration = 2;
+        poison.Power = 1;
         poison.Chance = 0.5f;
         buffings = new Buffing[]{poison};
         drop.addResource(ResourceType.Fiber, 6);

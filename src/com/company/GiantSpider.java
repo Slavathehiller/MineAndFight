@@ -12,6 +12,20 @@ public class GiantSpider extends Monster{
         return "/giant_spider_icon_30x30.png";
     }
 
+    public void init(IMap map, int x, int y){
+        super.init(map, x, y);
+        Name = "Гигантский паук";
+        frequencyMove = 0.9f;
+        Power = 20;
+        Buffing poison = new Buffing();
+        poison.BuffType = BattleBuffType.Poison;
+        poison.Duration = 3;
+        poison.Power = 3;
+        poison.Chance = 0.6f;
+        buffings = new Buffing[]{poison};
+        drop.addResource(ResourceType.Fiber, 5);
+    }
+
     @Override
     public void Act() {
         if (AttackIfPlayerNear()) {
@@ -64,19 +78,6 @@ public class GiantSpider extends Monster{
     @Override
     public int FeelRadius() {
         return 4;
-    }
-
-    public void init(IMap map, int x, int y){
-        super.init(map, x, y);
-        Name = "Гигантский паук";
-        frequencyMove = 0.9f;
-        Power = 20;
-        Buffing poison = new Buffing();
-        poison.BuffType = BattleBuffType.Poison;
-        poison.Duration = 5;
-        poison.Chance = 0.6f;
-        buffings = new Buffing[]{poison};
-        drop.addResource(ResourceType.Fiber, 5);
     }
 
     public GiantSpider(){

@@ -42,8 +42,8 @@ public class Player implements IMovableDisplayable, IFighter{
 
     public ArrayList<Integer> globalBuffs = new ArrayList<>();
 
-
     public int[] battleBuffCounters = new int[]{0, 0, 0};
+    public int[] battleBuffPowers = new int[]{0, 0, 0};
 
     private Timer[] globalBuffTimers = new Timer[]{new Timer(300000, (x) -> setGlobalBuffOff(GlobalBuffTypes.FastHealthRegeneration)),
                                             new Timer(300000, (x) -> setGlobalBuffOff(GlobalBuffTypes.FastStaminaRegeneration)),
@@ -151,7 +151,7 @@ public class Player implements IMovableDisplayable, IFighter{
             if(battleBuffCounters[i] > 0) {
                 JLabel stateLabel = new JLabel();
                 stateLabel.setIcon(getBattleBuffImage(i));
-                stateLabel.setToolTipText(BattleBuffType.toolTips[i] + "(" + battleBuffCounters[i] + ")" );
+                stateLabel.setToolTipText(BattleBuffType.toolTips[i] + " (" + battleBuffPowers[i] + "/ход, осталось ходов: " + battleBuffCounters[i] + ")");
                 statePanel.add(stateLabel);
             }
         }
@@ -176,11 +176,11 @@ public class Player implements IMovableDisplayable, IFighter{
 
     public void BattleBuffsProceed(){
         if(isBattleBuff(BattleBuffType.Bleed)){
-            addHealth(-2);
+            addHealth(-battleBuffPowers[BattleBuffType.Bleed]);
         }
         if(isBattleBuff(BattleBuffType.Poison)){
-            addHealth(-1);
-            addStamina(-1);
+            addHealth(-battleBuffPowers[BattleBuffType.Poison] / 2f);
+            addStamina(-battleBuffPowers[BattleBuffType.Poison] / 2f);
         }
     }
 
@@ -370,6 +370,11 @@ public class Player implements IMovableDisplayable, IFighter{
 
     public void setGlobalBuffOff(int buff){
         globalBuffs.remove((Object)buff);
+    }
+
+    public void setBattleBuff(int buff, int count, int power){
+        setBattleBuff(buff, count);
+        battleBuffPowers[buff] = power;
     }
 
     public void setBattleBuff(int buff, int count){

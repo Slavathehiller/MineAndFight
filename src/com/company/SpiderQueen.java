@@ -18,8 +18,9 @@ public class SpiderQueen extends Monster{
         FeelRadius = 5;
         timeToLayEggs = maxTimeToLayEggs;
         Buffing poison = new Buffing();
-        poison.BuffType = BattleBuffType.Bleed;
-        poison.Duration = 5;
+        poison.BuffType = BattleBuffType.Poison;
+        poison.Duration = 3;
+        poison.Power = 4;
         poison.Chance = 0.6f;
         buffings = new Buffing[]{poison};
         drop.addRandomResource(ResourceType.Coins, 700, 5000);

@@ -345,7 +345,7 @@ public abstract class BaseLevelModel implements ISubLevelModel, IMap{
                 for(Buffing buffing: attacker.getBuffing()){
                     var chanceToBuff = Math.random();
                     if(buffing.Chance >= chanceToBuff){
-                        ((Player)target).setBattleBuff(buffing.BuffType, buffing.Duration);
+                        ((Player)target).setBattleBuff(buffing.BuffType, buffing.Duration, buffing.Power);
                         Log += "Вы получаете " + BattleBuffType.names[buffing.BuffType] + ".\n";
                     }
                 }
@@ -384,7 +384,7 @@ public abstract class BaseLevelModel implements ISubLevelModel, IMap{
                 for(Buffing buffing: attacker.getBuffing()){
                     var chanceToBuff = Math.random();
                     if(buffing.Chance >= chanceToBuff){
-                        ((Player)target).setBattleBuff(buffing.BuffType, buffing.Duration);
+                        ((Player)target).setBattleBuff(buffing.BuffType, buffing.Duration, buffing.Power);
                         Log += "Вы получаете " + BattleBuffType.names[buffing.BuffType] + ".\n";
                     }
                 }

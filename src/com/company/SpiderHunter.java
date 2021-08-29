@@ -51,6 +51,7 @@ public class SpiderHunter extends Monster{
         Buffing poison = new Buffing();
         poison.BuffType = BattleBuffType.Poison;
         poison.Duration = 3;
+        poison.Power = 2;
         poison.Chance = 0.6f;
         buffings = new Buffing[]{poison};
     }

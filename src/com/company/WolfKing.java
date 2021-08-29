@@ -20,7 +20,8 @@ public class WolfKing extends Monster {
         FeelRadius = 10;
         Buffing bleed = new Buffing();
         bleed.BuffType = BattleBuffType.Bleed;
-        bleed.Duration = 5;
+        bleed.Duration = 3;
+        bleed.Power = 4;
         bleed.Chance = 0.6f;
         buffings = new Buffing[]{bleed};
         drop.addResource(ResourceType.Fur, 5);

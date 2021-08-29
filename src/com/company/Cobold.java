@@ -50,6 +50,7 @@ public class Cobold extends Monster{
         Buffing poison = new Buffing();
         poison.BuffType = BattleBuffType.Poison;
         poison.Duration = 3;
+        poison.Power = 4;
         poison.Chance = 0.4f;
         buffings = new Buffing[]{poison};
         drop.addRandomResource(ResourceType.Coins, 100, 300);

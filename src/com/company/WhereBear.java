@@ -43,6 +43,7 @@ public class WhereBear extends Monster{
         Buffing bleed = new Buffing();
         bleed.BuffType = BattleBuffType.Bleed;
         bleed.Duration = 7;
+        bleed.Power = 5;
         bleed.Chance = 0.4f;
         Buffing stun = new Buffing();
         stun.BuffType = BattleBuffType.Stun;

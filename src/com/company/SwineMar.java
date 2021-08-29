@@ -43,6 +43,7 @@ public class SwineMar extends Monster{
         Buffing bleed = new Buffing();
         bleed.BuffType = BattleBuffType.Bleed;
         bleed.Duration = 5;
+        bleed.Power = 3;
         bleed.Chance = 0.6f;
         buffings = new Buffing[]{bleed};
         drop.addResource(ResourceType.Leather, 3);
