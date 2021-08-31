@@ -2,35 +2,35 @@ package com.company;
 
 import javax.swing.*;
 
-public class GoblinSlinger extends Monster {
+public class GoblinAlchemist extends Monster {
 
     @Override
     protected String getImagePath() {
-        return "/goblin_slinger_icon_30x30.png";
+        return "/goblin_alchemist_icon_30x30.png";
     }
 
     public void init(IMap map, int x, int y) {
         super.init(map, x, y);
-        Name = "Гоблин-пращник";
+        Name = "Гоблин-алхимик";
         frequencyMove = 0.9f;
-        Power = 7;
-        FeelRadius = 7;
-        RangedPower = 5;
-        RangedDistance = 4;
-        Buffing stun = new Buffing();
-        stun.BuffType = BattleBuffType.Stun;
-        stun.Duration = 1;
-        stun.Chance = 0.2f;
-        buffings = new Buffing[]{stun};
+        Power = 5;
+        FeelRadius = 5;
+        RangedPower = 3;
+        RangedDistance = 3;
+        Buffing blindness = new Buffing();
+        blindness.BuffType = BattleBuffType.Blindness;
+        blindness.Duration = 2;
+        blindness.Power = 25;
+        blindness.Chance = 0.4f;
+        buffings = new Buffing[]{blindness};
         drop.addResource(ResourceType.Fur, 1);
         drop.addRandomResource(ResourceType.Coins, 5, 20, 0.7f);
-        drop.addRandomEquipment(EquipmentType.Sling, 1, 1, 0.2f);
     }
 
     @Override
     public void Act() {
         if (CanMove()) {
-            if (ShootIfPlayerInRange(" стреляет в ")) {
+            if (ShootIfPlayerInRange(" бросает склянку с зельем в ")) {
                 return;
             }
             if (FeelRadius() >= map.DistanceToPlayer(this) && RangedDistance < map.DistanceToPlayer(this)){
@@ -43,7 +43,7 @@ public class GoblinSlinger extends Monster {
 
     @Override
     public float getMaxHealth() {
-        return 12;
+        return 10;
     }
 
     @Override
@@ -56,7 +56,7 @@ public class GoblinSlinger extends Monster {
         return RangedPower;
     }
 
-    public GoblinSlinger() {
+    public GoblinAlchemist() {
 
     }
 
@@ -77,6 +77,6 @@ public class GoblinSlinger extends Monster {
 
     @Override
     public Buffing[] getBuffing() {
-        return new Buffing[0];
+        return buffings;
     }
 }

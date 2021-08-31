@@ -32,7 +32,7 @@ public abstract class Obstacle implements IDisplayable{
 
     @Override
     public boolean getVisible() {
-        return true;
+        return !(map.getPlayer().VisionLimit < map.DistanceToPlayer(this));
     }
 
     @Override

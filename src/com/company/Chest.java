@@ -11,8 +11,10 @@ public class Chest implements IDisplayable {
     public ImageIcon ClosedImage;
     public boolean isLooted = false;
     public Drop drop = new Drop();
+    private IMap map;
 
-    public Chest(int x, int y){
+    public Chest(int x, int y, IMap map){
+        this.map = map;
         X = x;
         Y = y;
         ClosedImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("/chest_close_icon_30x30.png")));
@@ -64,7 +66,7 @@ public class Chest implements IDisplayable {
 
     @Override
     public boolean getVisible() {
-        return true;
+        return !(map.getPlayer().VisionLimit < map.DistanceToPlayer(this));
     }
 
 

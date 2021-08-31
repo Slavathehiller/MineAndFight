@@ -25,6 +25,8 @@ public class Player implements IMovableDisplayable, IFighter{
     public float AttackEnergyCost = 4;
     public float OpenChestEnergyCost = 2;
     public Web inWeb = null;
+    public float DefaultVisionLimit = 30;
+    public float VisionLimit = DefaultVisionLimit;
     private ImageIcon playerImage;
     private ImageIcon playerWebedImage;
 
@@ -42,8 +44,8 @@ public class Player implements IMovableDisplayable, IFighter{
 
     public ArrayList<Integer> globalBuffs = new ArrayList<>();
 
-    public int[] battleBuffCounters = new int[]{0, 0, 0};
-    public int[] battleBuffPowers = new int[]{0, 0, 0};
+    public int[] battleBuffCounters = new int[]{0, 0, 0, 0};
+    public int[] battleBuffPowers = new int[]{0, 0, 0, 0};
 
     private Timer[] globalBuffTimers = new Timer[]{new Timer(300000, (x) -> setGlobalBuffOff(GlobalBuffTypes.FastHealthRegeneration)),
                                             new Timer(300000, (x) -> setGlobalBuffOff(GlobalBuffTypes.FastStaminaRegeneration)),
@@ -151,7 +153,10 @@ public class Player implements IMovableDisplayable, IFighter{
             if(battleBuffCounters[i] > 0) {
                 JLabel stateLabel = new JLabel();
                 stateLabel.setIcon(getBattleBuffImage(i));
-                stateLabel.setToolTipText(BattleBuffType.toolTips[i] + " (" + battleBuffPowers[i] + "/ход, осталось ходов: " + battleBuffCounters[i] + ")");
+                if(i == BattleBuffType.Blindness)
+                    stateLabel.setToolTipText(BattleBuffType.toolTips[i] + " (осталось ходов: " + battleBuffCounters[i] + ")");
+                else
+                    stateLabel.setToolTipText(BattleBuffType.toolTips[i] + " (" + battleBuffPowers[i] + "/ход, осталось ходов: " + battleBuffCounters[i] + ")");
                 statePanel.add(stateLabel);
             }
         }
@@ -181,6 +186,12 @@ public class Player implements IMovableDisplayable, IFighter{
         if(isBattleBuff(BattleBuffType.Poison)){
             addHealth(-battleBuffPowers[BattleBuffType.Poison] / 2f);
             addStamina(-battleBuffPowers[BattleBuffType.Poison] / 2f);
+        }
+        if(isBattleBuff(BattleBuffType.Blindness)){
+            VisionLimit = DefaultVisionLimit - battleBuffPowers[BattleBuffType.Blindness];
+        }
+        else {
+            VisionLimit = DefaultVisionLimit;
         }
     }
 
@@ -595,6 +606,6 @@ public class Player implements IMovableDisplayable, IFighter{
     @Override
     public void Move(int x, int y) {
         X = x;
-        Y = x;
+        Y = y;
     }
 }

@@ -23,6 +23,9 @@ public class Web implements IDisplayable{
 
     @Override
     public boolean getVisible() {
+        if(map.getPlayer().VisionLimit < map.DistanceToPlayer(this)){
+            return false;
+        }
         return isVisible;
     }
 

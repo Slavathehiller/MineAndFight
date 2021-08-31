@@ -64,7 +64,7 @@ public class ThicketLevel2Model extends ThicketLevelModel{
         DisplayableObjects.add(chests);
         for(var i = 0; i < 3; i++){
             var point = GenerateFreeCords();
-            Chest chest = new Chest(point.X, point.Y);
+            Chest chest = new Chest(point.X, point.Y, this);
             chest.drop.addRandomResource(ResourceType.Coins, 200, 700);
             chest.drop.addRandomResource(ResourceType.Ore, 700, 2500, 0.25f);
             chest.drop.addRandomResource(ResourceType.Wood, 700, 2500, 0.25f);

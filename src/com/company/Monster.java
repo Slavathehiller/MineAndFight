@@ -87,6 +87,9 @@ public abstract class Monster implements IMovableDisplayable, IFighter {
 
     @Override
     public boolean getVisible(){
+        if(map.getPlayer().VisionLimit < map.DistanceToPlayer(this)){
+            return false;
+        }
         if(HideRadius == 0){
             return true;
         }
