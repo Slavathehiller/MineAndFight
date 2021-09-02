@@ -62,15 +62,13 @@ public class SpiderQueen extends Monster{
         CheckAndLay();
     }
 
-    private void CheckAndLay() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException {
+    private void CheckAndLay(){
         timeToLayEggs --;
-        if(timeToLayEggs < 1){
+        if(timeToLayEggs < 1 && map.getMonsters().size() <= map.getMonsterLimit() - 2){
             timeToLayEggs = maxTimeToLayEggs;
             Point point = map.GenerateFreeCordsWithin(new Point(X, Y), 1);
             if(point != null) {
-                var spiderClutch = map.GenerateMonster(SpiderClutch.class);
-                spiderClutch.X = point.X;
-                spiderClutch.Y = point.Y;
+                map.GenerateMonster(SpiderClutch.class, point.X, point.Y);
             }
         }
     }

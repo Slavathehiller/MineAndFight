@@ -13,9 +13,11 @@ public interface IMap {
     float DistanceToPlayer(IDisplayable object);
     void MoveToward(IMovableDisplayable mover, int x, int y);
     ArrayList<IDisplayable> getMonsters();
+    ArrayList<IDisplayable> getObstacles();
     String addToLog(String message);
     void GenerateMonsters(Class _class, int number) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException;
     Monster GenerateMonster(Class _class) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException;
+    public Monster GenerateMonster(Class _class, int x, int y);
     Point GenerateFreeCordsWithin(Point point, int r);
     boolean CheckPathToward(Point pointFrom, Point pointTo);
     Point NearestPointToward(Point pointFrom, Point pointTo);
@@ -24,4 +26,5 @@ public interface IMap {
     public void MoveTowardObject(IMovableDisplayable mover, IDisplayable object);
     boolean getPlayerIsMasked();
     void RangedAttack(IFighter attacker, IFighter target, String actionMessage);
+    int getMonsterLimit();
 }

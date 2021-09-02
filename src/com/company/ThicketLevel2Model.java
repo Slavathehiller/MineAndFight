@@ -15,6 +15,10 @@ public class ThicketLevel2Model extends ThicketLevelModel{
                 if(player.inWeb.getMaster() != null){
                     player.inWeb.getMaster().ClearWebWarning();
                 }
+                if(player.haveArtefact(Artefacts.MagicTorch)){
+                    player.inWeb.Destroy();
+                    addToLog("Вы сжигаете паутину при помощи магического факела");
+                }
                 player.setWeb(null);
                 return result;
             }

@@ -83,5 +83,9 @@ public class Web implements IDisplayable{
         return this;
     }
 
+    public void Destroy(){
+        setMaster(null);
+        map.getObstacles().remove(this);
+    }
 
 }

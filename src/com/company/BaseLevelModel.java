@@ -9,6 +9,7 @@ public abstract class BaseLevelModel implements ISubLevelModel, IMap{
     protected int maxY = 20;
     protected int maxObstacles = 20;
     protected int minObstacles = 12;
+    protected int MonsterLimit = 35;
     protected Monster LevelBoss;
     public boolean LevelBossIsDead = false;
     protected boolean wantToExit = false;
@@ -467,10 +468,22 @@ public abstract class BaseLevelModel implements ISubLevelModel, IMap{
         }
     }
 
-    public Monster GenerateMonster(Class _class){
-        Monster monster = (Monster) GenerateDisplayable(_class);
-        monsters.add(monster);
+    public Monster GenerateMonster(Class _class, int x, int y){
+        var monster = GenerateMonster(_class);
+        if(monster != null){
+            monster.X = x;
+            monster.Y = y;
+        }
         return monster;
+    }
+
+    public Monster GenerateMonster(Class _class){
+        if (monsters.size() <= MonsterLimit) {
+            Monster monster = (Monster) GenerateDisplayable(_class);
+            monsters.add(monster);
+            return monster;
+        }
+        return null;
     }
 
     public void GenerateMonsters(){
@@ -482,5 +495,10 @@ public abstract class BaseLevelModel implements ISubLevelModel, IMap{
     @Override
     public boolean canMonsterMove(int x, int y) {
         return ObjectAt(x, y) == null;
+    }
+
+    @Override
+    public int getMonsterLimit(){
+        return MonsterLimit;
     }
 }

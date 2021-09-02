@@ -818,7 +818,9 @@
         <constraints>
           <grid row="1" column="7" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
-        <properties/>
+        <properties>
+          <toolTipText value="Бесконечный источник огня"/>
+        </properties>
         <border type="none"/>
         <children>
           <component id="2466b" class="javax.swing.JLabel">
@@ -1194,6 +1196,7 @@
                 <properties>
                   <icon value="the_giant_killer_icon_30x30.png"/>
                   <text value="Убийца великанов"/>
+                  <toolTipText value="Наносит двойной урон великанам"/>
                 </properties>
               </component>
               <component id="d4698" class="javax.swing.JButton" binding="BuyTheGiantKillerButton">
