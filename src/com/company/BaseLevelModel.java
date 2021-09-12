@@ -216,7 +216,10 @@ public abstract class BaseLevelModel implements ISubLevelModel, IMap{
         Log = "";
     }
 
-    protected IDisplayable ObjectAt(int x, int y){
+    public IDisplayable ObjectAt(Point point){
+        return ObjectAt(point.X, point.Y);
+    }
+    public IDisplayable ObjectAt(int x, int y){
         if(x > maxX - 1 || x < 0 || y > maxY - 1 || y < 0){
             return new Edge();
         }
@@ -466,6 +469,10 @@ public abstract class BaseLevelModel implements ISubLevelModel, IMap{
         for(var i = 0; i < number; i++){
             GenerateMonster(_class);
         }
+    }
+
+    public Monster GenerateMonster(Class _class, Point point){
+        return GenerateMonster(_class, point.X, point.Y);
     }
 
     public Monster GenerateMonster(Class _class, int x, int y){

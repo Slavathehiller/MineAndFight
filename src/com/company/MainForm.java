@@ -165,6 +165,7 @@ public class MainForm extends JDialog implements IInfoForm {
         EnterThicketLevel2Button.addActionListener(EnterThicketLevel2);
         EnterThicketLevel3Button.addActionListener(EnterThicketLevel3);
         EnterThicketLevel4Button.addActionListener(EnterThicketLevel4);
+        EnterRuinLevel2Button.addActionListener(EnterRuinLevel2);
         EnterRuinLevel1Button.addActionListener(EnterRuinLevel1);
         ToAdventureButtonR.addActionListener(goToAdventure);
         HuntButton.addActionListener(goHunt);
@@ -394,6 +395,14 @@ public class MainForm extends JDialog implements IInfoForm {
         @Override
         public void actionPerformed(ActionEvent e) {
             var model = new RuinLevel1Model(player);
+            StartLevel(model);
+        }
+    };
+
+    private final ActionListener EnterRuinLevel2 = new ActionListener(){
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            var model = new RuinLevel2Model(player);
             StartLevel(model);
         }
     };

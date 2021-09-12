@@ -24,7 +24,13 @@ public interface IMap {
     public float RangeFromToObject(int x, int y, IDisplayable object);
     public float DistanceBetweenObjects(IDisplayable object1, IDisplayable object2);
     public void MoveTowardObject(IMovableDisplayable mover, IDisplayable object);
+    Point GetStepToward(Point pointFrom, Point pointTo);
+    IDisplayable ObjectAt(int x, int y);
     boolean getPlayerIsMasked();
     void RangedAttack(IFighter attacker, IFighter target, String actionMessage);
     int getMonsterLimit();
+
+    IDisplayable ObjectAt(Point spawnPoint);
+
+    Monster GenerateMonster(Class<WarDog> warDogClass, Point spawnPoint);
 }
