@@ -343,7 +343,18 @@ public abstract class BaseLevelModel implements ISubLevelModel, IMap{
                 damage *= 2;
                 Log += "Убийца великанов наносит великану двойной урон.\n";
             }
-            Log += attacker.getName() + " бьет " + target.getName() + " и наносит " + damage + " урона.\n";
+            if(target.getArmed() && attacker.getFighterType() == CollisionObjectTypes.Player && ((Player)attacker).haveArtefact(Artefacts.DuelistsSaber)){
+                damage *= 1.5f;
+                Log += "Сабля поединщика наносит полуторный урон вооруженному противнику.\n";
+            }
+            var ignoreDamageMSG = "";
+            if(target.getBerserk()){
+                if(Math.random() <= 0.5f){
+                    damage = 0;
+                    ignoreDamageMSG = " (" + target.getName() + " игнорирует урон)";
+                }
+            }
+            Log += attacker.getName() + " бьет " + target.getName() + " и наносит " + Math.round(damage * 10) / 10 + " урона" + ignoreDamageMSG + ".\n";
             target.changeHealth(-damage);
             if(target.getFighterType() == CollisionObjectTypes.Player){
                 for(Buffing buffing: attacker.getBuffing()){

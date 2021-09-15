@@ -24,6 +24,8 @@ public abstract class Monster implements IMovableDisplayable, IFighter {
     protected float HideRadius = 0;
     protected boolean Giant = false;
     protected boolean isBlind = false;
+    protected boolean Berserk = false;
+    protected boolean Armed = false;
 
     public void init(IMap map, int x, int y){
         image = new ImageIcon(Objects.requireNonNull(getClass().getResource(getImagePath())));
@@ -83,6 +85,16 @@ public abstract class Monster implements IMovableDisplayable, IFighter {
     @Override
     public boolean getGiant(){
         return Giant;
+    }
+
+    @Override
+    public boolean getBerserk(){
+        return Berserk;
+    }
+
+    @Override
+    public boolean getArmed(){
+        return Armed;
     }
 
     @Override

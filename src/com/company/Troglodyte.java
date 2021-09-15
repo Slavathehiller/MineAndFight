@@ -40,6 +40,7 @@ public class Troglodyte extends Monster{
         Power = 60;
         FeelRadius = 5;
         isBlind = true;
+        Armed = true;
         drop.addRandomResource(ResourceType.Coins, 25, 70, 0.3f);
         drop.addRandomResource(ResourceType.Ore, 100, 200, 0.5f);
         drop.addRandomResource(ResourceType.Stone, 100, 200, 0.7f);

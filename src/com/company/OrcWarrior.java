@@ -15,6 +15,7 @@ public class OrcWarrior extends Monster {
         frequencyMove = 0.7f;
         Power = 20;
         FeelRadius = 4;
+        Armed = true;
         drop.addResource(ResourceType.Fur, 3);
         drop.addRandomResource(ResourceType.Coins, 10, 50, 0.7f);
         Buffing bleed = new Buffing();

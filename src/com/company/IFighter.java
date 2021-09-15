@@ -14,5 +14,7 @@ public interface IFighter {
     float getMaxHealth();
     float getMasked();
     float getRangedPower();
+    boolean getBerserk();
+    boolean getArmed();
 
 }

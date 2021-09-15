@@ -819,7 +819,7 @@
           <grid row="1" column="7" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <toolTipText value="Бесконечный источник огня"/>
+          <toolTipText value=""/>
         </properties>
         <border type="none"/>
         <children>
@@ -914,6 +914,7 @@
                 <properties>
                   <icon value="magic_torch_icon_30x19.png"/>
                   <text value="Магический факел"/>
+                  <toolTipText value="Бесконечный источник огня"/>
                 </properties>
               </component>
               <component id="8899e" class="javax.swing.JButton" binding="BuyMagicTorchButton">
@@ -956,6 +957,7 @@
                 <properties>
                   <icon value="duelists_saber_icon_30x30.png"/>
                   <text value="Сабля поединщика"/>
+                  <toolTipText value="Наносит полуторный урон вооруженному противнику"/>
                 </properties>
               </component>
             </children>

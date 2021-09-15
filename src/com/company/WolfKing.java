@@ -33,8 +33,7 @@ public class WolfKing extends Monster {
 
     @Override
     public void Act() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException {
-        if (AttackIfPlayerNear()) {
-        }
+        AttackIfPlayerNear();
         if (AttackIfPlayerNear()) {
             return;
         }

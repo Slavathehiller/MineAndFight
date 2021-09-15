@@ -51,6 +51,7 @@ public class Hobgoblin extends Monster{
         bleed.Duration = 7;
         bleed.Power = 3;
         bleed.Chance = 0.5f;
+        Armed = true;
         buffings = new Buffing[]{bleed};
         drop.addRandomResource(ResourceType.Coins,50 ,200);
         drop.addRandomResource(ResourceType.Fur, 2, 10);

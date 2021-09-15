@@ -20,6 +20,7 @@ public class OrcBeastmaster extends Monster {
         frequencyMove = 0.7f;
         Power = 15;
         FeelRadius = 4;
+        Armed = true;
         drop.addResource(ResourceType.Fur, 3);
         drop.addRandomResource(ResourceType.Coins, 10, 50, 0.7f);
 

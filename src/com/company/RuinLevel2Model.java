@@ -10,6 +10,7 @@ public class RuinLevel2Model extends RuinLevelModel implements ISubLevelModel, I
     public void GenerateMonsters(){
         super.GenerateMonsters();
         GenerateMonsters(OrcWarrior.class, 3);
+        GenerateMonsters(OrcBerserk.class, 1);
         GenerateLevelBoss(new OrcBeastmaster());
     }
 
