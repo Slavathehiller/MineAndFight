@@ -347,14 +347,8 @@ public abstract class BaseLevelModel implements ISubLevelModel, IMap{
                 damage *= 1.5f;
                 Log += "Сабля поединщика наносит полуторный урон вооруженному противнику.\n";
             }
-            var ignoreDamageMSG = "";
-            if(target.getBerserk()){
-                if(Math.random() <= 0.5f){
-                    damage = 0;
-                    ignoreDamageMSG = " (" + target.getName() + " игнорирует урон)";
-                }
-            }
-            Log += attacker.getName() + " бьет " + target.getName() + " и наносит " + Math.round(damage * 10) / 10 + " урона" + ignoreDamageMSG + ".\n";
+
+            Log += attacker.getName() + " бьет " + target.getName() + " и наносит " + Math.round(damage * 10) / 10 + " урона.\n";
             target.changeHealth(-damage);
             if(target.getFighterType() == CollisionObjectTypes.Player){
                 for(Buffing buffing: attacker.getBuffing()){
@@ -367,12 +361,15 @@ public abstract class BaseLevelModel implements ISubLevelModel, IMap{
             }
             if(target.getHealth() <= 0){
                 if(target.getFighterType() == CollisionObjectTypes.Monster) {
+                    var monster = (Monster)target;
+                    if(!monster.CheckIfDie()){
+                        return;
+                    }
                     Log += target.getName() + " погибает\n";
                     if(attacker.getFighterType() == CollisionObjectTypes.Player && !target.getDrop().isEmpty()) {
                         player.addDrop(target.getDrop());
                         Log += "Вы получаете" + target.getDrop().getDetails();
                     }
-                    var monster = (Monster)target;
                     monster.Die();
                 }
             }

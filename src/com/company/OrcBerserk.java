@@ -51,6 +51,16 @@ public class OrcBerserk extends Monster {
     }
 
     @Override
+    public boolean CheckIfDie(){
+        if(Math.random() <= 0.5){
+            Health = 1;
+            map.addToLog("Орк берсерк игнорирует смертельную рану.");
+            return false;
+        }
+        return true;
+    }
+
+    @Override
     public ImageIcon getImage() {
         return image;
     }
