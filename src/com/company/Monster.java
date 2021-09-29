@@ -72,7 +72,7 @@ public abstract class Monster implements IMovableDisplayable, IFighter {
     public void PostAct(){
         if(Regeneration && Health > 0 && Health < getMaxHealth()){
             var regRate = Math.min(getMaxHealth() / 10f, getMaxHealth() - Health);
-            regRate = Math.round(regRate / 10f) * 10;
+            regRate = Math.round(regRate * 100f) / 100f;
             Health += regRate;
             map.addToLog(Name + " регенерирует " + regRate + " здоровья.");
         }

@@ -135,6 +135,7 @@ public abstract class BaseLevelModel implements ISubLevelModel, IMap{
     private void ActMonsters() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException {
         for(var monster:monsters){
             ((Monster)monster).Act();
+            ((Monster)monster).PostAct();
         }
     }
 
@@ -359,8 +360,6 @@ public abstract class BaseLevelModel implements ISubLevelModel, IMap{
                 }
             }
             Log += attacker.getName() + " бьет " + target.getName() + " и наносит " + Math.round(damage * 10) / 10 + " урона" + ignoreDamageMSG + ".\n";
-
-            Log += attacker.getName() + " бьет " + target.getName() + " и наносит " + Math.round(damage * 10) / 10 + " урона.\n";
             target.changeHealth(-damage);
             if(target.getFighterType() == CollisionObjectTypes.Player){
                 for(Buffing buffing: attacker.getBuffing()){
