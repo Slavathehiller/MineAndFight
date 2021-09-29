@@ -28,6 +28,12 @@ public class SwingViewer extends JDialog implements ISubLevelViewer, IInfoForm {
     private JPanel StatePanel;
     private JLabel ArmorLabel;
     private JLabel MaskedLabel;
+    private JLabel MagicTorchLabel;
+    private JLabel SilverSpearLabel;
+    private JLabel LightRingLabel;
+    private JLabel TheGiantKillerLabel;
+    private JLabel FlameSwordLabel;
+    private JLabel DuelistsSaberLabel;
 
     public SwingViewer(JDialog parent, ISubLevelModel model, ISubLevelController controller){
         super(parent, "", ModalityType.DOCUMENT_MODAL);
@@ -104,6 +110,7 @@ public class SwingViewer extends JDialog implements ISubLevelViewer, IInfoForm {
         RefreshSupplyInfo();
         RefreshArmorInfo();
         RefreshMaskedInfo();
+        RefreshArtefactsInfo();
         model.getPlayer().UpdateStateInfo(StatePanel);
     }
 
@@ -161,6 +168,15 @@ public class SwingViewer extends JDialog implements ISubLevelViewer, IInfoForm {
 
     public void RefreshMaskedInfo(){
         MaskedLabel.setText("Маскировка: " + model.getPlayer().Masked_lvl);
+    }
+
+    public void RefreshArtefactsInfo(){
+        MagicTorchLabel.setVisible(model.getPlayer().haveArtefact(Artefacts.MagicTorch));
+        SilverSpearLabel.setVisible(model.getPlayer().haveArtefact(Artefacts.SilverSpear));
+        LightRingLabel.setVisible(model.getPlayer().haveArtefact(Artefacts.LightRing));
+        TheGiantKillerLabel.setVisible(model.getPlayer().haveArtefact(Artefacts.TheGiantKiller));
+        FlameSwordLabel.setVisible(model.getPlayer().haveArtefact(Artefacts.FlameSword));
+        DuelistsSaberLabel.setVisible(model.getPlayer().haveArtefact(Artefacts.DuelistsSaber));
     }
 
     public void Log(String message){

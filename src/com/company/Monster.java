@@ -26,6 +26,9 @@ public abstract class Monster implements IMovableDisplayable, IFighter {
     protected boolean isBlind = false;
     protected boolean Berserk = false;
     protected boolean Armed = false;
+    protected boolean Regeneration = false;
+    protected boolean PreventRegeneration = false;
+
 
     public void init(IMap map, int x, int y){
         image = new ImageIcon(Objects.requireNonNull(getClass().getResource(getImagePath())));
@@ -34,6 +37,14 @@ public abstract class Monster implements IMovableDisplayable, IFighter {
         this.Y = y;
         this.map = map;
         drop = new Drop();
+    }
+
+    public boolean getRegeneration(){
+        return Regeneration;
+    }
+
+    public void setPreventRegeneration(){
+        Regeneration = false;
     }
 
     public Drop getDrop(){
@@ -57,6 +68,15 @@ public abstract class Monster implements IMovableDisplayable, IFighter {
     }
 
     public abstract void Act() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException;
+
+    public void PostAct(){
+        if(Regeneration && Health > 0 && Health < getMaxHealth()){
+            var regRate = Math.min(getMaxHealth() / 10f, getMaxHealth() - Health);
+            regRate = Math.round(regRate / 10f) * 10;
+            Health += regRate;
+            map.addToLog(Name + " регенерирует " + regRate + " здоровья.");
+        }
+    }
 
     @Override
     public abstract float getMaxHealth();

@@ -1259,6 +1259,7 @@
                 <properties>
                   <icon value="flame_sword_icon_30x30.png"/>
                   <text value="Огненный меч"/>
+                  <toolTipText value="Препятствует регенерации"/>
                 </properties>
               </component>
               <component id="332d8" class="javax.swing.JButton" binding="BuyFlameSwordButton">
@@ -1812,8 +1813,9 @@
                   <grid row="5" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <enabled value="false"/>
+                  <enabled value="true"/>
                   <text value="Войти"/>
+                  <visible value="true"/>
                 </properties>
               </component>
               <component id="2633c" class="javax.swing.JButton" binding="EnterRuinLevel4Button">

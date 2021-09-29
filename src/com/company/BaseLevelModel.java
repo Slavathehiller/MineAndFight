@@ -135,6 +135,7 @@ public abstract class BaseLevelModel implements ISubLevelModel, IMap{
     private void ActMonsters() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException {
         for(var monster:monsters){
             ((Monster)monster).Act();
+            ((Monster)monster).PostAct();
         }
     }
 
@@ -346,6 +347,10 @@ public abstract class BaseLevelModel implements ISubLevelModel, IMap{
             if(target.getArmed() && attacker.getFighterType() == CollisionObjectTypes.Player && ((Player)attacker).haveArtefact(Artefacts.DuelistsSaber)){
                 damage *= 1.5f;
                 Log += "Сабля поединщика наносит полуторный урон вооруженному противнику.\n";
+            }
+            if(target.getRegeneration() && attacker.getFighterType() == CollisionObjectTypes.Player && ((Player)attacker).haveArtefact(Artefacts.FlameSword)){
+                target.setPreventRegeneration();
+                Log += "Огненный меч препятствует регенерации.\n";
             }
             var ignoreDamageMSG = "";
             if(target.getBerserk()){

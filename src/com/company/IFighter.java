@@ -16,5 +16,7 @@ public interface IFighter {
     float getRangedPower();
     boolean getBerserk();
     boolean getArmed();
+    void setPreventRegeneration();
+    boolean getRegeneration();
 
 }
