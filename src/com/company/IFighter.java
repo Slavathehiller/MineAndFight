@@ -18,5 +18,5 @@ public interface IFighter {
     boolean getArmed();
     void setPreventRegeneration();
     boolean getRegeneration();
-
+    boolean getStoneSkin();
 }

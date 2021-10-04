@@ -349,8 +349,11 @@ public abstract class BaseLevelModel implements ISubLevelModel, IMap{
                 Log += "Сабля поединщика наносит полуторный урон вооруженному противнику.\n";
             }
             if(target.getRegeneration() && attacker.getFighterType() == CollisionObjectTypes.Player && ((Player)attacker).haveArtefact(Artefacts.FlameSword)){
-                target.setPreventRegeneration();
-                Log += "Огненный меч препятствует регенерации.\n";
+                if(!target.getStoneSkin()) {
+                    target.setPreventRegeneration();
+                    Log += "Огненный меч препятствует регенерации.\n";
+                }else
+                    Log += "Каменная кожа игнорирует огненный меч\n";
             }
             var ignoreDamageMSG = "";
             if(target.getBerserk()){

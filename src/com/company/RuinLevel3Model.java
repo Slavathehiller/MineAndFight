@@ -9,7 +9,8 @@ public class RuinLevel3Model extends RuinLevelModel implements ISubLevelModel, I
     @Override
     public void GenerateMonsters(){
         super.GenerateMonsters();
-        GenerateLevelBoss(new TrollWarrior());
+        GenerateMonsters(TrollWarrior.class, 3);
+        GenerateLevelBoss(new TrollPatriarch());
     }
 
     @Override

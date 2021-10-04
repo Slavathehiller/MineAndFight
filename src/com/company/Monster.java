@@ -28,6 +28,7 @@ public abstract class Monster implements IMovableDisplayable, IFighter {
     protected boolean Armed = false;
     protected boolean Regeneration = false;
     protected boolean PreventRegeneration = false;
+    protected boolean StoneSkin = false;
 
 
     public void init(IMap map, int x, int y){
@@ -37,6 +38,10 @@ public abstract class Monster implements IMovableDisplayable, IFighter {
         this.Y = y;
         this.map = map;
         drop = new Drop();
+    }
+
+    public boolean getStoneSkin(){
+        return StoneSkin;
     }
 
     public boolean getRegeneration(){

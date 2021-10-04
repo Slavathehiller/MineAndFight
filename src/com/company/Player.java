@@ -523,6 +523,11 @@ public class Player implements IMovableDisplayable, IFighter{
         return false;
     }
 
+    @Override
+    public boolean getStoneSkin() {
+        return false;
+    }
+
     public void setMaxHealth(float maxHealth) {
         if(maxHealth > 0){
             MaxHealth = maxHealth;

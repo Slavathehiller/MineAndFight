@@ -1716,7 +1716,7 @@
                 </constraints>
                 <properties>
                   <icon value="armor_icon_15x15.png"/>
-                  <text value=": ?"/>
+                  <text value=": 30"/>
                 </properties>
               </component>
               <component id="69014" class="javax.swing.JLabel">
@@ -1733,7 +1733,7 @@
                 </constraints>
                 <properties>
                   <icon value="armor_icon_15x15.png"/>
-                  <text value=":  ?"/>
+                  <text value=":  55"/>
                 </properties>
               </component>
               <component id="ad875" class="javax.swing.JLabel">
