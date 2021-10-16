@@ -136,6 +136,9 @@ public class Player implements IMovableDisplayable, IFighter{
         for(var eq:drop.equipments){
             addEquipment(eq.Type, eq.Number);
         }
+        for(var sup:drop.supplies){
+            addSupply(sup.getClass(), sup.Number);
+        }
     }
 
     public void UpdateStateInfo(JPanel statePanel){
@@ -210,13 +213,14 @@ public class Player implements IMovableDisplayable, IFighter{
         return null;
     }
 
-    public void addSupply(Class _class) {
+    public void addSupply(Class _class, long number) {
         var supply = GetSupply(_class);
         if(supply != null)
-            supply.Number++;
+            supply.Number += number;
         else {
             try {
                 supply = (Supply) _class.getDeclaredConstructor().newInstance();
+                supply.Number = number;
                 supplies.add(supply);
             }
             catch (InvocationTargetException | NoSuchMethodException | IllegalAccessException | InstantiationException invocationTargetException) {
@@ -224,6 +228,10 @@ public class Player implements IMovableDisplayable, IFighter{
             }
 
         }
+    }
+
+    public void addSupply(Class _class){
+        addSupply(_class, 1);
     }
 
     public long GetSupplyNumber(Class _class){

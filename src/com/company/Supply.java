@@ -22,6 +22,7 @@ public abstract class Supply {
         init();
     }
 
+
     public void Use(Player player) throws Exception{
         if(Number < 1){
             player.getSupplies().remove(this);

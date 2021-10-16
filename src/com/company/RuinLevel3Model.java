@@ -11,6 +11,12 @@ public class RuinLevel3Model extends RuinLevelModel implements ISubLevelModel, I
         super.GenerateMonsters();
         GenerateMonsters(TrollWarrior.class, 3);
         GenerateLevelBoss(new TrollPatriarch());
+        for(var i = 0; i < 2; i++){
+            Point point = GenerateFreeCordsWithin(new Point(getLevelBoss().X, getLevelBoss().Y), 2);
+            if(point != null) {
+                ((TrollGuard)GenerateMonster(TrollGuard.class, point.X, point.Y)).setGuardedObject(getLevelBoss());
+            }
+        }
     }
 
     @Override
@@ -30,6 +36,9 @@ public class RuinLevel3Model extends RuinLevelModel implements ISubLevelModel, I
             chest.drop.addRandomEquipment(EquipmentType.CorralSpear, 1, 1, 0.01f);
             chest.drop.addRandomEquipment(EquipmentType.BearSpear, 1, 1, 0.01f);
             chest.drop.addRandomEquipment(EquipmentType.SpyGlass, 1, 1, 0.005f);
+            chest.drop.addRandomSupply(Bandage.class, 1, 4, 0.1f);
+            chest.drop.addRandomSupply(HealthPotion.class, 1, 2, 0.05f);
+            chest.drop.addRandomSupply(StaminaPotion.class, 1, 2, 0.05f);
             chests.add(chest);
         }
     }

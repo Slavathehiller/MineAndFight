@@ -38,6 +38,9 @@ public class ThicketLevel4Model extends ThicketLevelModel {
             chest.drop.addRandomEquipment(EquipmentType.CorralSpear, 1, 7, 0.01f);
             chest.drop.addRandomEquipment(EquipmentType.BearSpear, 1, 7, 0.01f);
             chest.drop.addRandomEquipment(EquipmentType.SpyGlass, 1, 1, 0.005f);
+            chest.drop.addRandomSupply(Bandage.class, 1, 5, 0.1f);
+            chest.drop.addRandomSupply(HealthPotion.class, 1, 3, 0.05f);
+            chest.drop.addRandomSupply(StaminaPotion.class, 1, 3, 0.05f);
             chests.add(chest);
         }
     }
