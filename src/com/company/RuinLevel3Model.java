@@ -10,6 +10,7 @@ public class RuinLevel3Model extends RuinLevelModel implements ISubLevelModel, I
     public void GenerateMonsters(){
         super.GenerateMonsters();
         GenerateMonsters(TrollWarrior.class, 3);
+        GenerateMonsters(TrollThrower.class, 2);
         GenerateLevelBoss(new TrollPatriarch());
         for(var i = 0; i < 2; i++){
             Point point = GenerateFreeCordsWithin(new Point(getLevelBoss().X, getLevelBoss().Y), 2);

@@ -2,37 +2,35 @@ package com.company;
 
 import javax.swing.*;
 
-public class GoblinSlinger extends Monster {
+public class TrollThrower extends Monster {
 
     @Override
     protected String getImagePath() {
-        return "/goblin_slinger_icon_30x30.png";
+        return "/troll_thrower_icon_30x30.png";
     }
 
     public void init(IMap map, int x, int y) {
         super.init(map, x, y);
-        Name = "Гоблин-пращник";
-        frequencyMove = 0.9f;
-        Power = 7;
-        FeelRadius = 7;
-        RangedPower = 5;
+        Name = "Тролль-метатель";
+        frequencyMove = 0.7f;
+        Power = 45;
+        FeelRadius = 4;
+        RangedPower = 25;
         RangedDistance = 4;
         Buffing stun = new Buffing();
         stun.BuffType = BattleBuffType.Stun;
         stun.Duration = 1;
-        stun.Chance = 0.2f;
+        stun.Chance = 0.4f;
         buffings = new Buffing[]{stun};
-        drop.addResource(ResourceType.Fur, 1);
-        drop.addRandomResource(ResourceType.Coins, 5, 20, 0.7f);
-        drop.addRandomEquipment(EquipmentType.Sling, 1, 1, 0.2f);
+        drop.addRandomResource(ResourceType.Stone, 3000, 7000, 0.5f);
     }
 
     @Override
     public void Act() {
+        if (ShootIfPlayerInRange(" кидает камнем в ")) {
+            return;
+        }
         if (CanMove()) {
-            if (ShootIfPlayerInRange(" стреляет в ")) {
-                return;
-            }
             if (FeelRadius() >= map.DistanceToPlayer(this) && RangedDistance < map.DistanceToPlayer(this)){
                 MoveToPlayer();
                 return;
@@ -43,7 +41,7 @@ public class GoblinSlinger extends Monster {
 
     @Override
     public float getMaxHealth() {
-        return 12;
+        return 50;
     }
 
     @Override
@@ -56,7 +54,7 @@ public class GoblinSlinger extends Monster {
         return RangedPower;
     }
 
-    public GoblinSlinger() {
+    public TrollThrower() {
 
     }
 

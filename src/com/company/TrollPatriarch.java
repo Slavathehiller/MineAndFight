@@ -48,6 +48,7 @@ public class TrollPatriarch extends Monster{
         drop.addRandomEquipment(EquipmentType.HuntBow, 1, 7, 0.7f);
         drop.addRandomEquipment(EquipmentType.CorralSpear, 1, 6, 0.50f);
         drop.addRandomEquipment(EquipmentType.BearSpear, 1, 6, 0.25f);
+        drop.addRandomSupply(HealthPotion.class, 1,6, 0.20f);
         Buffing stun = new Buffing();
         stun.BuffType = BattleBuffType.Stun;
         stun.Duration = 1;
