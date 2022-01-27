@@ -23,23 +23,23 @@ public class RuinLevel3Model extends RuinLevelModel implements ISubLevelModel, I
     @Override
     public void GenerateChests() {
         DisplayableObjects.add(chests);
-        for(var i = 0; i < 2; i++){
+        for(var i = 0; i < 5; i++){
             var point = GenerateFreeCords();
             Chest chest = new Chest(point.X, point.Y, this);
-            chest.drop.addRandomResource(ResourceType.Coins, 10, 150);
-            chest.drop.addRandomResource(ResourceType.Ore, 250, 500, 0.25f);
-            chest.drop.addRandomResource(ResourceType.Wood, 250, 500, 0.25f);
-            chest.drop.addRandomResource(ResourceType.Stone, 250, 500, 0.25f);
-            chest.drop.addRandomResource(ResourceType.Leather, 1, 5, 0.10f);
-            chest.drop.addRandomResource(ResourceType.Fur, 1, 5, 0.10f);
-            chest.drop.addRandomEquipment(EquipmentType.Sling, 1, 2, 0.05f);
-            chest.drop.addRandomEquipment(EquipmentType.HuntBow, 1, 2, 0.03f);
-            chest.drop.addRandomEquipment(EquipmentType.CorralSpear, 1, 1, 0.01f);
-            chest.drop.addRandomEquipment(EquipmentType.BearSpear, 1, 1, 0.01f);
+            chest.drop.addRandomResource(ResourceType.Coins, 1500, 4000);
+            chest.drop.addRandomResource(ResourceType.Ore, 3000, 10000, 0.25f);
+            chest.drop.addRandomResource(ResourceType.Wood, 3000, 10000, 0.25f);
+            chest.drop.addRandomResource(ResourceType.Stone, 3000, 10000, 0.25f);
+            chest.drop.addRandomResource(ResourceType.Leather, 3, 25, 0.10f);
+            chest.drop.addRandomResource(ResourceType.Fur, 3, 25, 0.10f);
+            chest.drop.addRandomEquipment(EquipmentType.Sling, 3, 7, 0.05f);
+            chest.drop.addRandomEquipment(EquipmentType.HuntBow, 2, 7, 0.03f);
+            chest.drop.addRandomEquipment(EquipmentType.CorralSpear, 1, 5, 0.01f);
+            chest.drop.addRandomEquipment(EquipmentType.BearSpear, 1, 5, 0.01f);
             chest.drop.addRandomEquipment(EquipmentType.SpyGlass, 1, 1, 0.005f);
-            chest.drop.addRandomSupply(Bandage.class, 1, 4, 0.1f);
-            chest.drop.addRandomSupply(HealthPotion.class, 1, 2, 0.05f);
-            chest.drop.addRandomSupply(StaminaPotion.class, 1, 2, 0.05f);
+            chest.drop.addRandomSupply(Bandage.class, 1, 10, 0.1f);
+            chest.drop.addRandomSupply(HealthPotion.class, 1, 5, 0.05f);
+            chest.drop.addRandomSupply(StaminaPotion.class, 1, 5, 0.05f);
             chests.add(chest);
         }
     }

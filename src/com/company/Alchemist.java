@@ -70,7 +70,7 @@ public class Alchemist extends JDialog{
             recipePanel.setLayout(elementLayout);
             var label = new JLabel();
             label.setIcon(resource.Icon);
-            label.setText(" : " + resource.Number);
+            label.setText(" : " + (int)resource.Number);
             label.setToolTipText(resource.Name);
             recipePanel.add(label);
             RecipePanel.add(recipePanel);

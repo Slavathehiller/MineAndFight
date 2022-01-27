@@ -168,6 +168,7 @@ public class MainForm extends JDialog implements IInfoForm {
         EnterRuinLevel2Button.addActionListener(EnterRuinLevel2);
         EnterRuinLevel1Button.addActionListener(EnterRuinLevel1);
         EnterRuinLevel3Button.addActionListener(EnterRuinLevel3);
+        EnterRuinLevel4Button.addActionListener(EnterRuinLevel4);
         ToAdventureButtonR.addActionListener(goToAdventure);
         HuntButton.addActionListener(goHunt);
         BuySlingButton.addActionListener(buyEquipment1);
@@ -416,6 +417,14 @@ public class MainForm extends JDialog implements IInfoForm {
         }
     };
 
+    private final ActionListener EnterRuinLevel4 = new ActionListener(){
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            var model = new RuinLevel4Model(player);
+            StartLevel(model);
+        }
+    };
+
     private final ActionListener OpenInventory = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -564,9 +573,9 @@ public class MainForm extends JDialog implements IInfoForm {
     private final ActionListener buyArtefact3 = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(player.getResourceNumber(ResourceType.Coins) >= 5000) {
+            if(player.getResourceNumber(ResourceType.Coins) >= 100000) {
                 player.addArtefact(Artefacts.LightRing);
-                player.addResource(ResourceType.Coins, - 5000);
+                player.addResource(ResourceType.Coins, - 100000);
                 BuyLightRingButton.setEnabled(false);
                 dataFromPlayerToForm();
             }
