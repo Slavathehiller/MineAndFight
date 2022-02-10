@@ -17,6 +17,7 @@ public class RuinLevel4Model extends RuinLevelModel implements ISubLevelModel, I
             }
         }
         GenerateMonsters(GiantHyena.class, 2);
+        GenerateMonsters(Gnoll.class, 5);
     }
 
     @Override

@@ -6,7 +6,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class HuntForm extends JDialog{
+public class HuntForm extends JDialog implements IInfoForm{
     private JPanel MainPanel;
     private JPanel InfoPanel;
     private JPanel HuntPanel;
@@ -27,8 +27,10 @@ public class HuntForm extends JDialog{
     private JProgressBar StaminaBar;
     private JPanel ResourcePanel;
     private JPanel SupplyPanel;
+    private JButton InventoryButton;
     private final int size;
     private final float StepStaminaConsumption = 0.5f;
+    public HuntForm self = this;
 
     static int smallSize = 1;
     static int mediumSize = 2;
@@ -125,8 +127,20 @@ public class HuntForm extends JDialog{
             }
         });
         ExitButton.addActionListener((x) -> CloseForm());
+        InventoryButton.addActionListener(OpenInventory);
         ResourcePanel.setLayout(new BoxLayout(ResourcePanel, BoxLayout.Y_AXIS));
         setVisible(true);
+    }
+
+    private final ActionListener OpenInventory = new ActionListener(){
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Inventory inventory = new Inventory(self(), self, player);
+            self().requestFocusInWindow();
+        }
+    };
+    private JDialog self(){
+        return this;
     }
 
     private void RefreshStats(){
@@ -415,4 +429,8 @@ public class HuntForm extends JDialog{
         SpyGlassLbl.setVisible(player.haveEquipment(EquipmentType.SpyGlass));
         }
 
+    @Override
+    public void RefreshInfo() {
+        RefreshStats();
+    }
 }

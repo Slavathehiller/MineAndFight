@@ -2,11 +2,11 @@ package com.company;
 
 import javax.swing.*;
 
-public class GiantHyena extends Monster{
+public class Gnoll extends Monster{
 
     @Override
     protected String getImagePath() {
-        return "/giant_hyena_icon_30x30.png";
+        return "/gnoll_icon_30x30.png";
     }
 
     @Override
@@ -15,7 +15,7 @@ public class GiantHyena extends Monster{
             return;
         }
         if (CanMove()) {
-            if (FeelRadius() >= map.DistanceToPlayer(this) || map.getPlayer().getHealth() < map.getPlayer().getMaxHealth()) {
+            if (FeelRadius() >= map.DistanceToPlayer(this)) {
                 MoveToPlayer();
                 return;
             }
@@ -25,7 +25,7 @@ public class GiantHyena extends Monster{
 
     @Override
     public float getMaxHealth() {
-        return 50;
+        return 40;
     }
 
     @Override
@@ -35,20 +35,21 @@ public class GiantHyena extends Monster{
 
     public void init(IMap map, int x, int y){
         super.init(map, x, y);
-        Name = "Гигантская гиена";
-        frequencyMove = 0.8f;
-        Power = 60;
-        FeelRadius = 10;
-        Buffing bleed = new Buffing();
-        bleed.BuffType = BattleBuffType.Bleed;
-        bleed.Duration = 2;
-        bleed.Power = 4;
-        bleed.Chance = 0.5f;
-        buffings = new Buffing[]{bleed};
-        drop.addResource(ResourceType.Fur, 15);
+        Name = "Гнолл";
+        frequencyMove = 0.7f;
+        Power = 50;
+        FeelRadius = 5;
+        Buffing stun = new Buffing();
+        stun.BuffType = BattleBuffType.Stun;
+        stun.Duration = 1;
+        stun.Chance = 0.4f;
+        buffings = new Buffing[]{stun};
+        drop.addResource(ResourceType.Meat, 7);
+        drop.addRandomSupply(HealthPotion.class, 1, 3, 0.3f);
+        drop.addRandomSupply(StaminaPotion.class, 1, 3, 0.3f);
     }
 
-    public GiantHyena(){
+    public Gnoll(){
 
     }
 
